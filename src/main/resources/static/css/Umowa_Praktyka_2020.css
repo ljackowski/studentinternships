@@ -1,0 +1,80 @@
+@font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Regular.ttf");
+}
+@font-face {
+    font-family: "Lato Bold";
+    src: url("../fonts/Lato-Bold.ttf");
+}
+@font-face {
+    font-family: "Lato Italic";
+    src: url("../fonts/Lato-Italic.ttf");
+}
+
+body{
+    font-family: Lato;
+    font-size: 16px;
+}
+
+.container{
+    margin: 0 25px 0 25px;
+}
+
+.header{
+    text-align: center;
+    font-family: "Lato Bold";
+}
+
+.bold{
+    font-family: "Lato Bold";
+}
+
+.titleName{
+    padding: 0;
+    margin: 0;
+}
+
+.italic-font{
+    font-family: "Lato Italic";
+    font-size: 12.5px;
+    text-align: center;
+}
+
+.company{
+    text-align: center;
+}
+
+.paragraph{
+    margin: 15px;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.listing-form{
+    list-style-type: lower-alpha;
+}
+
+.signature{
+    display: inline-block;
+}
+
+.signatures{
+    text-align: center;
+}
+
+.signature-dyr{
+    margin: 100px 100px 0 0;
+}
+
+.signature-job-dyr{
+    margin: 100px 0 0 100px;
+}
+
+.section{
+    margin: 10px 0 10px 0;
+}
+
+.employer-data-section{
+    margin: 40px 0 40px 0;
+}
+

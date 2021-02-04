@@ -1,16 +1,13 @@
-package com.ljackowski.studentinternships.service;
+package com.ljackowski.studentinternships.student;
 
-import com.ljackowski.studentinternships.dao.StudentDao;
-import com.ljackowski.studentinternships.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-@Service
+@Service("studentService")
 public class StudentService {
     private final StudentDao studentDao;
 
@@ -27,15 +24,15 @@ public class StudentService {
         return studentDao.selectAllStudents();
     }
 
-    public Optional<Student> getStudentById(UUID studentId){
-        return studentDao.selectStudentById(studentId);
+    public Optional<Student> getStudentByIndex(int studentIndex){
+        return studentDao.selectStudentByIndex(studentIndex);
     }
 
-    public int deleteStudent(UUID studentId){
-        return studentDao.deleteStudentById(studentId);
+    public int deleteStudent(int nrIndeksu){
+        return studentDao.deleteStudentById(nrIndeksu);
     }
 
-    public int updateStudent(UUID studentID, Student newStudent){
-        return studentDao.updateStudentById(studentID, newStudent);
+    public int updateStudent(int nrIndeksu, Student newStudent){
+        return studentDao.updateStudentById(nrIndeksu, newStudent);
     }
 }
