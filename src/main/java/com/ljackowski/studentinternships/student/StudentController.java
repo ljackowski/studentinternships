@@ -1,6 +1,6 @@
 package com.ljackowski.studentinternships.student;
 
-import com.ljackowski.studentinternships.filegeneration.PDFGeneration;
+import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -44,12 +44,12 @@ public class StudentController {
         return studentService.getStudentByIndex(studentIndex).orElse(null);
     }
 
-    @DeleteMapping(path = "dupa/{nrIndeksu}")
+    @DeleteMapping(path = "delete/{nrIndeksu}")
     public void deleteStudentById(@PathVariable("studentId") int nrIndeksu) {
         studentService.deleteStudent(nrIndeksu);
     }
 
-    @PutMapping(path = "dupa/{nrIndeksu}")
+    @PutMapping(path = "edit/{nrIndeksu}")
     public void updateStudent(@PathVariable("nrIndeksu") int nrIndeksu, @RequestBody Student studentToUpdate) {
         studentService.updateStudent(nrIndeksu, studentToUpdate);
     }

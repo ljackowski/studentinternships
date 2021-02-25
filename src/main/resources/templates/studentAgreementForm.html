@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Agreement</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href=../static/css/bootstrap.min.css rel="stylesheet">
+    <link href=../static/css/studentAgreementForm.css rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="agreement-form">
+        <form>
+            <div class="header">
+                <h1 class="text-center">Umowa praktyk studenkich</h1>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="companyName" class="form-txt">Nazwa przedsiębiorstwa: </label>
+                    <input type="text" name="companyName" id="companyName" class="form-control form-box">
+                </div>
+                <div class="col-6">
+                    <label for="adres" class="form-txt">Adres: </label>
+                    <input type="text" name="adres" id="adres" class="form-control form-box">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label for="registered-in" class="form-txt">Zarejestrowany w: </label>
+                    <input type="text" name="registered-in" id="registered-in" class="form-control form-box">
+                </div>
+                <div class="col-6">
+                    <label for="nr" class="form-txt">Pod nr: </label>
+                    <input type="text" name="nr" id="nr" class="form-control form-box">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <label class="form-txt">Imię reprezentującego:</label>
+                    <input type="text" class="form-control form-box">
+                </div>
+                <div class="col-4">
+                    <label class="form-txt">Nazwisko reprezentującego:</label>
+                    <input type="text" class="form-control form-box">
+                </div>
+                <div class="col-4">
+                    <label class="form-txt">Stanowisko:</label>
+                    <input type="text" class="form-control form-box">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="form-txt">Imie studenta: </label>
+                    <input type="text" class="form-control form-box">
+                </div>
+                <div class="col-6">
+                    <label class="form-txt">Nazwisko studenta: </label>
+                    <input type="text" class="form-control form-box">
+                </div>
+            </div>
+            <div class="col text-center">
+                    <label class="form-txt">Czas trwania praktyki: </label>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <label class="form-txt">Od:</label>
+                    <input type="date" class="form-control form-box">
+                </div>
+                <div class="col-6">
+                    <label class="form-txt">Do:</label>
+                    <input type="date" class="form-control form-box">
+                </div>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn">Generuj</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

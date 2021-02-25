@@ -1,29 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-    <title>Title</title>
+    <title>Login</title>
+    <link href="../static/css/login.css" rel="stylesheet">
 </head>
 <body>
 <div class="container">
-    <div align="center">
-        <form style="width: 40%" class="form-horizontal">
-            <div class="form-group">
-                <div>
-                    <label><p>Email</p></label>
-                    <input type="text">
-                </div>
-                <div>
-                    <label><p>Hasło</p></label>
-                    <input type="text">
-                </div>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-success">Save</button>
-            </div>
+    <div class="login-box">
+        <div class="login-txt">Sign in</div>
+        <form>
+            <label class="email-txt" for="email">Email</label>
+            <input class="email-box" id="email" name="email" type="text">
+            <label class="password-txt" for="password">Hasło</label>
+            <input class="password-box" id="password" name="password" type="text">
+            <input class="remember-me-box" id="remember-me" type="checkbox">
+            <label class="remember-me-txt" for="remember-me">Zapamiętaj mnie</label>
+            <button class="login-button" type="submit">Zaloguj</button>
         </form>
+        <a class="forgot-password" href="#">Zapomniałeś hasła?</a>
     </div>
 </div>
 </body>

@@ -1,0 +1,79 @@
+@font-face {
+    font-family: Lato;
+    src: url("../fonts/Lato-Regular.ttf");
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    background: #2A323C;
+}
+
+.container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.aside{
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    width: 13%; /* Set the width of the sidebar */
+    position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 20px;
+
+    background: #3B4654;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.logo{
+    padding: 0;
+    margin: 4% 30% 5% 27%;
+    width: auto;
+    height: auto;
+}
+
+nav{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    margin-left: 5%;
+    padding: 0;
+}
+
+.list-element{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 10% 0 10% 0;
+
+    align-items: center;
+    display: flex;
+}
+
+.list-txt{
+    padding: 0;
+    margin: 0 0 0 3%;
+
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    line-height: 24px;
+
+    color: #A9A8A5;
+}
+
+.list-icon{
+    padding: 0;
+
+    font-size: 40px;
+    color: #A9A8A5;
+}

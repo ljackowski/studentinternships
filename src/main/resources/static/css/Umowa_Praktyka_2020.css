@@ -1,80 +1,147 @@
 @font-face {
-    font-family: Lato;
-    src: url("../fonts/Lato-Regular.ttf");
+    font-family: Liberation;
+    src: url("../fonts/liberation-serif.ttf");
 }
 @font-face {
-    font-family: "Lato Bold";
-    src: url("../fonts/Lato-Bold.ttf");
+    font-family: "Liberation Bold";
+    src: url("../fonts/liberation-serif-bold.ttf");
 }
 @font-face {
-    font-family: "Lato Italic";
-    src: url("../fonts/Lato-Italic.ttf");
+    font-family: "Liberation Italic";
+    src: url("../fonts/liberation-serif-italic.ttf");
+}
+
+*{
+    box-sizing: border-box;
 }
 
 body{
-    font-family: Lato;
+    font-family: Liberation;
     font-size: 16px;
 }
 
 .container{
+    padding: 0;
     margin: 0 25px 0 25px;
 }
 
 .header{
+    width: 100%;
+}
+
+.header-text, .header-logo{
+    display: inline-block;
+}
+
+.header-text{
     text-align: center;
-    font-family: "Lato Bold";
-}
-
-.bold{
-    font-family: "Lato Bold";
-}
-
-.titleName{
     padding: 0;
     margin: 0;
+    width: 82%;
 }
 
-.italic-font{
-    font-family: "Lato Italic";
-    font-size: 12.5px;
-    text-align: center;
+.pt-16{
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
 }
 
-.company{
+.pt-12{
+    padding: 0;
+    margin: 0 0 16px 0;
+    font-size: 16px;
+}
+
+table{
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.headear-italic{
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+    font-family: "Liberation Italic";
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+.headear-foot{
+    padding: 0;
+    margin-top: 32px;
+    font-family: "Liberation Italic";
+    font-size: 12px;
+    text-align: right;
+}
+
+h1{
     text-align: center;
+    font-size: 16px;
+    font-family: "Liberation Bold";
+    padding: 0;
+    margin: 24px 0 32px 0;
+}
+
+p{
+    justify-content: center;
+    margin: 0;
+    padding: 0;
 }
 
 .paragraph{
-    margin: 15px;
-    padding-top: 10px;
+    margin: 6px 0 6px 0;
     text-align: center;
 }
 
-.listing-form{
-    list-style-type: lower-alpha;
+.bold{
+    padding: 0;
+    margin: 0;
+    font-family: "Liberation Bold";
+    display: inline-block;
 }
 
-.signature{
+.inline{
     display: inline-block;
+    justify-content: center;
+}
+
+.bracket {
+    counter-reset: list;
+}
+.bracket > li {
+    list-style: none;
+}
+
+.bracket > li:before {
+    content: counter(list, decimal) ") ";
+    counter-increment: list;
+}
+
+.employer-signature, .academy-signature{
+    padding: 0;
+    display: inline-block;
+}
+
+.last{
+    padding: 0;
+    margin-bottom: 128px;
+}
+
+.academy-signature{
+    width: 50%;
+    justify-content: center;
+    text-align: center;
+}
+
+.employer-signature{
+    width: 50%;
+    text-align: center;
+    justify-content: center;
 }
 
 .signatures{
     text-align: center;
 }
-
-.signature-dyr{
-    margin: 100px 100px 0 0;
-}
-
-.signature-job-dyr{
-    margin: 100px 0 0 100px;
-}
-
-.section{
-    margin: 10px 0 10px 0;
-}
-
-.employer-data-section{
-    margin: 40px 0 40px 0;
-}
-

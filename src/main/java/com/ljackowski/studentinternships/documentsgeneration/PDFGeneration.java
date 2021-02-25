@@ -1,4 +1,4 @@
-package com.ljackowski.studentinternships.filegeneration;
+package com.ljackowski.studentinternships.documentsgeneration;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
@@ -27,7 +27,7 @@ public class PDFGeneration {
 
         WebContext context = new WebContext(request, response, servletContext);
         context.setVariable("to", test);
-        String orderHtml = templateEngine.process("Umowa_Praktyka_2020", context);
+        String orderHtml = templateEngine.process("Umowa_o_organizacje_praktyki_zawodowej", context);
         ByteArrayOutputStream target = new ByteArrayOutputStream();
         ConverterProperties converterProperties = new ConverterProperties();
         converterProperties.setBaseUri("http://localhost:8080");
