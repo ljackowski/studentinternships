@@ -1,0 +1,138 @@
+@font-face {
+    font-family: Liberation;
+    src: url("../fonts/liberation-serif.ttf");
+}
+@font-face {
+    font-family: "Liberation Bold";
+    src: url("../fonts/liberation-serif-bold.ttf");
+}
+@font-face {
+    font-family: "Liberation Italic";
+    src: url("../fonts/liberation-serif-italic.ttf");
+}
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Liberation;
+    font-size: 16px;
+}
+
+.container{
+    padding: 0;
+    margin: 0 25px 0 25px;
+}
+
+.header{
+    width: 100%;
+}
+
+.header-text, .header-logo{
+    display: inline-block;
+}
+
+.header-text{
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    width: 82%;
+}
+
+.line{
+    border-bottom: 1px solid black;
+    width: 100%;
+}
+
+.pt-16{
+    padding: 0;
+    margin: 0;
+    font-size: 22px;
+}
+
+.pt-12{
+    padding: 0;
+    margin: 0 0 16px 0;
+    font-size: 16px;
+}
+
+.headear-italic{
+    font-size: 11px;
+    padding: 0;
+    margin: 0;
+    font-family: "Liberation Italic";
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+h1{
+    text-align: center;
+    font-family: "Liberation Bold";
+    font-size: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+.align-left{
+    font-size: 16px;
+    padding: 0;
+    margin: 48px 0 40px 0;
+    text-align: right;
+}
+
+
+.information-table, td,tr{
+    border: 1px solid black;
+    padding: 0;
+    margin: 0;
+}
+
+.information-table{
+    margin: 32px 0 22px 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.information-table-content{
+    width: 65%;
+}
+
+td{
+    height: 28px;
+}
+
+.starting-date, .ending-date{
+    display: inline-block;
+    width: 50%;
+}
+
+.information-table p{
+    padding: 0;
+    margin: 0 0 0 16px;
+}
+
+.signature{
+    padding: 0;
+    margin: 64px 0 0 0;
+    text-align: right;
+}
+
+p{
+    padding: 0;
+    margin: 1px 0 1px 0;
+}
+
+ol, ul{
+    margin: 0;
+}
+
+li{
+    margin: 1px 0 1px 0;
+}
+
+
+

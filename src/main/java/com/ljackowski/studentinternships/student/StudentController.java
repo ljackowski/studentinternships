@@ -1,5 +1,6 @@
 package com.ljackowski.studentinternships.student;
 
+import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,18 @@ public class StudentController {
         this.templateEngine = templateEngine;
     }
 
+    @RequestMapping(path = "/studentProfile")
+    public String studentProfile(Model model){
+        model.addAttribute("studentProfile", model);
+        return "studentProfile";
+    }
+
     @PostMapping
     public void addStudent(@RequestBody Student student) {
         studentService.addStudent(student);
     }
 
-    @RequestMapping("/studentsList")
+    @RequestMapping("studentsList")
     public String getAllStudents(Model model) {
         List<Student> studentsList = studentService.getAllStudents();
         model.addAttribute("students", studentsList);
@@ -54,10 +61,22 @@ public class StudentController {
         studentService.updateStudent(nrIndeksu, studentToUpdate);
     }
 
+    @GetMapping("organization")
+    public String organizationForm(Model model){
+        model.addAttribute("studentAgreementForm", new OrganizationAgreement());
+        return "studentAgreementForm";
+    }
+
+    @PostMapping(path = "organization")
+    public ResponseEntity<?> getPDF(@ModelAttribute OrganizationAgreement organizationAgreement, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
+        return pdfGeneration.generateQuestionnaire(request, response, "Umowa_o_organizacje_praktyki_zawodowej", organizationAgreement);
+    }
+
     @RequestMapping(path = "pdf")
     public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generateQuestionnaire(request, response, "cos innego");
+        return pdfGeneration.generatePDF(request, response, "Deklaracja_planowanej_praktyki_zawodowej");
     }
+
 }

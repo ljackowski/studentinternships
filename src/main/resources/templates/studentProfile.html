@@ -1,20 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
     <meta charset="UTF-8">
     <title>Mój Profil</title>
     <link href="../static/css/studentProfil.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" th:href="@{https://use.fontawesome.com/releases/v5.0.7/css/all.css}">
+    <link rel="stylesheet" th:href="@{css/studentProfil.css}">
 </head>
 <body>
 <div class="container">
     <div class="aside">
-        <img src="../static/images/logo.png" class="logo">
+        <img th:src="@{images/logo.png}" class="logo">
         <nav>
             <div class="list-element">
                 <i class="fas fa-file-alt list-icon"></i>
                 <p class="list-txt">Generuj dokumenty</p>
             </div>
+            <ul class="document-list">
+                <li><a th:href="@{studentAgreementForm.html}" th:target="sub-page">Umowa o organizację praktyki zawodowej</a></li>
+                <li><a th:href="studentAgreementForm" target="sub-page">Dupa2</a></li>
+                <li><a href="#">Dupa3</a></li>
+            </ul>
             <div class="list-element">
                 <i class="fas fa-file-code list-icon"></i>
                 <p class="list-txt">Dziennik praktyk</p>
@@ -24,6 +33,9 @@
                 <p class="list-txt">Ramowy program praktyk</p>
             </div>
         </nav>
+    </div>
+    <div>
+
     </div>
 </div>
 </body>

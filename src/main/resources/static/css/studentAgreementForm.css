@@ -35,7 +35,7 @@ body{
 
 .form-box{
     background: #3B4654;
-    color: #92908D;;
+    color: #92908d;
     font-size: 20px;
     margin: 1% 0 7% 0;
 
@@ -75,6 +75,10 @@ h1{
     margin-bottom: 3%;
     width: 15%;
     height: 7%;
+}
+
+.form-box::-webkit-calendar-picker-indicator{
+    filter: invert(1);
 }
 
 
