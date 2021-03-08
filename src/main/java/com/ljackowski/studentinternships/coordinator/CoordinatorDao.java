@@ -10,7 +10,7 @@ public interface CoordinatorDao {
 
     List<Coordinator> selectAllCoordinators();
 
-    Optional<Coordinator> selectCoordinatorById(int coordinatorId);
+    Optional<Coordinator> selectCoordinatorById(String coordinatorId);
 
     int deleteCoordinatorById(int coordinatorId);
 

@@ -29,51 +29,58 @@ public class StudentController {
     }
 
     @RequestMapping(path = "/studentProfile")
-    public String studentProfile(Model model){
+    public String studentProfile(Model model) {
         model.addAttribute("studentProfile", model);
         return "studentProfile";
     }
 
-    @PostMapping
-    public void addStudent(@RequestBody Student student) {
-        studentService.addStudent(student);
+    @GetMapping("/addStudent")
+    public String addStudentForm(Model model) {
+        model.addAttribute("addStudentForm", new Student());
+        return "addStudentForm";
     }
 
-    @RequestMapping("studentsList")
+    @PostMapping("/addStudent")
+    public String addStudent(@ModelAttribute Student student) {
+        studentService.addStudent(student);
+        return "studentsList";
+    }
+
+    @RequestMapping("/studentsList")
     public String getAllStudents(Model model) {
         List<Student> studentsList = studentService.getAllStudents();
         model.addAttribute("students", studentsList);
-        return "students";
+        return "studentsList";
     }
 
-    @GetMapping(path = "student/{studentIndex}")
+    @GetMapping("/student/{studentIndex}")
     public Student getStudentByIndex(@PathVariable("studentIndex") int studentIndex) {
         return studentService.getStudentByIndex(studentIndex).orElse(null);
     }
 
-    @DeleteMapping(path = "delete/{nrIndeksu}")
-    public void deleteStudentById(@PathVariable("studentId") int nrIndeksu) {
+    @DeleteMapping(path = "/delete/{nrIndeksu}")
+    public void deleteStudentById(@PathVariable("nrIndeksu") int nrIndeksu) {
         studentService.deleteStudent(nrIndeksu);
     }
 
-    @PutMapping(path = "edit/{nrIndeksu}")
+    @PutMapping(path = "/edit/{nrIndeksu}")
     public void updateStudent(@PathVariable("nrIndeksu") int nrIndeksu, @RequestBody Student studentToUpdate) {
         studentService.updateStudent(nrIndeksu, studentToUpdate);
     }
 
-    @GetMapping("organization")
-    public String organizationForm(Model model){
+    @GetMapping("/organization")
+    public String organizationForm(Model model) {
         model.addAttribute("studentAgreementForm", new OrganizationAgreement());
         return "studentAgreementForm";
     }
 
-    @PostMapping(path = "organization")
+    @PostMapping(path = "/organization")
     public ResponseEntity<?> getPDF(@ModelAttribute OrganizationAgreement organizationAgreement, HttpServletRequest request, HttpServletResponse response) throws IOException {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
         return pdfGeneration.generateQuestionnaire(request, response, "Umowa_o_organizacje_praktyki_zawodowej", organizationAgreement);
     }
 
-    @RequestMapping(path = "pdf")
+    @RequestMapping(path = "/pdf")
     public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
         return pdfGeneration.generatePDF(request, response, "Deklaracja_planowanej_praktyki_zawodowej");

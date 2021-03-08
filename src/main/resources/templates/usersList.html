@@ -4,9 +4,9 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Mój Profil</title>
-    <link href="../static/css/studentProfil.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/studentProfil.css}">
+    <title>Lista użytkowników</title>
+    <link rel="stylesheet" th:href="@{/css/usersList.css}">
+    <link rel="stylesheet" href="../static/css/usersList.css">
 </head>
 <body>
 <div class="container">
@@ -32,10 +32,31 @@
             <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
         </div>
     </div>
-    <div>
-        <h1>
-            Witamy w panelu użytkownika!
-        </h1>
+    <h1>
+        Lista użytkowników
+    </h1>
+    <div class="table">
+        <table>
+            <tr>
+                <th>_id</th>
+                <th>Email</th>
+                <th>Hasło</th>
+                <th>Rola</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <a class="btn edit">Edytuj</a>
+                </td>
+                <td>
+                    <a th:href="@{/users/delete/(userId=${user.userId})}" class="btn delete">Usuń</a>
+                </td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

@@ -17,12 +17,12 @@ public class StudentDataAccessService implements StudentDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    class StudentRowMapper implements RowMapper<Student>{
+    class StudentRowMapper implements RowMapper<Student> {
 
         @Override
-        public Student mapRow(ResultSet resultSet, int rowNum) throws SQLException{
+        public Student mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             Student student = new Student();
-            student.setUserId(resultSet.getInt("user_id"));
+            student.setUserId(resultSet.getString("user_id"));
             student.setFirstName(resultSet.getString("first_name"));
             student.setLastName(resultSet.getString("last_name"));
             student.setEmail(resultSet.getString("email"));
@@ -39,7 +39,7 @@ public class StudentDataAccessService implements StudentDao {
 
     @Override
     public int insertStudent(Student student) {
-        String sql = "INSERT INTO student (user_id, first_name, last_name, email, telephone_number, student_index, field_of_study, degree, coordinator_id, employer_id, averageGrade) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO student (user_id, first_name, last_name, email, telephone_number, student_index, field_of_study, degree, coordinator_id, employer_id, average_grade) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,
                 student.getUserId(),
                 student.getFirstName(),
@@ -52,7 +52,6 @@ public class StudentDataAccessService implements StudentDao {
                 student.getCoordinatorId(),
                 student.getEmployerId(),
                 student.getAverageGrade());
-        //DB.add(new Student(student.getImie(), student.getNazwisko(), student.getEmail(), student.getNrTelefonu(), student.getNrIndeksu(), student.getKierunekStudiow(), student.getStopien(), student.getSredniaOcen()));
     }
 
     @Override
@@ -65,25 +64,14 @@ public class StudentDataAccessService implements StudentDao {
     @Override
     public Optional<Student> selectStudentByIndex(int studentIndex) {
         String sql = "SELECT * FROM student WHERE student_index=?";
-        Optional<Student> studentByIndex = Optional.of(jdbcTemplate.queryForObject(sql, new StudentRowMapper(), studentIndex));
+        Optional<Student> studentByIndex = Optional.ofNullable(jdbcTemplate.queryForObject(sql, new StudentRowMapper(), studentIndex));
         return studentByIndex;
-//        Student student = jdbcTemplate.queryForObject(sql, new Object[]{nrIndeksu},(resultSet, i) ->{
-//            String firstName = resultSet.getString("imie");
-//            String lastName = resultSet.getString("lastName");
-//            String email = resultSet.getString("email");
-//            String telephoneNumber = resultSet.getString("nrTelefonu");
-//            int studentIndex = resultSet.getInt("nrIndeksu");
-//            String fieldOfStudy = resultSet.getString("kierunekStudiow");
-//            String degree = resultSet.getString("stopien");
-//            double averageGrade = resultSet.getDouble("sredniaOcen");
-//            return new Student(firstName, lastName, email, telephoneNumber, studentIndex, fieldOfStudy, degree, averageGrade);
-//        });
     }
 
     @Override
     public int deleteStudentById(int nrIndeksu) {
         String sql = "DELETE FROM student WHERE nrIndeksu = ?";
-        jdbcTemplate.update(sql,nrIndeksu);
+        jdbcTemplate.update(sql, nrIndeksu);
         return 0;
     }
 
@@ -93,4 +81,5 @@ public class StudentDataAccessService implements StudentDao {
         jdbcTemplate.update(sql, studentToUpdate.getFirstName(), nrIndeksu);
         return 0;
     }
+
 }

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista studentów</title>
+    <link rel="stylesheet" href="../static/css/studentsList.css">
+    <link rel="stylesheet" th:href="@{/css/studentsList.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a href="studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
+                praktyki</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
+                program praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista studentów
+    </h1>
+    <div class="table">
+        <table>
+            <tr>
+                <th>_id</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+                <th>Numer Telefonu</th>
+                <th>Numer albumu</th>
+                <th>Kierunek</th>
+                <th>Stopień</th>
+                <th>Średnia ocen</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="student : ${students}">
+                <td th:text="${student.userId}">uio</td>
+                <td th:text="${student.firstName}">dupa</td>
+                <td th:text="${student.lastName}">dupa</td>
+                <td th:text="${student.email}">dupa</td>
+                <td th:text="${student.telephoneNumber}">dupa</td>
+                <td th:text="${student.studentIndex}">dupa</td>
+                <td th:text="${student.fieldOfStudy}">dupa</td>
+                <td th:text="${student.degree}">dupa</td>
+                <td th:text="${student.averageGrade}">dupa</td>
+                <td><button type="submit" class="btn edit">Edytuj</button></td>
+                <td><button type="button" class="btn delete">Usuń</button></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

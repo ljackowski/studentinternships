@@ -2,14 +2,14 @@ package com.ljackowski.studentinternships.student;
 
 public class Student {
 
-    private String firstName, lastName, email, telephoneNumber, fieldOfStudy, degree;
-    private int userId, studentIndex, coordinatorId, employerId;
+    private String userId, firstName, lastName, email, telephoneNumber, fieldOfStudy, degree;
+    private int studentIndex, coordinatorId, employerId;
     private double averageGrade;
 
     public Student(){
     }
 
-    public Student(int userId, String firstName, String lastName, String email, String telephoneNumber, int studentIndex,
+    public Student(String userId, String firstName, String lastName, String email, String telephoneNumber, int studentIndex,
                    String fieldOfStudy, String degree, int coordinatorId, int employerId, double averageGrade) {
         this.userId = userId;
         this.firstName = firstName;
@@ -72,11 +72,11 @@ public class Student {
         this.degree = degree;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

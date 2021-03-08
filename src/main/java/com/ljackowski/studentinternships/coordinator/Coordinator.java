@@ -1,15 +1,12 @@
 package com.ljackowski.studentinternships.coordinator;
 
-import java.util.UUID;
-
 public class Coordinator {
-    private int coordinatorId, userId, telephoneNumber;
-    private String firstName, lastName, email, fieldOfStudy;
+    private String firstName, lastName, email, fieldOfStudy, coordinatorId, userId, telephoneNumber;
 
     public Coordinator() {
     }
 
-    public Coordinator(int coordinatorId, int userId, int telephoneNumber, String firstName, String lastName, String email, String fieldOfStudy) {
+    public Coordinator(String coordinatorId, String userId, String telephoneNumber, String firstName, String lastName, String email, String fieldOfStudy) {
         this.coordinatorId = coordinatorId;
         this.userId = userId;
         this.telephoneNumber = telephoneNumber;
@@ -19,27 +16,27 @@ public class Coordinator {
         this.fieldOfStudy = fieldOfStudy;
     }
 
-    public int getCoordinatorId() {
+    public String getCoordinatorId() {
         return coordinatorId;
     }
 
-    public void setCoordinatorId(int coordinatorId) {
+    public void setCoordinatorId(String coordinatorId) {
         this.coordinatorId = coordinatorId;
     }
 
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
-    public int getTelephoneNumber() {
+    public String getTelephoneNumber() {
         return telephoneNumber;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
+    public void setTelephoneNumber(String telephoneNumber) {
         this.telephoneNumber = telephoneNumber;
     }
 

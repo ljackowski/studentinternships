@@ -23,12 +23,12 @@ public class CoordinatorDataAccessService implements CoordinatorDao{
         @Override
         public Coordinator mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             Coordinator coordinator = new Coordinator();
-            coordinator.setCoordinatorId(resultSet.getInt("coordinator_id"));
-            coordinator.setUserId(resultSet.getInt("user_id"));
+            coordinator.setCoordinatorId(resultSet.getString("coordinator_id"));
+            coordinator.setUserId(resultSet.getString("user_id"));
             coordinator.setFirstName(resultSet.getString("first_name"));
             coordinator.setLastName(resultSet.getString("last_name"));
             coordinator.setEmail(resultSet.getString("email"));
-            coordinator.setTelephoneNumber(resultSet.getInt("telephone_number"));
+            coordinator.setTelephoneNumber(resultSet.getString("telephone_number"));
             coordinator.setFieldOfStudy(resultSet.getString("field_of_study"));
             return coordinator;
         }
@@ -36,7 +36,7 @@ public class CoordinatorDataAccessService implements CoordinatorDao{
 
     @Override
     public int insertCoordinator(Coordinator coordinator){
-        String sql = "INSERT INTO coordinator (coordinator_id, user_id, first_name, last_name, email, telephone_number, field_of_study) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO coordinator (coordinator_id, user_id, first_name, last_name, email, telephone_number, field_of_study) VALUES(?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,
                 coordinator.getCoordinatorId(),
                 coordinator.getUserId(),
@@ -55,9 +55,9 @@ public class CoordinatorDataAccessService implements CoordinatorDao{
     }
 
     @Override
-    public Optional<Coordinator> selectCoordinatorById(int coordinatorId) {
+    public Optional<Coordinator> selectCoordinatorById(String coordinatorId) {
         String sql = "SELECT * FROM coordinator WHERE coordinator_id=?";
-        Optional<Coordinator> coordinatorById = Optional.of(jdbcTemplate.queryForObject(sql, new CoordinatorRowMapper(), coordinatorId));
+        Optional<Coordinator> coordinatorById = Optional.ofNullable(jdbcTemplate.queryForObject(sql, new CoordinatorRowMapper(), coordinatorId));
         return coordinatorById;
     }
 

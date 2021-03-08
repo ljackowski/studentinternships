@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj użytkownika</title>
+    <link rel="stylesheet" th:href="@{/css/addUserForm.css}">
+    <link rel="stylesheet" href="../static/css/addUserForm.css">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a href="studentAgreementForm.html"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a href="studentDeclarationForm.html"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">
+                Reprezentaci przedsiębiorstw </p></a>
+        </div>
+    </div>
+    <div class="add-coordinator-form">
+        <div>
+            <h1>Dodaj użytkownika</h1>
+        </div>
+        <form action="#" th:action="@{/addUser}" th:object="${addUserForm}" method="post">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="id" class="form-txt">Id: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{email}" type="text" name="address" id="email" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="password" class="form-txt">Hasło: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="role" class="form-txt">Rola: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{role}" type="text" name="role" id="role"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn">Dodaj</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

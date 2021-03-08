@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj koordynatora</title>
+    <link rel="stylesheet" href="../static/css/addCoordinatorForm.css">
+    <link rel="stylesheet" th:href="@{/css/addCoordinatorForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a href="studentAgreementForm.html"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a href="studentDeclarationForm.html"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Reprezentaci przedsiębiorstw </p></a>
+        </div>
+    </div>
+    <div class="add-coordinator-form">
+        <div>
+            <h1>Dodaj koordynatora</h1>
+        </div>
+        <form action="#" th:action="@{/addCoordinator}" th:object="${addCoordinatorForm}" method="post">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="first-name" class="form-txt">Imię: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{firstName}" type="text" name="first-name" id="first-name" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="last-name" class="form-txt">Nazwisko: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{lastName}" type="text" name="address" id="last-name" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{email}" type="text" name="email" id="email" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="telephone-nr" class="form-txt">Numer telefonu: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{telephoneNumber}" type="text" name="telephone-nr" id="telephone-nr" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="id" class="form-txt">id: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="field-of-study" class="form-txt">Kierunek: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{fieldOfStudy}" type="text" name="field-of-study" id="field-of-study" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="coordinator-id" class="form-txt">Koordynator: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{coordinatorId}" type="text" name="coordinator-id" id="coordinator-id" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn">Dodaj</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
