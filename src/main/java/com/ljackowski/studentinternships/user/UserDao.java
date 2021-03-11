@@ -1,7 +1,6 @@
 package com.ljackowski.studentinternships.user;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserDao {
 
@@ -9,10 +8,10 @@ public interface UserDao {
 
     List<User> selectAllUsers();
 
-    Optional<User> selectUserById(String userId);
+    User selectUserById(int userId);
 
-    int deleteUserById(String userId);
+    void deleteUserById(int userId);
 
-    int updateUserById(String userId, User user );
+    void updateUserById(int userId, User user );
 
 }

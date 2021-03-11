@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface StudentDao {
 
-    int insertStudent(Student student);
+    int insertStudent(Student student, int user_id);
 
     List<Student> selectAllStudents();
 

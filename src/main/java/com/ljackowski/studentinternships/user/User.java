@@ -2,23 +2,24 @@ package com.ljackowski.studentinternships.user;
 
 public class User {
 
-    String userId, email, password, role;
+    int userId;
+    String email, password, role;
 
     public User() {
     }
 
-    public User(String userId, String email, String password, String role) {
+    public User(int userId, String email, String password, String role) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

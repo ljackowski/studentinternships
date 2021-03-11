@@ -22,7 +22,7 @@ public class StudentDataAccessService implements StudentDao {
         @Override
         public Student mapRow(ResultSet resultSet, int rowNum) throws SQLException {
             Student student = new Student();
-            student.setUserId(resultSet.getString("user_id"));
+            student.setUserId(resultSet.getInt("user_id"));
             student.setFirstName(resultSet.getString("first_name"));
             student.setLastName(resultSet.getString("last_name"));
             student.setEmail(resultSet.getString("email"));
@@ -38,10 +38,10 @@ public class StudentDataAccessService implements StudentDao {
     }
 
     @Override
-    public int insertStudent(Student student) {
+    public int insertStudent(Student student, int user_id) {
         String sql = "INSERT INTO student (user_id, first_name, last_name, email, telephone_number, student_index, field_of_study, degree, coordinator_id, employer_id, average_grade) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
         return jdbcTemplate.update(sql,
-                student.getUserId(),
+                user_id,
                 student.getFirstName(),
                 student.getLastName(),
                 student.getEmail(),

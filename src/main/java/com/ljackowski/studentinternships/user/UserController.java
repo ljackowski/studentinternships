@@ -3,7 +3,6 @@ package com.ljackowski.studentinternships.user;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -36,10 +35,31 @@ public class UserController {
         return "usersList";
     }
 
+    @RequestMapping("/getOne/{userId}")
+    @ResponseBody
+    public User getUserById(@PathVariable(name = "userId") int userId){
+        return userService.getUserById(userId);
+    }
+
     @GetMapping("/delete")
-    public String deleteUser(@RequestParam(name="userId") String userId){
+    public String deleteUser(@RequestParam(name="userId") int userId){
         userService.deleteUserById(userId);
         return "redirect:/users/list";
     }
+
+    @GetMapping("/edit/{userId}")
+    public String updateUserForm(@PathVariable(name = "userId") int userId, Model model){
+        User user = userService.getUserById(userId);
+        model.addAttribute("updateUserForm", user);
+        return "editUserForm";
+    }
+
+    @PostMapping("/edit/{userId}")
+    public String updateUser(@ModelAttribute User user, @RequestParam(name = "userId") int userId){
+        userService.updateUserById(userId, user);
+        return "redirect:/users/list";
+    }
+
+
 
 }

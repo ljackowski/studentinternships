@@ -2,6 +2,8 @@ package com.ljackowski.studentinternships.student;
 
 import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
+import com.ljackowski.studentinternships.user.User;
+import com.ljackowski.studentinternships.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,13 +21,15 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
     private final TemplateEngine templateEngine;
+    private final UserService userService;
     @Autowired
     ServletContext servletContext;
 
     @Autowired
-    public StudentController(StudentService studentService, TemplateEngine templateEngine) {
+    public StudentController(StudentService studentService, TemplateEngine templateEngine, UserService userService) {
         this.studentService = studentService;
         this.templateEngine = templateEngine;
+        this.userService = userService;
     }
 
     @RequestMapping(path = "/studentProfile")
@@ -42,7 +46,8 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
-        studentService.addStudent(student);
+        int user_id = userService.addUser(student);
+        studentService.addStudent(student, user_id);
         return "studentsList";
     }
 

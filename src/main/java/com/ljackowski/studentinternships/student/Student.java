@@ -1,15 +1,17 @@
 package com.ljackowski.studentinternships.student;
 
-public class Student {
+import com.ljackowski.studentinternships.user.User;
 
-    private String userId, firstName, lastName, email, telephoneNumber, fieldOfStudy, degree;
-    private int studentIndex, coordinatorId, employerId;
+public class Student extends User {
+
+    private String firstName, lastName, email, telephoneNumber, fieldOfStudy, degree;
+    private int userId, studentIndex, coordinatorId, employerId;
     private double averageGrade;
 
     public Student(){
     }
 
-    public Student(String userId, String firstName, String lastName, String email, String telephoneNumber, int studentIndex,
+    public Student(int userId, String firstName, String lastName, String email, String telephoneNumber, int studentIndex,
                    String fieldOfStudy, String degree, int coordinatorId, int employerId, double averageGrade) {
         this.userId = userId;
         this.firstName = firstName;
@@ -72,11 +74,11 @@ public class Student {
         this.degree = degree;
     }
 
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

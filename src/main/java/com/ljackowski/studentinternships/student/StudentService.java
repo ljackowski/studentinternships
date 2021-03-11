@@ -16,8 +16,8 @@ public class StudentService {
         this.studentDao = studentDao;
     }
 
-    public int addStudent(Student student){
-        return studentDao.insertStudent(student);
+    public int addStudent(Student student, int user_id){
+        return studentDao.insertStudent(student, user_id);
     }
 
     public List<Student> getAllStudents(){

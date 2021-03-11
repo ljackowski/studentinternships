@@ -29,12 +29,22 @@
             <h1>Dodaj studenta</h1>
         </div>
         <form action="#" th:action="@{/addStudent}" th:object="${addStudentForm}" method="post">
-            <div class="column">
-                <div>
-                    <label for="id" class="form-txt">id: </label>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="id" class="form-txt">id: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box" readonly>
+                    </div>
                 </div>
-                <div>
-                    <input th:field="*{userId}" type="text" name="id" id="id" class="form-box">
+                <div class="column">
+                    <div>
+                        <label for="password" class="form-txt">Hasło: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{password}" type="text" name="address" id="password" class="form-box">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -124,6 +134,16 @@
                     </div>
                     <div>
                         <input th:field="*{averageGrade}" type="text" name="average-grade" id="average-grade" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="role" class="form-txt">Rola: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{role}" type="text" name="employer-id" id="role" class="form-box">
                     </div>
                 </div>
             </div>
