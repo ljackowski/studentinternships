@@ -2,7 +2,7 @@ package com.ljackowski.studentinternships.documentsgeneration;
 
 
 public class OrganizationAgreement {
-    String companyName, adress, position, employerFirstName, employerLastName, studentFirstName, studentLastName, startingDate, endingDate;
+    String companyName, addres, position, employerFirstName, employerLastName, studentFirstName, studentLastName, startingDate, endingDate;
     int index;
 
     public String getCompanyName() {
@@ -13,12 +13,12 @@ public class OrganizationAgreement {
         this.companyName = companyName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddres() {
+        return addres;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddres(String addres) {
+        this.addres = addres;
     }
 
     public String getPosition() {

@@ -12,6 +12,7 @@ import javax.servlet.ServletContext;
 import java.util.List;
 
 @Controller
+@RequestMapping("/coordinators")
 public class CoordinatorController {
 
     private final CoordinatorService coordinatorService;
@@ -30,15 +31,17 @@ public class CoordinatorController {
 
     @PostMapping("/addCoordinator")
     public String addCoordinator(@ModelAttribute Coordinator coordinator){
+        coordinator.setRole("coordinator");
         coordinatorService.addCoordinator(coordinator);
-        return "coordinatorList";
+        return "redirect:/coordinators/list";
     }
 
-    @RequestMapping("/coordinators")
+    @RequestMapping("/list")
     public String getAllCoordinators(Model model){
-        List<Coordinator> coordinatorList = coordinatorService.getAllCoordinators();
+        List<Coordinator> coordinatorList = coordinatorService.getCoordinators();
         model.addAttribute("coordinators", coordinatorList);
         return "coordinatorsList";
     }
+
 
 }

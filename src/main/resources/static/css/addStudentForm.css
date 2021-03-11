@@ -132,14 +132,15 @@ h1{
 
 .btn{
     border: none;
-    font-size: 25px;
+    font-size: 27px;
 
     color: #F4FBFC;
     background: #04A2B3;
     border-radius: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 15px 32px;
+    padding: 17px 32px;
     cursor: pointer;
+    margin: 0 2% 0 2%;
 }
 
 .button{
@@ -149,6 +150,21 @@ h1{
     width: 100%;
 }
 
+.add:focus, .add:hover{
+    background: #038d9b;
+}
+
+.btn:focus, .btn:hover{
+    outline: none;
+}
+
+.cancel{
+    background: #7e0f0f;
+}
+
+.cancel:focus, .cancel:hover{
+    background: #640a0a;
+}
 
 
 

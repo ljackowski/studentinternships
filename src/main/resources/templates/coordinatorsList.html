@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista Koordynatorów</title>
-    <link rel="stylesheet" th:href="@{/css/coordinatorsList.css}">
     <link rel="stylesheet" href="../static/css/coordinatorsList.css">
+    <link rel="stylesheet" th:href="@{/css/coordinatorsList.css}">
 </head>
 <body>
 <div class="container">
@@ -33,12 +33,11 @@
         </div>
     </div>
     <h1>
-        Lista studentów
+        Lista koordynatorów praktyk
     </h1>
     <div class="table">
         <table>
             <tr>
-                <th>User id</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>E-mail</th>
@@ -48,13 +47,11 @@
                 <th colspan="2">Akcja</th>
             </tr>
             <tr th:each="coordinator : ${coordinators}">
-                <td th:text="${coordinator.userId}"></td>
                 <td th:text="${coordinator.firstName}"></td>
                 <td th:text="${coordinator.lastName}"></td>
                 <td th:text="${coordinator.email}"></td>
                 <td th:text="${coordinator.telephoneNumber}"></td>
                 <td th:text="${coordinator.fieldOfStudy}"></td>
-                <td th:text="${coordinator.coordinatorId}"></td>
                 <td><button type="submit" class="btn edit">Edytuj</button></td>
                 <td><button type="button" class="btn delete">Usuń</button></td>
             </tr>

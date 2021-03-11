@@ -1,38 +1,37 @@
 package com.ljackowski.studentinternships.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service("studentService")
+@Service
 public class StudentService {
-    private final StudentDao studentDao;
+    private final StudentRepository studentRepository;
 
     @Autowired
-    public StudentService(@Qualifier("StudentDao") StudentDao studentDao) {
-        this.studentDao = studentDao;
+    public StudentService(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
     }
 
-    public int addStudent(Student student){
-        return studentDao.insertStudent(student);
+    public List<Student> getStudents(){
+        return studentRepository.findAll();
     }
 
-    public List<Student> getAllStudents(){
-        return studentDao.selectAllStudents();
+    public Student getStudentById(long userId){
+        return studentRepository.findById(userId).get();
     }
 
-    public Optional<Student> getStudentByIndex(int studentIndex){
-        return studentDao.selectStudentByIndex(studentIndex);
+    public void addStudent(Student student){
+        studentRepository.save(student);
     }
 
-    public int deleteStudent(int nrIndeksu){
-        return studentDao.deleteStudentById(nrIndeksu);
+    public void updateStudentById(Student student){
+        studentRepository.save(student);
     }
 
-    public int updateStudent(int nrIndeksu, Student newStudent){
-        return studentDao.updateStudentById(nrIndeksu, newStudent);
+    public void deleteStudentById(long userId){
+        studentRepository.deleteById(userId);
     }
+
 }

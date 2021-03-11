@@ -1,6 +1,0 @@
-spring:
-  datasource:
-    hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/studentintershipdb
-      username: postgres
-      password: password

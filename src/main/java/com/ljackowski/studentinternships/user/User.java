@@ -1,24 +1,51 @@
 package com.ljackowski.studentinternships.user;
 
-public class User {
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
-    String userId, email, password, role;
+@Entity
+@Table(name = "users")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class User{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "user_id")
+    private Long userId;
+
+    @Column(name = "email")
+    @NotEmpty
+    private String email;
+
+    @Column(name = "password")
+    @NotEmpty
+    private String password;
+
+    @Column(name = "role")
+    @NotEmpty
+    private String role;
 
     public User() {
     }
 
-    public User(String userId, String email, String password, String role) {
+    public User(Long userId, String email, String password, String role) {
         this.userId = userId;
         this.email = email;
         this.password = password;
         this.role = role;
     }
 
-    public String getUserId() {
+    public User(String email, String password, String role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -44,5 +71,15 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                '}';
     }
 }

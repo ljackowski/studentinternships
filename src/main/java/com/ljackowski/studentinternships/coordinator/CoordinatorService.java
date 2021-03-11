@@ -1,33 +1,41 @@
 package com.ljackowski.studentinternships.coordinator;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-@Service("coordinatorService")
+import java.util.List;
+
+@Service
 public class CoordinatorService {
-    private final CoordinatorDao coordinatorDao;
+    private final CoordinatorRepository coordinatorRepository;
 
     @Autowired
-    public CoordinatorService(@Qualifier("CoordinatorDao") CoordinatorDao coordinatorDao){
-        this.coordinatorDao = coordinatorDao;
+    public CoordinatorService(CoordinatorRepository coordinatorRepository) {
+        this.coordinatorRepository = coordinatorRepository;
     }
 
-    public  int addCoordinator(Coordinator coordinator){
-        return coordinatorDao.insertCoordinator(coordinator);
+    public List<Coordinator> getCoordinators(){
+        return coordinatorRepository.findAll();
     }
 
-    public List<Coordinator> getAllCoordinators(){
-        return coordinatorDao.selectAllCoordinators();
+    public Coordinator getCoordinatorById(long coordinatorId){
+        return coordinatorRepository.findById(coordinatorId).get();
     }
 
-    public int deleteCoordinator(int coordinatorId){
-        return coordinatorDao.deleteCoordinatorById(coordinatorId);
+    public void addCoordinator(Coordinator coordinator){
+        coordinatorRepository.save(coordinator);
     }
 
-    public int updateCoordinator(int coordinatorId, Coordinator newCoordinator){
-        return coordinatorDao.updateCoordinatorById(coordinatorId, newCoordinator);
+    public void updateCoordinatorById(Coordinator coordinator){
+        coordinatorRepository.save(coordinator);
+    }
+
+    public void deleteCoordinatorById(long coordinatorId){
+        coordinatorRepository.deleteById(coordinatorId);
+    }
+
+    public Coordinator getCoordinatorByFieldOfStudy(String fieldOfStudy){
+        return coordinatorRepository.findByFieldOfStudy(fieldOfStudy);
     }
 
 }

@@ -28,7 +28,7 @@
         <div>
             <h1>Dodaj koordynatora</h1>
         </div>
-        <form action="#" th:action="@{/addCoordinator}" th:object="${addCoordinatorForm}" method="post">
+        <form action="#" th:action="@{/coordinators/addCoordinator}" th:object="${addCoordinatorForm}" method="post">
             <div class="row">
                 <div class="column">
                     <div>
@@ -50,28 +50,10 @@
             <div class="row">
                 <div class="column">
                     <div>
-                        <label for="email" class="form-txt">Email: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{email}" type="text" name="email" id="email" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
                         <label for="telephone-nr" class="form-txt">Numer telefonu: </label>
                     </div>
                     <div>
                         <input th:field="*{telephoneNumber}" type="text" name="telephone-nr" id="telephone-nr" class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="id" class="form-txt">id: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box">
                     </div>
                 </div>
                 <div class="column">
@@ -85,18 +67,25 @@
             </div>
             <div class="row">
                 <div class="column">
+                    <div>
+                        <label for="email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{email}" type="text" name="address" id="email" class="form-box">
+                    </div>
                 </div>
                 <div class="column">
                     <div>
-                        <label for="coordinator-id" class="form-txt">Koordynator: </label>
+                        <label for="password" class="form-txt">Hasło: </label>
                     </div>
                     <div>
-                        <input th:field="*{coordinatorId}" type="text" name="coordinator-id" id="coordinator-id" class="form-box">
+                        <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
                     </div>
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn">Dodaj</button>
+                <button type="submit add" class="btn">Dodaj</button>
+                <a class="btn cancel" th:href="@{/coordinators/list}">Anuluj</a>
             </div>
         </form>
     </div>

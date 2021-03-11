@@ -1,27 +1,92 @@
 package com.ljackowski.studentinternships.student;
 
-public class Student {
+import com.ljackowski.studentinternships.coordinator.Coordinator;
+import com.ljackowski.studentinternships.user.User;
+import org.hibernate.annotations.Where;
 
-    private String userId, firstName, lastName, email, telephoneNumber, fieldOfStudy, degree;
-    private int studentIndex, coordinatorId, employerId;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+
+@Entity
+@Table(name = "students")
+public class Student extends User {
+
+    @Column(name = "student_index")
+    @NotNull
+    private int studentIndex;
+
+    @Column(name = "employer_id")
+    private Long employerId;
+
+    @Column(name = "first_name")
+    @NotEmpty
+    private String firstName;
+
+    @Column(name = "last_name")
+    @NotEmpty
+    private String lastName;
+
+    @Column(name = "telephone_number")
+    @NotEmpty
+    private String telephoneNumber;
+
+    @Column(name = "field_of_study")
+    @NotEmpty
+    private String fieldOfStudy;
+
+    @Column(name = "degree")
+    @NotEmpty
+    @Size(min = 1, max = 1)
+    private String degree;
+
+    @Column(name = "average_grade")
+    @DecimalMin(value = "1.0")
+    @DecimalMax(value = "5.0")
     private double averageGrade;
 
-    public Student(){
+    @ManyToOne()
+    private Coordinator coordinator;
+
+    public Student() {
     }
 
-    public Student(String userId, String firstName, String lastName, String email, String telephoneNumber, int studentIndex,
-                   String fieldOfStudy, String degree, int coordinatorId, int employerId, double averageGrade) {
-        this.userId = userId;
+    public Student(String email, String password, String role, int studentIndex,
+                   Long employerId, String firstName, String lastName, String telephoneNumber,
+                   String fieldOfStudy, String degree, double averageGrade, Coordinator coordinator) {
+        super(email, password, role);
+        this.studentIndex = studentIndex;
+        this.employerId = employerId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
         this.telephoneNumber = telephoneNumber;
-        this.studentIndex = studentIndex;
         this.fieldOfStudy = fieldOfStudy;
         this.degree = degree;
-        this.coordinatorId = coordinatorId;
-        this.employerId = employerId;
         this.averageGrade = averageGrade;
+        this.coordinator = coordinator;
+    }
+
+    public Coordinator getCoordinator() {
+        return coordinator;
+    }
+
+    public void setCoordinator(Coordinator coordinator) {
+        this.coordinator = coordinator;
+    }
+
+    public int getStudentIndex() {
+        return studentIndex;
+    }
+
+    public void setStudentIndex(int studentIndex) {
+        this.studentIndex = studentIndex;
+    }
+
+    public Long getEmployerId() {
+        return employerId;
+    }
+
+    public void setEmployerId(Long employerId) {
+        this.employerId = employerId;
     }
 
     public String getFirstName() {
@@ -38,14 +103,6 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getTelephoneNumber() {
@@ -72,38 +129,6 @@ public class Student {
         this.degree = degree;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public int getStudentIndex() {
-        return studentIndex;
-    }
-
-    public void setStudentIndex(int studentIndex) {
-        this.studentIndex = studentIndex;
-    }
-
-    public int getCoordinatorId() {
-        return coordinatorId;
-    }
-
-    public void setCoordinatorId(int coordinatorId) {
-        this.coordinatorId = coordinatorId;
-    }
-
-    public int getEmployerId() {
-        return employerId;
-    }
-
-    public void setEmployerId(int employerId) {
-        this.employerId = employerId;
-    }
-
     public double getAverageGrade() {
         return averageGrade;
     }
@@ -112,14 +137,3 @@ public class Student {
         this.averageGrade = averageGrade;
     }
 }
-
-//{
-//        "imie": "Jan",
-//        "nazwisko": "Kowalskii",
-//        "email": "jkowalski@gmail.com",
-//        "nrTelefonu": "666555444",
-//        "nrIndeksu": "75823",
-//        "kierunekStudiow": "Informatyka",
-//        "stopien": "I",
-//        "sredniaOcen": 4.2
-//        }

@@ -1,5 +1,6 @@
 package com.ljackowski.studentinternships.student;
 
+import com.ljackowski.studentinternships.coordinator.CoordinatorService;
 import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +15,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
+@RequestMapping("/students")
 public class StudentController {
     private final StudentService studentService;
+    private final CoordinatorService coordinatorService;
     private final TemplateEngine templateEngine;
+
     @Autowired
     ServletContext servletContext;
 
     @Autowired
-    public StudentController(StudentService studentService, TemplateEngine templateEngine) {
+    public StudentController(StudentService studentService, CoordinatorService coordinatorService, TemplateEngine templateEngine) {
         this.studentService = studentService;
+        this.coordinatorService = coordinatorService;
         this.templateEngine = templateEngine;
     }
 
@@ -32,6 +38,18 @@ public class StudentController {
     public String studentProfile(Model model) {
         model.addAttribute("studentProfile", model);
         return "studentProfile";
+    }
+
+    @RequestMapping("/list")
+    public String getAllStudents(Model model) {
+        List<Student> studentsList = studentService.getStudents();
+        model.addAttribute("students", studentsList);
+        return "studentsList";
+    }
+
+    @RequestMapping("/student/{userId}")
+    public Student getStudentByIndex(@PathVariable(name = "userId") long userId) {
+        return studentService.getStudentById(userId);
     }
 
     @GetMapping("/addStudent")
@@ -42,30 +60,30 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
+        student.setRole("student".toUpperCase(Locale.ROOT));
+        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         studentService.addStudent(student);
-        return "studentsList";
+        return "redirect:/students/list";
     }
 
-    @RequestMapping("/studentsList")
-    public String getAllStudents(Model model) {
-        List<Student> studentsList = studentService.getAllStudents();
-        model.addAttribute("students", studentsList);
-        return "studentsList";
+    @GetMapping(path = "/delete")
+    public String deleteStudentById(@RequestParam("userId") long userId) {
+        studentService.deleteStudentById(userId);
+        return "redirect:/students/list";
     }
 
-    @GetMapping("/student/{studentIndex}")
-    public Student getStudentByIndex(@PathVariable("studentIndex") int studentIndex) {
-        return studentService.getStudentByIndex(studentIndex).orElse(null);
+    @GetMapping("/edit/{userId}")
+    public String editStudentForm(@PathVariable(value = "userId") int userId, Model model){
+        Student student = studentService.getStudentById(userId);
+        model.addAttribute("editStudentForm", student);
+        return "editStudentForm";
     }
 
-    @DeleteMapping(path = "/delete/{nrIndeksu}")
-    public void deleteStudentById(@PathVariable("nrIndeksu") int nrIndeksu) {
-        studentService.deleteStudent(nrIndeksu);
-    }
-
-    @PutMapping(path = "/edit/{nrIndeksu}")
-    public void updateStudent(@PathVariable("nrIndeksu") int nrIndeksu, @RequestBody Student studentToUpdate) {
-        studentService.updateStudent(nrIndeksu, studentToUpdate);
+    @PostMapping("/edit/{userId}")
+    public String editStudent(@ModelAttribute Student student){
+        student.setRole("student");
+        studentService.updateStudentById(student);
+        return "redirect:/students/list";
     }
 
     @GetMapping("/organization")

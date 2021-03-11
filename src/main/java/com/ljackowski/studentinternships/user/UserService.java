@@ -1,38 +1,36 @@
 package com.ljackowski.studentinternships.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service("UserService")
 public class UserService {
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserService(@Qualifier("UserDao") UserDao userDao){
-        this.userDao = userDao;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public int addUser(User user){
-        return userDao.insertUser(user);
+    public List<User> getUsers(){
+        return userRepository.findAll();
     }
 
-    public List<User> getAllUsers(){
-        return userDao.selectAllUsers();
+    public User getUserById(long userId){
+        return userRepository.findById(userId).get();
     }
 
-    public Optional<User> getUserById(String userId){
-        return userDao.selectUserById(userId);
+    public void addUser(User user){
+        userRepository.save(user);
     }
 
-    public int deleteUserById(String userId){
-        return userDao.deleteUserById(userId);
+    public void updateUserById(User user){
+        userRepository.save(user);
     }
 
-    public int updateUserById(String userId, User newUser){
-        return userDao.updateUserById(userId, newUser);
+    public void deleteUserById(long userId){
+        userRepository.deleteById(userId);
     }
 }

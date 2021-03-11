@@ -38,7 +38,6 @@
     <div class="table">
         <table>
             <tr>
-                <th>_id</th>
                 <th>Imię</th>
                 <th>Nazwisko</th>
                 <th>E-mail</th>
@@ -47,20 +46,22 @@
                 <th>Kierunek</th>
                 <th>Stopień</th>
                 <th>Średnia ocen</th>
+                <th colspan="2">Koordynator</th>
                 <th colspan="2">Akcja</th>
             </tr>
             <tr th:each="student : ${students}">
-                <td th:text="${student.userId}">uio</td>
-                <td th:text="${student.firstName}">dupa</td>
-                <td th:text="${student.lastName}">dupa</td>
-                <td th:text="${student.email}">dupa</td>
-                <td th:text="${student.telephoneNumber}">dupa</td>
-                <td th:text="${student.studentIndex}">dupa</td>
-                <td th:text="${student.fieldOfStudy}">dupa</td>
-                <td th:text="${student.degree}">dupa</td>
-                <td th:text="${student.averageGrade}">dupa</td>
-                <td><button type="submit" class="btn edit">Edytuj</button></td>
-                <td><button type="button" class="btn delete">Usuń</button></td>
+                <td th:text="${student.firstName}"></td>
+                <td th:text="${student.lastName}"></td>
+                <td th:text="${student.email}"></td>
+                <td th:text="${student.telephoneNumber}"></td>
+                <td th:text="${student.studentIndex}"></td>
+                <td th:text="${student.fieldOfStudy}"></td>
+                <td th:text="${student.degree}"></td>
+                <td th:text="${student.averageGrade}"></td>
+                <td th:text="${student.coordinator.firstName}"></td>
+                <td th:text="${student.coordinator.lastName}"></td>
+                <td><a class="btn edit" th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a></td>
+                <td><a class="btn delete" th:href="@{/students/delete/(userId=${student.userId})}">Usuń</a></td>
             </tr>
         </table>
     </div>

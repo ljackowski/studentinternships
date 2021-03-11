@@ -26,51 +26,45 @@
         </div>
     </div>
     <div class="add-coordinator-form">
-        <div>
-            <h1>Dodaj użytkownika</h1>
+        <div class="form-control">
+            <div>
+                <h1>Dodaj użytkownika</h1>
+            </div>
+            <form action="#" th:action="@{/users/addUser}" th:object="${addUserForm}" method="post">
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="email" class="form-txt">Email: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{email}" type="text" name="address" id="email" class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="password" class="form-txt">Hasło: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="role" class="form-txt">Rola: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{role}" type="text" name="role" id="role"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btn btn-add">Dodaj</button>
+                    <a th:href="@{/users/list}" type="submit" class="btn btn-cancel">Anuluj</a>
+                </div>
+            </form>
         </div>
-        <form action="#" th:action="@{/addUser}" th:object="${addUserForm}" method="post">
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="id" class="form-txt">Id: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="email" class="form-txt">Email: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{email}" type="text" name="address" id="email" class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="password" class="form-txt">Hasło: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="role" class="form-txt">Rola: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{role}" type="text" name="role" id="role"
-                               class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="button">
-                <button type="submit" class="btn">Dodaj</button>
-            </div>
-        </form>
     </div>
+</div>
 </body>
 </html>

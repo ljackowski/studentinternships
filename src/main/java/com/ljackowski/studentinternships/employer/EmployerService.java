@@ -1,37 +1,36 @@
 package com.ljackowski.studentinternships.employer;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-@Service("employerService")
+@Service
 public class EmployerService {
-    private final EmployerDao employerDao;
+    private final EmployerRepository employerRepository;
 
-    public EmployerService(@Qualifier("EmployerDao") EmployerDao employerDao) {
-        this.employerDao = employerDao;
+    @Autowired
+    public EmployerService(EmployerRepository employerRepository) {
+        this.employerRepository = employerRepository;
     }
 
-    public int addEmployer(Employer employer){
-        return employerDao.insertEmploer(employer);
+    public List<Employer> getEmployers(){
+        return employerRepository.findAll();
     }
 
-    public List<Employer> getAllEmployers(){
-        return employerDao.selectAllEmployers();
+    public Employer getEmployerById(long employerId){
+        return employerRepository.findById(employerId).get();
     }
 
-    public Optional<Employer> getEmployerById(int employerId){
-        return employerDao.selectEmployerById((employerId));
+    public void addEmployer(Employer employer){
+        employerRepository.save(employer);
     }
 
-    public int deleteEmployer(int employerId){
-        return  employerDao.deleteEmployerById(employerId);
+    public void deleteEmployerById(long employerId){
+        employerRepository.deleteById(employerId);
     }
 
-    public int updateEmployer(int employerId, Employer newEmployer){
-        return employerDao.updateEmployerById(employerId, newEmployer);
+    public void updateEmployerById(Employer employer){
+        employerRepository.save(employer);
     }
-
 }

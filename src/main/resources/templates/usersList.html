@@ -50,7 +50,7 @@
                 <td th:text="${user.password}"></td>
                 <td th:text="${user.role}"></td>
                 <td>
-                    <a class="btn edit">Edytuj</a>
+                    <a th:href="@{/users/edit/{userId}(userId=${user.userId})}" class="btn edit">Edytuj</a>
                 </td>
                 <td>
                     <a th:href="@{/users/delete/(userId=${user.userId})}" class="btn delete">Usuń</a>

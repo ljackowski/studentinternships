@@ -4,9 +4,9 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj Studenta</title>
-    <link rel="stylesheet" href="../static/css/addStudentForm.css">
-    <link rel="stylesheet" th:href="@{/css/addStudentForm.css}">
+    <title>Edytuj Studenta</title>
+    <link rel="stylesheet" href="../static/css/editStudentForm.css">
+    <link rel="stylesheet" th:href="@{/css/editStudentForm.css}">
 </head>
 <body>
 <div class="container">
@@ -26,9 +26,19 @@
     </div>
     <div class="add-student-form">
         <div>
-            <h1>Dodaj studenta</h1>
+            <h1>Edytuj studenta</h1>
         </div>
-        <form action="#" th:action="@{/students/addStudent}" th:object="${addStudentForm}" method="post">
+        <form action="#" th:action="@{/students/edit/${userId}}" th:object="${editStudentForm}" method="post">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="id" class="form-txt">id: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box read-only" readonly>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="column">
                     <div>
@@ -56,8 +66,6 @@
                         <input th:field="*{telephoneNumber}" type="text" name="telephone-nr" id="telephone-nr" class="form-box">
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div>
                     <div>
                         <label for="index" class="form-txt">Numer albumu: </label>
@@ -66,6 +74,8 @@
                         <input th:field="*{studentIndex}" type="text" name="index" id="index" class="form-box">
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     <div>
                         <label for="field-of-study" class="form-txt">Kierunek: </label>
@@ -74,8 +84,6 @@
                         <input th:field="*{fieldOfStudy}" type="text" name="field-of-study" id="field-of-study" class="form-box">
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="column">
                     <div>
                         <label for="degree" class="form-txt">Stopień: </label>
@@ -88,12 +96,22 @@
             <div class="row">
                 <div class="column">
                     <div>
+                        <label for="coordinator-id" class="form-txt">Koordynator: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{coordinator.userId}" type="text" name="coordinator-id" id="coordinator-id" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
                         <label for="employer-id" class="form-txt">Zatrudniający: </label>
                     </div>
                     <div>
                         <input th:field="*{employerId}" type="text" name="employer-id" id="employer-id" class="form-box">
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     <div>
                         <label for="average-grade" class="form-txt">Średnia: </label>
@@ -122,8 +140,8 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn add">Dodaj</button>
-                <a class="btn cancel">Anuluj</a>
+                <button type="submit" class="btn add">Generuj</button>
+                <a class="btn cancel" th:href="@{/students/list}">Anuluj</a>
             </div>
         </form>
     </div>

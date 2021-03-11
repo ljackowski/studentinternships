@@ -59,7 +59,7 @@ a:hover{
 
 /*Form*/
 
-.add-coordinator-form{
+.add-student-form{
     width: 80%;
     margin: auto;
     display: flex;
@@ -111,6 +111,10 @@ h1{
     border-radius: 10px;
 }
 
+.read-only:hover{
+    cursor: default;
+}
+
 .form-box:focus{
     outline: none;
 }
@@ -150,7 +154,6 @@ h1{
     width: 100%;
 }
 
-
 .add:focus, .add:hover{
     background: #038d9b;
 }
@@ -166,7 +169,6 @@ h1{
 .cancel:focus, .cancel:hover{
     background: #640a0a;
 }
-
 
 
 
