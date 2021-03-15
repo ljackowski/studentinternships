@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista przedsiębiorstw</title>
+    <link rel="stylesheet" href="../static/css/companiesList.css">
+    <link rel="stylesheet" th:href="@{/css/companiesList.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/representatives/list}"><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista przedsiębiorstw
+    </h1>
+    <a th:href="@{/companies/addCompany}" class="btn-add">Dodaj</a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Nazwa przedsiębiorstwa</th>
+                <th>Miasto</th>
+                <th>Ulica</th>
+                <th>Numer budynku</th>
+                <th>Kod pocztowy</th>
+                <th colspan="2">Przedstawiciel</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="company : ${companies}">
+                <td th:text="${company.companyName}"></td>
+                <td th:text="${company.city}"></td>
+                <td th:text="${company.street}"></td>
+                <td th:text="${company.buildingNumber}"></td>
+                <td th:text="${company.zipCode}"></td>
+                <td th:text="${company?.representative?.firstName}"></td>
+                <td th:text="${company?.representative?.lastName}"></td>
+                <td><a class="btn btn-edit" th:href="@{/companies/edit/{companyId}(companyId=${company.companyId})}">Edytuj</a></td>
+                <td><a class="btn btn-delete" th:href="@{/companies/delete/(companyId=${company.companyId})}">Usuń</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

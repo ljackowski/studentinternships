@@ -16,18 +16,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/addUser")
-    public String addUserForm(Model model) {
-        model.addAttribute("addUserForm", new User());
-        return "addUserForm";
-    }
-
-    @PostMapping("/addUser")
-    public String addUser(@ModelAttribute User user) {
-        userService.addUser(user);
-        return "redirect:/users/list";
-    }
-
     @RequestMapping("/list")
     public String usersList(Model model) {
         List<User> usersList = userService.getUsers();
@@ -39,6 +27,18 @@ public class UserController {
     @ResponseBody
     public User getUserById(@PathVariable(name = "userId") Long userId){
         return userService.getUserById(userId);
+    }
+
+    @GetMapping("/addUser")
+    public String addUserForm(Model model) {
+        model.addAttribute("addUserForm", new User());
+        return "addUserForm";
+    }
+
+    @PostMapping("/addUser")
+    public String addUser(@ModelAttribute User user) {
+        userService.addUser(user);
+        return "redirect:/users/list";
     }
 
     @GetMapping("/delete")

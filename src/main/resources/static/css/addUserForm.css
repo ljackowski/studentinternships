@@ -59,7 +59,7 @@ a:hover{
 
 /*Form*/
 
-.add-coordinator-form{
+.form{
     margin: auto;
     display: flex;
     flex-direction: column;

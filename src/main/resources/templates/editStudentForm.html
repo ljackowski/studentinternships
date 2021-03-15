@@ -14,20 +14,20 @@
         <div class="link ">
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
-        <div class="link">
+        <div class="link indicator">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
-        <div class="link indicator">
+        <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
+            <a th:href="@{/representatives/list}"><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
-    <div class="add-student-form">
+    <div class="form">
         <div>
             <h1>Edytuj studenta</h1>
         </div>

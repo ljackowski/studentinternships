@@ -5,8 +5,6 @@
 
 body{
     font-family: Lato;
-    width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
     background: #2A323C;
@@ -47,6 +45,7 @@ body{
 
 a{
     text-decoration: none;
+    color: #a9a8a5;
 }
 
 a:hover{
@@ -57,104 +56,90 @@ a:hover{
     border-bottom: 4px solid #dededd;
 }
 
-/*Form*/
 
-.form{
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-
-    background: #323C48;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-}
+/*Table*/
 
 h1{
-    font-style: normal;
-    font-size: 60px;
     text-align: center;
-    margin: 5% 0 3% 0;
-}
-
-.row{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 1%;
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-.row p{
+    font-size: 50px;
     padding: 0;
-    margin: 1% 0 1% 0;
+    margin-bottom: 1%;
 }
 
-.form-txt{
-    font-style: normal;
-    font-size: 27px;
+table{
+    width: 100%;
+    empty-cells: hide;
 }
 
-.form-box{
-    background: #3B4654;
-    color: #92908d;
-    font-size: 27px;
-    width: 50%;
+.table{
+    margin: 1% 1% 0 1%;
+}
+
+tr {
     text-align: center;
-
-    border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    font-size: 20px;
 }
 
-.form-box:focus{
-    outline: none;
+th{
+    font-size: 27px;
+    width: 10%;
+    padding-bottom: 1%;
+    border-bottom: 4px solid #445161;
+}
+
+td{
+    width: 5%;
+    word-break: break-all;
+    border-bottom: 1px solid #445161;
+    padding: 1% 0 1% 0;
 }
 
 .btn{
     border: none;
-    font-size: 27px;
+    font-size: 20px;
     border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 17px 32px;
+    padding: 12px 20px;
     cursor: pointer;
-    margin: 0 2% 0 2%;
 }
 
-.button{
-    justify-content: center;
-    text-align: center;
-    margin: 5% 0 5% 0;
-    width: 100%;
-}
-
-.btn-add{
+.btn-edit{
     color: #F4FBFC;
     background: #04A2B3;
 }
 
-.btn-add:focus, .btn-add:hover{
+.btn-edit:focus, .btn-edit:hover{
     background: #038d9b;
     outline: none;
-    color: #F4FBFC;
 }
 
-.btn-cancel{
+.btn-delete{
     background: #7e0f0f;
     color: #F4FBFC;
 }
 
-.btn-cancel:focus, .btn-cancel:hover{
+.btn-delete:focus, .btn-delete:hover{
     background: #640a0a;
     outline: none;
+}
+
+.btn-add {
+    width: auto;
+    text-align: center;
+    border: none;
+    font-size: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 15px 32px;
+    margin-right: auto;
+    margin-left: auto;
+
+    background: #2d7e0f;
     color: #F4FBFC;
 }
 
-
-
-
-
-
-
-
-
+.btn-add:focus, .btn-add:hover{
+    cursor: pointer;
+    outline: none;
+    background: #21600d;
+    color: #F4FBFC;
+}

@@ -25,20 +25,21 @@ public class CoordinatorController {
     }
 
     @GetMapping("/addCoordinator")
-    public String addCoordinatorForm(Model model){
+    public String addCoordinatorForm(Model model) {
         model.addAttribute("addCoordinatorForm", new Coordinator());
         return "addCoordinatorForm";
     }
 
     @PostMapping("/addCoordinator")
-    public String addCoordinator(@ModelAttribute Coordinator coordinator){
+    public String addCoordinator(@ModelAttribute Coordinator coordinator) {
         coordinator.setRole("coordinator".toUpperCase());
+        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
         coordinatorService.addCoordinator(coordinator);
         return "redirect:/coordinators/list";
     }
 
     @RequestMapping("/list")
-    public String getAllCoordinators(Model model){
+    public String getAllCoordinators(Model model) {
         List<Coordinator> coordinatorList = coordinatorService.getCoordinators();
         studentService.getStudents();
         model.addAttribute("coordinators", coordinatorList);
@@ -46,13 +47,13 @@ public class CoordinatorController {
     }
 
     @RequestMapping("/coordinator/{userId}")
-    public Coordinator getCoordinatorById(@PathVariable ("userId") long userId){
+    public Coordinator getCoordinatorById(@PathVariable("userId") long userId) {
         return coordinatorService.getCoordinatorById(userId);
     }
 
     @GetMapping("/delete")
-    public String deleteCoordinatorById(@RequestParam("userId") long userId){
-        for(Student student : coordinatorService.getCoordinatorById(userId).getStudents()){
+    public String deleteCoordinatorById(@RequestParam("userId") long userId) {
+        for (Student student : coordinatorService.getCoordinatorById(userId).getStudents()) {
             student.setCoordinator(null);
         }
         coordinatorService.deleteCoordinatorById(userId);
@@ -60,19 +61,19 @@ public class CoordinatorController {
     }
 
     @GetMapping("/edit/{userId}")
-    public String editCoordinatorForm(@PathVariable("userId") long userId,Model model){
+    public String editCoordinatorForm(@PathVariable("userId") long userId, Model model) {
         Coordinator coordinator = coordinatorService.getCoordinatorById(userId);
         model.addAttribute("editCoordinatorForm", coordinator);
         return "editCoordinatorForm";
     }
 
     @PostMapping("/edit/{userId}")
-    public String editCoordinator(@ModelAttribute Coordinator coordinator){
+    public String editCoordinator(@ModelAttribute Coordinator coordinator) {
         coordinator.setRole("coordinator".toUpperCase());
+        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
         coordinatorService.updateCoordinator(coordinator);
         return "redirect:/coordinators/list";
     }
-
 
 
 }

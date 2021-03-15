@@ -66,6 +66,7 @@ public class StudentController {
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
         student.setRole("student".toUpperCase());
+        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         studentService.addStudent(student);
         return "redirect:/students/list";
@@ -87,6 +88,7 @@ public class StudentController {
     @PostMapping("/edit/{userId}")
     public String editStudent(@ModelAttribute Student student){
         student.setRole("student".toUpperCase());
+        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         studentService.updateStudent(student);
         return "redirect:/students/list";

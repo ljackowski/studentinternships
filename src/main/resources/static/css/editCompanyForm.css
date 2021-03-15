@@ -47,7 +47,6 @@ body{
 
 a{
     text-decoration: none;
-    color: #a9a8a5;
 }
 
 a:hover{
@@ -61,7 +60,7 @@ a:hover{
 /*Form*/
 
 .form{
-    width: 30%;
+    width: 80%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -72,8 +71,6 @@ a:hover{
 }
 
 h1{
-    color: #92908D;
-    font-family: Lato;
     font-style: normal;
     font-size: 60px;
     text-align: center;
@@ -92,7 +89,7 @@ h1{
     text-align: center;
     margin-bottom: 1%;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
 }
 
 .row p{
@@ -111,10 +108,9 @@ h1{
     font-size: 27px;
     width: 50%;
     text-align: center;
-    margin: 1% 0 3% 0;
 
     border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
@@ -124,33 +120,12 @@ h1{
 
 .btn{
     border: none;
-    font-size: 25px;
+    font-size: 27px;
     border-radius: 15px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 15px 32px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 17px 32px;
     cursor: pointer;
-    margin-right: 3%;
-    margin-left: 3%;
-}
-
-.btn-add{
-    color: #F4FBFC;
-    background: #04A2B3;
-}
-
-.btn-add:focus, .btn-add:hover{
-    outline: none;
-    background: #038d9b;
-}
-
-.btn-cancel{
-    color: #F4FBFC;
-    background: #7e0f0f;
-}
-
-.btn-cancel:focus, .btn-cancel:hover{
-    outline: none;
-    background: #640a0a;
+    margin: 0 2% 0 2%;
 }
 
 .button{
@@ -159,6 +134,30 @@ h1{
     margin: 5% 0 5% 0;
     width: 100%;
 }
+
+.btn-add{
+    color: #F4FBFC;
+    background: #04A2B3;
+}
+
+.btn-add:focus, .btn-add:hover{
+    background: #038d9b;
+    outline: none;
+    color: #F4FBFC;
+}
+
+.btn-cancel{
+    background: #7e0f0f;
+    color: #F4FBFC;
+}
+
+.btn-cancel:focus, .btn-cancel:hover{
+    background: #640a0a;
+    outline: none;
+    color: #F4FBFC;
+}
+
+
 
 
 
