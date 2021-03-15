@@ -3,6 +3,7 @@ package com.ljackowski.studentinternships.student;
 import com.ljackowski.studentinternships.coordinator.CoordinatorService;
 import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
+import com.sun.istack.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,6 +44,10 @@ public class StudentController {
     @RequestMapping("/list")
     public String getAllStudents(Model model) {
         List<Student> studentsList = studentService.getStudents();
+        for (Student student: studentsList){
+            student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
+            studentService.updateStudent(student);
+        }
         model.addAttribute("students", studentsList);
         return "studentsList";
     }
@@ -60,7 +65,7 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
-        student.setRole("student".toUpperCase(Locale.ROOT));
+        student.setRole("student".toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         studentService.addStudent(student);
         return "redirect:/students/list";
@@ -81,8 +86,9 @@ public class StudentController {
 
     @PostMapping("/edit/{userId}")
     public String editStudent(@ModelAttribute Student student){
-        student.setRole("student");
-        studentService.updateStudentById(student);
+        student.setRole("student".toUpperCase());
+        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
+        studentService.updateStudent(student);
         return "redirect:/students/list";
     }
 

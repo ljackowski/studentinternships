@@ -2,6 +2,7 @@ package com.ljackowski.studentinternships.student;
 
 import com.ljackowski.studentinternships.coordinator.Coordinator;
 import com.ljackowski.studentinternships.user.User;
+import com.sun.istack.Nullable;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -44,7 +45,8 @@ public class Student extends User {
     @DecimalMax(value = "5.0")
     private double averageGrade;
 
-    @ManyToOne()
+    @ManyToOne
+    @Nullable
     private Coordinator coordinator;
 
     public Student() {

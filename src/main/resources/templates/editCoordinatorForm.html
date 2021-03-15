@@ -4,9 +4,9 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj Studenta</title>
-    <link rel="stylesheet" href="../static/css/addStudentForm.css">
-    <link rel="stylesheet" th:href="@{/css/addStudentForm.css}">
+    <title>Edytuj Studenta</title>
+    <link rel="stylesheet" href="../static/css/editCoordinatorForm.css">
+    <link rel="stylesheet" th:href="@{/css/editCoordinatorForm.css}">
 </head>
 <body>
 <div class="container">
@@ -14,10 +14,10 @@
         <div class="link ">
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
-        <div class="link indicator">
+        <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
-        <div class="link">
+        <div class="link indicator">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
@@ -29,9 +29,13 @@
     </div>
     <div class="add-student-form">
         <div>
-            <h1>Dodaj studenta</h1>
+            <h1>Edytuj koordynatora</h1>
         </div>
-        <form action="#" th:action="@{/students/addStudent}" th:object="${addStudentForm}" method="post">
+        <form action="#" th:action="@{/coordinators/edit/${userId}}" th:object="${editCoordinatorForm}" method="post">
+            <div>
+                <p th:text="'Id: ' + ${userId}" class="id"></p>
+            </div>
+            <input th:field="*{userId}" type="hidden">
             <div class="row">
                 <div class="column">
                     <div>
@@ -59,48 +63,12 @@
                         <input th:field="*{telephoneNumber}" type="text" name="telephone-nr" id="telephone-nr" class="form-box">
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <label for="index" class="form-txt">Numer albumu: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{studentIndex}" type="text" name="index" id="index" class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
                 <div class="column">
                     <div>
                         <label for="field-of-study" class="form-txt">Kierunek: </label>
                     </div>
                     <div>
                         <input th:field="*{fieldOfStudy}" type="text" name="field-of-study" id="field-of-study" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="degree" class="form-txt">Stopień: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{degree}" type="text" name="degree" id="degree" class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="employer-id" class="form-txt">Zatrudniający: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{employerId}" type="text" name="employer-id" id="employer-id" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="average-grade" class="form-txt">Średnia: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{averageGrade}" type="text" name="average-grade" id="average-grade" class="form-box">
                     </div>
                 </div>
             </div>
@@ -123,8 +91,8 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn add">Dodaj</button>
-                <a th:href="@{/students/list}" class="btn cancel">Anuluj</a>
+                <button type="submit" class="btn btn-add">Edytuj</button>
+                <a class="btn btn-cancel" th:href="@{/coordinators/list}">Anuluj</a>
             </div>
         </form>
     </div>

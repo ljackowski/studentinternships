@@ -10,6 +10,7 @@ body{
     margin: 0;
     padding: 0;
     background: #2A323C;
+    color: #92908D;
 }
 
 .container{
@@ -28,7 +29,7 @@ body{
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-columns: 20% 20% 20% 20% 20%;
     background: #3B4654;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -60,7 +61,7 @@ a:hover{
 /*Form*/
 
 .add-coordinator-form{
-    width: 80%;
+    width: 30%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -79,12 +80,19 @@ h1{
     margin: 5% 0 3% 0;
 }
 
+.id{
+    text-align: center;
+    font-size: 25px;
+    margin: 1% 0 1% 0;
+    padding: 0;
+}
+
 .row{
     width: 100%;
     text-align: center;
     margin-bottom: 1%;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 100%;
 }
 
 .row p{
@@ -93,10 +101,8 @@ h1{
 }
 
 .form-txt{
-    font-family: Lato;
     font-style: normal;
     font-size: 27px;
-    color: #92908D;
 }
 
 .form-box{
@@ -105,45 +111,46 @@ h1{
     font-size: 27px;
     width: 50%;
     text-align: center;
+    margin: 1% 0 3% 0;
 
     border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-}
-
-.read-only:hover{
-    cursor: default;
 }
 
 .form-box:focus{
     outline: none;
 }
 
-.form-date{
-    background: #3B4654;
-    color: #92908d;
-    font-size: 27px;
-    width: 20%;
-
-    border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
-
-.form-date::-webkit-calendar-picker-indicator{
-    filter: invert(1);
-}
-
 .btn{
     border: none;
     font-size: 25px;
-
-    color: #F4FBFC;
-    background: #04A2B3;
     border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     padding: 15px 32px;
     cursor: pointer;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.btn-add{
+    color: #F4FBFC;
+    background: #04A2B3;
+}
+
+.btn-add:focus, .btn-add:hover{
+    outline: none;
+    background: #038d9b;
+}
+
+.btn-cancel{
+    color: #F4FBFC;
+    background: #7e0f0f;
+}
+
+.btn-cancel:focus, .btn-cancel:hover{
+    outline: none;
+    background: #640a0a;
 }
 
 .button{
@@ -152,7 +159,6 @@ h1{
     margin: 5% 0 5% 0;
     width: 100%;
 }
-
 
 
 

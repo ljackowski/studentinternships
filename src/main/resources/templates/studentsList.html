@@ -11,30 +11,26 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
+        <div class="link ">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
-                praktyki</p></a>
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+            <a><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
-                program praktyk</p></a>
-        </div>
-        <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
-        </div>
-        <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
     <h1>
         Lista studentów
     </h1>
+    <a th:href="@{/students/addStudent}" class="btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -58,10 +54,10 @@
                 <td th:text="${student.fieldOfStudy}"></td>
                 <td th:text="${student.degree}"></td>
                 <td th:text="${student.averageGrade}"></td>
-                <td th:text="${student.coordinator.firstName}"></td>
-                <td th:text="${student.coordinator.lastName}"></td>
-                <td><a class="btn edit" th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a></td>
-                <td><a class="btn delete" th:href="@{/students/delete/(userId=${student.userId})}">Usuń</a></td>
+                <td th:text="${student?.coordinator?.firstName}"></td>
+                <td th:text="${student?.coordinator?.lastName}"></td>
+                <td><a class="btn btn-edit" th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a></td>
+                <td><a class="btn btn-delete" th:href="@{/students/delete/(userId=${student.userId})}">Usuń</a></td>
             </tr>
         </table>
     </div>

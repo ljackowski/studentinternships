@@ -6,7 +6,6 @@ import com.ljackowski.studentinternships.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "coordinators")
@@ -28,13 +27,14 @@ public class Coordinator extends User {
     @NotEmpty
     private String telephoneNumber;
 
-    @OneToMany(mappedBy = "coordinator")
+    @OneToMany(mappedBy = "coordinator", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
     public Coordinator() {
     }
 
-    public Coordinator(String email, String password, String role, String firstName, String lastName, String fieldOfStudy, String telephoneNumber) {
+    public Coordinator(String email, String password, String role, String firstName,
+                       String lastName, String fieldOfStudy, String telephoneNumber) {
         super(email, password, role);
         this.firstName = firstName;
         this.lastName = lastName;

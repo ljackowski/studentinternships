@@ -4,25 +4,27 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Update user</title>
+    <title>Edytuj użytkownika</title>
     <link rel="stylesheet" href="../static/css/editUserForm.css">
     <link rel="stylesheet" th:href="@{/css/editUserForm.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Studenci</p></a>
+        <div class="link indicator">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">
-                Reprezentaci przedsiębiorstw </p></a>
+            <a><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+        <div class="link">
+            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
     <div class="add-coordinator-form">
@@ -30,15 +32,11 @@
             <h1>Edytuj użytkownika</h1>
         </div>
         <form action="#" th:action="@{/users/edit/${userId}}" th:object="${updateUserForm}" method="post">
+            <div>
+                <p th:text="'Id: ' + ${userId}" class="id"></p>
+            </div>
+            <input th:field="*{userId}" type="hidden">
             <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="user-id" class="form-txt">User id: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{userId}" type="text" name="address" id="user-id" class="form-box read-only" readonly>
-                    </div>
-                </div>
                 <div class="column">
                     <div>
                         <label for="email" class="form-txt">Email: </label>
@@ -66,7 +64,8 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn">Edytuj</button>
+                <button type="submit" class="btn btn-add">Edytuj</button>
+                <a th:href="@{/users/list}" class="btn btn-cancel">Anuluj</a>
             </div>
         </form>
     </div>

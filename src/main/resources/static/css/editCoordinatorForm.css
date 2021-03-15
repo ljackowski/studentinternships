@@ -10,6 +10,7 @@ body{
     margin: 0;
     padding: 0;
     background: #2A323C;
+    color: #92908D;
 }
 
 .container{
@@ -35,7 +36,6 @@ body{
 
 .link{
     padding: 0;
-    color: #A9A8A5;
     text-align: center;
 }
 
@@ -53,7 +53,7 @@ a:hover{
     color: #c1c0bc;
 }
 
-.indicator{
+.indicator {
     border-bottom: 4px solid #dededd;
 }
 
@@ -71,12 +71,17 @@ a:hover{
 }
 
 h1{
-    color: #92908D;
-    font-family: Lato;
     font-style: normal;
     font-size: 60px;
     text-align: center;
-    margin: 5% 0 3% 0;
+    margin: 3% 0 1% 0;
+}
+
+.id{
+    text-align: center;
+    font-size: 25px;
+    margin: 1% 0 1% 0;
+    padding: 0;
 }
 
 .row{
@@ -93,10 +98,8 @@ h1{
 }
 
 .form-txt{
-    font-family: Lato;
     font-style: normal;
     font-size: 27px;
-    color: #92908D;
 }
 
 .form-box{
@@ -115,27 +118,9 @@ h1{
     outline: none;
 }
 
-.form-date{
-    background: #3B4654;
-    color: #92908d;
-    font-size: 27px;
-    width: 20%;
-
-    border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
-
-.form-date::-webkit-calendar-picker-indicator{
-    filter: invert(1);
-}
-
 .btn{
     border: none;
     font-size: 27px;
-
-    color: #F4FBFC;
-    background: #04A2B3;
     border-radius: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     padding: 17px 32px;
@@ -150,21 +135,28 @@ h1{
     width: 100%;
 }
 
-.add:focus, .add:hover{
-    background: #038d9b;
+.btn-add{
+    color: #F4FBFC;
+    background: #04A2B3;
 }
 
-.btn:focus, .btn:hover{
+.btn-add:focus, .btn-add:hover{
+    color: #F4FBFC;
+    background: #038d9b;
     outline: none;
 }
 
-.cancel{
+.btn-cancel{
+    color: #F4FBFC;
     background: #7e0f0f;
 }
 
-.cancel:focus, .cancel:hover{
+.btn-cancel:focus, .btn-cancel:hover{
+    color: #F4FBFC;
     background: #640a0a;
+    outline: none;
 }
+
 
 
 

@@ -1,5 +1,6 @@
 package com.ljackowski.studentinternships.coordinator;
 
+import com.ljackowski.studentinternships.student.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class CoordinatorService {
         coordinatorRepository.save(coordinator);
     }
 
-    public void updateCoordinatorById(Coordinator coordinator){
+    public void updateCoordinator(Coordinator coordinator){
         coordinatorRepository.save(coordinator);
     }
 
@@ -36,6 +37,10 @@ public class CoordinatorService {
 
     public Coordinator getCoordinatorByFieldOfStudy(String fieldOfStudy){
         return coordinatorRepository.findByFieldOfStudy(fieldOfStudy);
+    }
+
+    public List<Student> getStudentsByFieldOfStudy(String fieldOfStudy){
+        return coordinatorRepository.findAllByFieldOfStudy(fieldOfStudy);
     }
 
 }

@@ -26,16 +26,15 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    display: flex;
-
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
     background: #3B4654;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link{
     padding: 0;
-    margin: 0 3% 0 3.2%;
-    display: flex;
+    color: #A9A8A5;
     text-align: center;
 }
 
@@ -51,7 +50,10 @@ a{
 
 a:hover{
     color: #c1c0bc;
-    cursor: pointer;
+}
+
+.indicator{
+    border-bottom: 4px solid #dededd;
 }
 
 
@@ -97,25 +99,47 @@ td{
     font-size: 20px;
     border-radius: 15px;
     padding: 12px 20px;
-
-    color: #F4FBFC;
-    background: #04A2B3;
     cursor: pointer;
 }
 
-.edit:focus, .edit:hover{
-    background: #038d9b;
+.btn-edit{
+    color: #F4FBFC;
+    background: #04A2B3;
 }
 
-.btn:focus, .btn:hover{
+.btn-edit:focus, .btn-edit:hover{
+    background: #038d9b;
     outline: none;
 }
 
-.delete{
+.btn-delete{
     background: #7e0f0f;
+    color: #F4FBFC;
 }
 
-.delete:focus, .delete:hover{
+.btn-delete:focus, .btn-delete:hover{
     background: #640a0a;
+    outline: none;
 }
 
+.btn-add {
+    width: auto;
+    text-align: center;
+    border: none;
+    font-size: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 15px 32px;
+    margin-right: auto;
+    margin-left: auto;
+
+    background: #2d7e0f;
+    color: #F4FBFC;
+}
+
+.btn-add:focus, .btn-add:hover{
+    cursor: pointer;
+    outline: none;
+    background: #21600d;
+    color: #F4FBFC;
+}

@@ -11,30 +11,26 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
+        <div class="link indicator">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
-                praktyki</p></a>
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
-                program praktyk</p></a>
+            <a><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
-        </div>
-        <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
     <h1>
         Lista użytkowników
     </h1>
+    <a th:href="@{/users/addUser}" class="btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -49,11 +45,15 @@
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.password}"></td>
                 <td th:text="${user.role}"></td>
-                <td>
-                    <a th:href="@{/users/edit/{userId}(userId=${user.userId})}" class="btn edit">Edytuj</a>
+                <td th:switch="${user.role}">
+                    <span th:case="'STUDENT'"><a th:href="@{/students/edit/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/edit/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="*"><a th:href="@{/users/edit/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
                 </td>
-                <td>
-                    <a th:href="@{/users/delete/(userId=${user.userId})}" class="btn delete">Usuń</a>
+                <td th:switch="${user.role}">
+                    <span th:case="'STUDENT'"><a th:href="@{/students/delete/(userId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
+                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/delete/(userId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
+                    <span th:case="*"><a th:href="@{/users/delete/(userId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
                 </td>
             </tr>
         </table>

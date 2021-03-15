@@ -12,16 +12,19 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Studenci</p></a>
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Reprezentaci przedsiębiorstw </p></a>
+            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
     <div class="add-coordinator-form">
@@ -84,8 +87,8 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit add" class="btn">Dodaj</button>
-                <a class="btn cancel" th:href="@{/coordinators/list}">Anuluj</a>
+                <button type="submit" class="btn btn-add">Dodaj</button>
+                <a class="btn btn-cancel" th:href="@{/coordinators/list}">Anuluj</a>
             </div>
         </form>
     </div>

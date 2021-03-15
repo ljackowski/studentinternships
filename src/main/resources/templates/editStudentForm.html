@@ -11,17 +11,20 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Studenci</p></a>
+        <div class="link ">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Reprezentaci przedsiębiorstw </p></a>
+            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
     <div class="add-student-form">
@@ -29,16 +32,10 @@
             <h1>Edytuj studenta</h1>
         </div>
         <form action="#" th:action="@{/students/edit/${userId}}" th:object="${editStudentForm}" method="post">
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="id" class="form-txt">id: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{userId}" type="text" name="id" id="id" class="form-box read-only" readonly>
-                    </div>
-                </div>
+            <div>
+                <p th:text="'Id: ' + ${userId}" class="id"></p>
             </div>
+            <input th:field="*{userId}" type="hidden">
             <div class="row">
                 <div class="column">
                     <div>
@@ -96,22 +93,12 @@
             <div class="row">
                 <div class="column">
                     <div>
-                        <label for="coordinator-id" class="form-txt">Koordynator: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{coordinator.userId}" type="text" name="coordinator-id" id="coordinator-id" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
                         <label for="employer-id" class="form-txt">Zatrudniający: </label>
                     </div>
                     <div>
                         <input th:field="*{employerId}" type="text" name="employer-id" id="employer-id" class="form-box">
                     </div>
                 </div>
-            </div>
-            <div class="row">
                 <div class="column">
                     <div>
                         <label for="average-grade" class="form-txt">Średnia: </label>
@@ -140,7 +127,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn add">Generuj</button>
+                <button type="submit" class="btn add">Edytuj</button>
                 <a class="btn cancel" th:href="@{/students/list}">Anuluj</a>
             </div>
         </form>
