@@ -1,12 +1,16 @@
 package com.ljackowski.studentinternships.student;
 
 import com.ljackowski.studentinternships.coordinator.Coordinator;
+import com.ljackowski.studentinternships.grade.Grade;
+import com.ljackowski.studentinternships.traineejournal.TraineeJournal;
 import com.ljackowski.studentinternships.user.User;
 import com.sun.istack.Nullable;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "students")
@@ -15,9 +19,6 @@ public class Student extends User {
     @Column(name = "student_index")
     @NotNull
     private int studentIndex;
-
-    @Column(name = "employer_id")
-    private Long employerId;
 
     @Column(name = "first_name")
     @NotEmpty
@@ -37,27 +38,31 @@ public class Student extends User {
 
     @Column(name = "degree")
     @NotEmpty
-    @Size(min = 1, max = 1)
     private String degree;
 
     @Column(name = "average_grade")
-    @DecimalMin(value = "1.0")
-    @DecimalMax(value = "5.0")
     private double averageGrade;
 
     @ManyToOne
     @Nullable
     private Coordinator coordinator;
 
+    @OneToMany(mappedBy = "student")
+    private List<Grade> gradeList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<TraineeJournal> traineeJournal;
+
+
+
     public Student() {
     }
 
-    public Student(String email, String password, String role, int studentIndex,
-                   Long employerId, String firstName, String lastName, String telephoneNumber,
-                   String fieldOfStudy, String degree, double averageGrade, Coordinator coordinator) {
+    public Student(String email, String password, String role, @NotNull int studentIndex,
+                   @NotEmpty String firstName, @NotEmpty String lastName, @NotEmpty String telephoneNumber,
+                   @NotEmpty String fieldOfStudy, @NotEmpty String degree, double averageGrade, Coordinator coordinator) {
         super(email, password, role);
         this.studentIndex = studentIndex;
-        this.employerId = employerId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
@@ -65,6 +70,26 @@ public class Student extends User {
         this.degree = degree;
         this.averageGrade = averageGrade;
         this.coordinator = coordinator;
+    }
+
+    public void addGrade(Grade grade){
+        this.gradeList.add(grade);
+    }
+
+    public List<TraineeJournal> getTraineeJournal() {
+        return traineeJournal;
+    }
+
+    public void setTraineeJournal(List<TraineeJournal> traineeJournal) {
+        this.traineeJournal = traineeJournal;
+    }
+
+    public List<Grade> getGradeList() {
+        return gradeList;
+    }
+
+    public void setGradeList(List<Grade> gradeList) {
+        this.gradeList = gradeList;
     }
 
     public Coordinator getCoordinator() {
@@ -81,14 +106,6 @@ public class Student extends User {
 
     public void setStudentIndex(int studentIndex) {
         this.studentIndex = studentIndex;
-    }
-
-    public Long getEmployerId() {
-        return employerId;
-    }
-
-    public void setEmployerId(Long employerId) {
-        this.employerId = employerId;
     }
 
     public String getFirstName() {

@@ -34,4 +34,12 @@ public class StudentService {
         studentRepository.deleteById(userId);
     }
 
+    public Student getStudentByFieldOfStudy(String fieldOfStudy){
+        return studentRepository.findByFieldOfStudy(fieldOfStudy);
+    }
+
+    public Student getStudentByEmail(String email){
+        return studentRepository.findByEmail(email);
+    }
+
 }

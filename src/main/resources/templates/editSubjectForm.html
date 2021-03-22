@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj przedmiot</title>
+    <link rel="stylesheet" href="../static/css/editSubjectForm.css">
+    <link rel="stylesheet" th:href="@{/css/editSubjectForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/representatives/list}"><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
+        </div>
+    </div>
+    <div class="form">
+        <div>
+            <h1>Edytuj przedmiot</h1>
+        </div>
+        <form action="#" th:action="@{/subjects/edit/${subjectId}}" th:object="${editSubjectForm}" method="post">
+            <div>
+                <p th:text="'Id: ' + ${subjectId}" class="id"></p>
+            </div>
+            <input th:field="*{subjectId}" type="hidden">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="first-name" class="form-txt">Nazwa przedmiotu: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{subjectName}" type="text" name="first-name" id="first-name" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="last-name" class="form-txt">Kierunek: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{fieldOfStudy}" type="text" name="address" id="last-name" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn add">Edytuj</button>
+                <a class="btn cancel" th:href="@{/students/list}">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
