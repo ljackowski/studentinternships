@@ -5,11 +5,10 @@
 
 body{
     font-family: Lato;
-    width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
     background: #2A323C;
+    color: #92908D;
 }
 
 .container{
@@ -27,26 +26,26 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    display: flex;
     background: #3B4654;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link{
     padding: 0;
+    margin: 0 auto 0 auto;
     color: #A9A8A5;
     text-align: center;
 }
 
 .link-text {
     padding: 0;
-    font-size: 26px;
+    font-size: 20px;
 }
 
 a{
     text-decoration: none;
-    color: #a9a8a5;
+    color: #A9A8A5;
 }
 
 a:hover{
@@ -60,24 +59,38 @@ a:hover{
 /*Form*/
 
 .form{
-    margin: auto;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    width: 30%;
+    margin: 3% auto 3% auto;
 
     background: #323C48;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 17px;
 }
 
+.single-row{
+    width: 100%;
+    text-align: center;
+    margin: 1% 0 1% 0;
+}
+
+.single-row .column{
+    margin: 0 auto 0 auto;
+    width: 50%;
+    text-align: center;
+}
 
 h1{
-    color: #92908D;
-    font-family: Lato;
     font-style: normal;
-    font-size: 60px;
+    font-size: 45px;
     text-align: center;
-    margin: 5% 0 3% 0;
+    margin: 5% 0 2% 0;
+}
+
+h2{
+    text-align: center;
+    font-size: 30px;
 }
 
 .row{
@@ -85,7 +98,7 @@ h1{
     text-align: center;
     margin-bottom: 1%;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
 }
 
 .row p{
@@ -94,19 +107,16 @@ h1{
 }
 
 .form-txt{
-    font-family: Lato;
     font-style: normal;
-    font-size: 27px;
-    color: #92908D;
+    font-size: 20px;
 }
 
 .form-box{
     background: #3B4654;
     color: #92908d;
-    font-size: 27px;
+    font-size: 22px;
     width: 50%;
     text-align: center;
-    margin: 1% 0 3% 0;
 
     border: 2px solid #445161;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -117,30 +127,21 @@ h1{
     outline: none;
 }
 
-.form-date{
-    background: #3B4654;
-    color: #92908d;
-    font-size: 27px;
-    width: 20%;
-
-    border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
-
-.form-date::-webkit-calendar-picker-indicator{
-    filter: invert(1);
-}
-
 .btn{
     border: none;
-    font-size: 25px;
+    font-size: 20px;
     border-radius: 15px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 15px 32px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 13px 27px;
     cursor: pointer;
-    margin-right: 3%;
-    margin-left: 3%;
+    margin: 0 2% 0 2%;
+}
+
+.button{
+    justify-content: center;
+    text-align: center;
+    margin: 5% 0 5% 0;
+    width: 100%;
 }
 
 .btn-add{
@@ -149,25 +150,36 @@ h1{
 }
 
 .btn-add:focus, .btn-add:hover{
-    outline: none;
     background: #038d9b;
+    outline: none;
+    color: #F4FBFC;
 }
 
 .btn-cancel{
-    color: #F4FBFC;
     background: #7e0f0f;
+    color: #F4FBFC;
 }
 
 .btn-cancel:focus, .btn-cancel:hover{
-    outline: none;
     background: #640a0a;
+    outline: none;
+    color: #F4FBFC;
 }
 
-.button{
-    justify-content: center;
-    text-align: center;
-    margin: 5% 0 5% 0;
+.scrollable{
+    position: relative;
+    bottom: 0;
     width: 100%;
+    background: #20272d;
+    text-align: center;
+}
+
+.un-scrollable{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #20272d;
+    text-align: center;
 }
 
 

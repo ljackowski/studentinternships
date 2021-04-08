@@ -5,12 +5,10 @@
 
 body{
     font-family: Lato;
-    width: 100vw;
-    height: 100vh;
     margin: 0;
     padding: 0;
     background: #2A323C;
-    color: #92908D;
+    color: #A9A8A5;
 }
 
 .container{
@@ -28,15 +26,17 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    display: flex;
+
     background: #3B4654;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link{
     padding: 0;
+    margin: 0 3% 0 3.2%;
     color: #A9A8A5;
+    display: flex;
     text-align: center;
 }
 
@@ -54,37 +54,64 @@ a:hover{
     color: #c1c0bc;
 }
 
-.indicator{
-    border-bottom: 4px solid #dededd;
+h1{
+    color: #a9a8a5;
+    margin: 3% 0 3% 0;
+    text-align: center;
+    font-size: 70px;
 }
 
-/*Form*/
 
 .form{
-    width: 30%;
-    margin: auto;
-    display: flex;
+    width: 70%;
+    margin: 0 auto 3% auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
     flex-direction: column;
 
     background: #323C48;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 17px;
+    font-size: 24px;
+
+}
+
+.university{
+    margin: 5%;
+}
+
+.company{
+    margin: 5%;
+}
+
+span{
+    font-size: 22px;
+    color: #969692;
+    margin-left: 3%;
+}
+
+.single-row{
+    width: 100%;
+    text-align: center;
+    margin: 1% 0 1% 0;
+}
+
+.single-row .column{
+    margin: 0 auto 0 auto;
+    width: 50%;
+    text-align: center;
 }
 
 h1{
-    color: #92908D;
-    font-family: Lato;
     font-style: normal;
     font-size: 60px;
     text-align: center;
-    margin: 5% 0 3% 0;
+    margin: 5% 0 2% 0;
 }
 
-.id{
+h2{
     text-align: center;
-    font-size: 25px;
-    margin: 1% 0 1% 0;
-    padding: 0;
+    font-size: 40px;
 }
 
 .row{
@@ -92,7 +119,7 @@ h1{
     text-align: center;
     margin-bottom: 1%;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: 50% 50%;
 }
 
 .row p{
@@ -111,10 +138,9 @@ h1{
     font-size: 27px;
     width: 50%;
     text-align: center;
-    margin: 1% 0 3% 0;
 
     border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
@@ -124,33 +150,12 @@ h1{
 
 .btn{
     border: none;
-    font-size: 25px;
+    font-size: 27px;
     border-radius: 15px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 15px 32px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 17px 32px;
     cursor: pointer;
-    margin-right: 3%;
-    margin-left: 3%;
-}
-
-.btn-add{
-    color: #F4FBFC;
-    background: #04A2B3;
-}
-
-.btn-add:focus, .btn-add:hover{
-    outline: none;
-    background: #038d9b;
-}
-
-.btn-cancel{
-    color: #F4FBFC;
-    background: #7e0f0f;
-}
-
-.btn-cancel:focus, .btn-cancel:hover{
-    outline: none;
-    background: #640a0a;
+    margin: 0 2% 0 2%;
 }
 
 .button{
@@ -160,9 +165,25 @@ h1{
     width: 100%;
 }
 
+.btn-add{
+    color: #F4FBFC;
+    background: #04A2B3;
+}
 
+.btn-add:focus, .btn-add:hover{
+    background: #038d9b;
+    outline: none;
+    color: #F4FBFC;
+}
 
+.btn-cancel{
+    background: #7e0f0f;
+    color: #F4FBFC;
+}
 
-
-
+.btn-cancel:focus, .btn-cancel:hover{
+    background: #640a0a;
+    outline: none;
+    color: #F4FBFC;
+}
 

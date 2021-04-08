@@ -3,7 +3,6 @@ create table employers
     employer_id      bigint       not null
         constraint employer_pkey
             primary key,
-    user_id          bigint       not null,
     first_name       varchar(30)  not null,
     last_name        varchar(30)  not null,
     email            varchar(50)
@@ -15,7 +14,7 @@ create table employers
 
 create table companies
 (
-    company_id      varchar(200) not null
+    company_id      bigint not null
         constraint company_pkey
             primary key,
     company_name    varchar(500) not null,
@@ -72,7 +71,7 @@ create table grades
     student_index integer      not null
         constraint grades_student_index_fkey
             references students,
-    subject_id    varchar(200) not null
+    subject_id    bigint not null
         constraint grades_pk
             primary key,
     grade         numeric(2, 2)
@@ -80,12 +79,12 @@ create table grades
 
 create table subjects
 (
-    subject_id   varchar(200) not null
+    subject_id   bigint not null
         constraint subjects_pkey
             primary key
         constraint subjects_subject_id_fkey
             references grades,
-    subject_name varchar(500)
+    subject_name varchar(1000)
 );
 
 create unique index coordinators_user_id_uindex

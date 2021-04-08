@@ -5,17 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Edytuj Studenta</title>
-    <link rel="stylesheet" href="../static/css/editStudentForm.css">
-    <link rel="stylesheet" th:href="@{/css/editStudentForm.css}">
+    <link rel="stylesheet" href="../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link ">
+        <div class="link">
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
         </div>
         <div class="link indicator">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
         </div>
         <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
@@ -51,6 +63,65 @@
                     </div>
                     <div>
                         <input th:field="*{lastName}" type="text" name="address" id="last-name" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" th:field="*{address.addressId}">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="city" class="form-txt">Miasto: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.city}" type="text" name="first-name" id="city" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="street" class="form-txt">Ulica: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.street}" type="text" name="address" id="street" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="building-number" class="form-txt">Numer budynku: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.buildingNumber}" type="text" name="first-name" id="building-number"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="apartment-number" class="form-txt">Numer mieszkania: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.apartmentNumber}" type="text" name="address" id="apartment-number"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="zip-code" class="form-txt">Kod pocztowy: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.zipCode}" type="text" name="first-name" id="zip-code"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="post-office" class="form-txt">Poczta: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.postOffice}" type="text" name="address" id="post-office"
+                               class="form-box">
                     </div>
                 </div>
             </div>
@@ -93,16 +164,6 @@
             <div class="row">
                 <div class="column">
                     <div>
-                        <label for="average-grade" class="form-txt">Średnia: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{averageGrade}" type="text" name="average-grade" id="average-grade" class="form-box">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="column">
-                    <div>
                         <label for="email" class="form-txt">Email: </label>
                     </div>
                     <div>
@@ -119,11 +180,14 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn add">Edytuj</button>
-                <a class="btn cancel" th:href="@{/students/list}">Anuluj</a>
+                <button type="submit" class="btn btn-add">Edytuj</button>
+                <a class="btn btn-cancel" th:href="@{/students/list}">Anuluj</a>
             </div>
         </form>
     </div>
+    <footer class="scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>

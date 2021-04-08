@@ -14,15 +14,12 @@ public class User{
     private Long userId;
 
     @Column(name = "email")
-    @NotEmpty
     private String email;
 
     @Column(name = "password")
-    @NotEmpty
     private String password;
 
     @Column(name = "role")
-    @NotEmpty
     private String role;
 
     public User() {

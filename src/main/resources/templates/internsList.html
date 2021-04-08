@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Lista przedsiębiorstw</title>
+    <title>Lista stażystów</title>
     <link rel="stylesheet" href="../static/css/listDesign.css">
     <link rel="stylesheet" th:href="@{/css/listDesign.css}">
 </head>
@@ -20,7 +20,7 @@
         <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
-        <div class="link">
+        <div class="link indicator">
             <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
@@ -32,7 +32,7 @@
         <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
-        <div class="link indicator">
+        <div class="link">
             <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
@@ -40,36 +40,37 @@
         </div>
     </div>
     <h1>
-        Lista przedsiębiorstw
+        Lista stażystów
     </h1>
-    <a th:href="@{/companies/addCompany}" class="btn btn-add">Dodaj</a>
+    <div class="operations">
+        <a th:href="@{/interns/addInterns}" class="btn btn-add">Dodaj stażystów</a>
+        <a th:href="@{/interns/deleteAllInterns}" class="btn btn-delete">Usuń stażystów</a>
+    </div>
     <div class="table">
         <table>
             <tr>
-                <th>Nazwa przedsiębiorstwa</th>
-                <th colspan="2">Przedstawiciel</th>
-                <th>Miasto</th>
-                <th>Ulica</th>
-                <th>Numer budynku</th>
-                <th>Numer lokalu</th>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+                <th>Numer Telefonu</th>
+                <th>Numer albumu</th>
+                <th>Kierunek</th>
+                <th>Status</th>
                 <th colspan="2">Akcja</th>
             </tr>
-            <tr th:each="company : ${companies}">
-                <td th:text="${company.companyName}"></td>
-                <td th:text="${company.representative.firstName}"></td>
-                <td th:text="${company.representative.lastName}"></td>
-                <td th:text="${company.address.city}"></td>
-                <td th:text="${company.address.street}"></td>
-                <td th:text="${company.address.buildingNumber}"></td>
-                <td th:text="${company.address.apartmentNumber}"></td>
-                <td><a class="btn btn-edit" th:href="@{/companies/edit/{companyId}(companyId=${company.companyId})}">Edytuj</a></td>
-                <td><a class="btn btn-delete" th:href="@{/companies/delete/(companyId=${company.companyId})}">Usuń</a></td>
+            <tr th:each="intern : ${interns}">
+                <td th:text="${intern.student.firstName}"></td>
+                <td th:text="${intern.student.lastName}"></td>
+                <td th:text="${intern.student.email}"></td>
+                <td th:text="${intern.student.telephoneNumber}"></td>
+                <td th:text="${intern.student.studentIndex}"></td>
+                <td th:text="${intern.student.fieldOfStudy}"></td>
+                <td th:text="${intern.reserve}"></td>
+<!--                <td><a class="btn btn-edit" th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a></td>-->
+                <td><a class="btn btn-delete" th:href="@{/interns/delete/(internId=${intern.internId})}">Usuń</a></td>
             </tr>
         </table>
     </div>
-    <footer class="scrollable">
-        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
-    </footer>
 </div>
 </body>
 </html>

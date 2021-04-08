@@ -34,7 +34,4 @@ public class RepresentativeService {
         representativeRepository.save(representative);
     }
 
-    public Representative getRepresentativeByCompanyName(String companyName){
-        return representativeRepository.findByCompanyName(companyName);
-    }
 }

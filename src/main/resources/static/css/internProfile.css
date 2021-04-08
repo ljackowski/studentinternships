@@ -8,6 +8,7 @@ body{
     margin: 0;
     padding: 0;
     background: #2A323C;
+    color: #A9A8A5;
 }
 
 .container{
@@ -55,10 +56,38 @@ a:hover{
 
 h1{
     color: #a9a8a5;
-    margin: 5% 0 0 0;
-    justify-content: center;
+    margin: 3% 0 3% 0;
     text-align: center;
-    font-size: 100px;
-    align-items: center;
+    font-size: 70px;
 }
+
+
+.form{
+    width: 70%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    flex-direction: column;
+
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    font-size: 24px;
+
+}
+
+.university{
+    margin: 5%;
+}
+
+.company{
+    margin: 5%;
+}
+
+span{
+    font-size: 22px;
+    color: #969692;
+    margin-left: 3%;
+}
+
 

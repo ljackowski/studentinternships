@@ -15,7 +15,7 @@ public class CompanyService {
         this.companyRepository = companyRepository;
     }
 
-    public List<Company> companyList(){
+    public List<Company> getAllCompanies(){
         return companyRepository.findAll();
     }
 
@@ -35,7 +35,7 @@ public class CompanyService {
         companyRepository.deleteById(companyId);
     }
 
-    public Company getComanyByCompanyName(String companyName){
+    public Company getCompanyByCompanyName(String companyName){
         return companyRepository.findByCompanyName(companyName);
     }
 }

@@ -1,7 +1,10 @@
 package com.ljackowski.studentinternships.student;
 
+import com.ljackowski.studentinternships.address.Address;
+import com.ljackowski.studentinternships.company.Company;
 import com.ljackowski.studentinternships.coordinator.Coordinator;
 import com.ljackowski.studentinternships.grade.Grade;
+import com.ljackowski.studentinternships.intern.Intern;
 import com.ljackowski.studentinternships.traineejournal.TraineeJournal;
 import com.ljackowski.studentinternships.user.User;
 import com.sun.istack.Nullable;
@@ -17,50 +20,52 @@ import java.util.List;
 public class Student extends User {
 
     @Column(name = "student_index")
-    @NotNull
     private int studentIndex;
 
     @Column(name = "first_name")
-    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name")
-    @NotEmpty
     private String lastName;
 
     @Column(name = "telephone_number")
-    @NotEmpty
     private String telephoneNumber;
 
     @Column(name = "field_of_study")
-    @NotEmpty
     private String fieldOfStudy;
 
     @Column(name = "degree")
-    @NotEmpty
     private String degree;
 
     @Column(name = "average_grade")
     private double averageGrade;
 
     @ManyToOne
-    @Nullable
     private Coordinator coordinator;
 
-    @OneToMany(mappedBy = "student")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
+    @OneToOne
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @OneToOne(mappedBy = "student")
+    private Intern intern;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Grade> gradeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<TraineeJournal> traineeJournal;
 
-
-
     public Student() {
     }
 
-    public Student(String email, String password, String role, @NotNull int studentIndex,
-                   @NotEmpty String firstName, @NotEmpty String lastName, @NotEmpty String telephoneNumber,
-                   @NotEmpty String fieldOfStudy, @NotEmpty String degree, double averageGrade, Coordinator coordinator) {
+    public Student(String email, String password, String role, int studentIndex,
+                   String firstName, String lastName, String telephoneNumber,
+                   String fieldOfStudy, String degree, double averageGrade, Address address) {
         super(email, password, role);
         this.studentIndex = studentIndex;
         this.firstName = firstName;
@@ -69,10 +74,26 @@ public class Student extends User {
         this.fieldOfStudy = fieldOfStudy;
         this.degree = degree;
         this.averageGrade = averageGrade;
-        this.coordinator = coordinator;
+        this.address = address;
     }
 
-    public void addGrade(Grade grade){
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void addGrade(Grade grade) {
         this.gradeList.add(grade);
     }
 
@@ -154,5 +175,13 @@ public class Student extends User {
 
     public void setAverageGrade(double averageGrade) {
         this.averageGrade = averageGrade;
+    }
+
+    public Intern getIntern() {
+        return intern;
+    }
+
+    public void setIntern(Intern intern) {
+        this.intern = intern;
     }
 }

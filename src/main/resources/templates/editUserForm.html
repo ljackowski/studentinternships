@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Edytuj użytkownika</title>
-    <link rel="stylesheet" href="../static/css/editUserForm.css">
-    <link rel="stylesheet" th:href="@{/css/editUserForm.css}">
+    <link rel="stylesheet" href="../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
@@ -15,19 +15,31 @@
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
+            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
+        </div>
+        <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
         </div>
         <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
         <div class="link">
-            <a><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
+            <a th:href="@{/representatives/list}"><p class="link-text">Przedstawiciele przedsiębiorstw</p></a>
         </div>
     </div>
-    <div class="add-coordinator-form">
+    <div class="form">
         <div>
             <h1>Edytuj użytkownika</h1>
         </div>
@@ -53,6 +65,8 @@
                         <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
                     </div>
                 </div>
+            </div>
+            <div class="single-row">
                 <div class="column">
                     <div>
                         <label for="role" class="form-txt">Rola: </label>
@@ -69,6 +83,9 @@
             </div>
         </form>
     </div>
+    <footer class="un-scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>

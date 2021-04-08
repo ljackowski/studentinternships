@@ -2,8 +2,8 @@ package com.ljackowski.studentinternships.grade;
 
 import com.ljackowski.studentinternships.student.Student;
 import com.ljackowski.studentinternships.student.StudentService;
+import com.ljackowski.studentinternships.subject.Subject;
 import com.ljackowski.studentinternships.subject.SubjectService;
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,17 +29,17 @@ public class GradeController {
         return "gradesList";
     }
 
-    @GetMapping("/addGrade")
-    public String addGradeForm(Model model) {
-        model.addAttribute("addGradeForm", new Grade());
-        return "addGradeForm";
-    }
-
-    @PostMapping("/addGrade")
-    public String addGrade(@ModelAttribute Grade grade) {
-        gradeService.addGrade(grade);
-        return "redirect:/grades/list";
-    }
+//    @GetMapping("/addGrade")
+//    public String addGradeForm(Model model) {
+//        model.addAttribute("addGradeForm", new Grade());
+//        return "editGradeForm";
+//    }
+//
+//    @PostMapping("/addGrade")
+//    public String addGrade(@ModelAttribute Grade grade) {
+//        gradeService.addGrade(grade);
+//        return "redirect:/grades/list";
+//    }
 
     @GetMapping("/delete")
     public String deleteGrade(@RequestParam("gradeId") long gradeId) {
@@ -54,19 +54,23 @@ public class GradeController {
         return "editGradeForm";
     }
 
-    //TODO sprawdzić jutro czy działa <3
     @PostMapping("/edit/{gradeId}")
     public String editGrade(@ModelAttribute Grade grade) {
         Student student = studentService.getStudentById(grade.getStudent().getUserId());
+        Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
         double averageGrade = 0;
         if (student.getGradeList().size() != 0){
             for (Grade grade1 : student.getGradeList()) {
-                averageGrade += grade1.getGrade();
+                if (grade1.getGradeId().equals(grade.getGradeId())){
+                    grade1.setGrade_number(grade.getGrade_number());
+                }
+                averageGrade += grade1.getGrade_number();
             }
             averageGrade /= student.getGradeList().size();
         }
         student.setAverageGrade(averageGrade);
         studentService.updateStudent(student);
+        subjectService.updateSubject(subject);
         gradeService.updateGrade(grade);
         return "redirect:/grades/list";
     }

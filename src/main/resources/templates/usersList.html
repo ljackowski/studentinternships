@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista użytkowników</title>
-    <link rel="stylesheet" th:href="@{/css/usersList.css}">
-    <link rel="stylesheet" href="../static/css/usersList.css">
+    <link rel="stylesheet" href="../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
 </head>
 <body>
 <div class="container">
@@ -15,7 +15,19 @@
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
+            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
+        </div>
+        <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
         </div>
         <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
@@ -30,7 +42,7 @@
     <h1>
         Lista użytkowników
     </h1>
-    <a th:href="@{/users/addUser}" class="btn-add">Dodaj</a>
+    <a th:href="@{/users/addUser}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -58,6 +70,9 @@
             </tr>
         </table>
     </div>
+    <footer class="scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>

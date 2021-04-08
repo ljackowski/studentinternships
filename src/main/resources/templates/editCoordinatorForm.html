@@ -5,17 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Edytuj Studenta</title>
-    <link rel="stylesheet" href="../static/css/editCoordinatorForm.css">
-    <link rel="stylesheet" th:href="@{/css/editCoordinatorForm.css}">
+    <link rel="stylesheet" href="../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link ">
+        <div class="link">
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
+            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
+        </div>
+        <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
         </div>
         <div class="link indicator">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
@@ -96,6 +108,9 @@
             </div>
         </form>
     </div>
+    <footer class="un-scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>

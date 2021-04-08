@@ -4,42 +4,42 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Student Agreement</title>
-    <link href=../static/css/studentAgreementForm.css rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/studentAgreementForm.css}">
+    <title>Deklaracja planowanej praktyki zawodowej</title>
+    <link rel="stylesheet" href="../../static/css/studentDeclarationForm.css">
+    <link rel="stylesheet" th:href="@{/css/studentDeclarationForm.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link indicator">
+        <div class="link ">
             <a href="studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
         </div>
-        <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
+        <div class="link indicator">
+            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Deklaracja planowanej
                 praktyki</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+            <a href="../../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
+            <a href="../../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
                 program praktyk</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
+            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
         </div>
         <div class="link">
-            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
         </div>
     </div>
-    <div class="agreement-form">
+    <div class="declaration-form">
         <div>
             <h1>Umowa o organizacje praktyki studenckiej</h1>
         </div>
         <form action="#" th:action="@{/organization}" th:object="${studentAgreementForm}" method="post">
             <div class="row">
                 <div>
-                    <label for="companyName" class="form-txt">Pełna nazwa przedsiębiorsta: </label>
+                    <label for="companyName" class="form-txt">Imię studenta: </label>
                 </div>
                 <div>
                     <input th:text="*{companyName}" type="text" name="companyName" id="companyName" class="form-box">
@@ -47,7 +47,7 @@
             </div>
             <div class="row">
                 <div>
-                    <label for="adres" class="form-txt">Adres siedziby przedsiębiorstwa: </label>
+                    <label for="adres" class="form-txt">Nazwisko studenta: </label>
                 </div>
                 <div>
                     <input th:text="*{addres}" type="text" name="adres" id="adres" class="form-box">
@@ -55,7 +55,7 @@
             </div>
             <div class="row">
                 <div>
-                    <label for="registered-in" class="form-txt">Imie osoby reprezentujacej przedsiębiorstwo: </label>
+                    <label for="registered-in" class="form-txt">Kierunek studiów: </label>
                 </div>
                 <div>
                     <input th:text="*{position}" type="text" name="registered-in" id="registered-in" class="form-box">
@@ -63,7 +63,7 @@
             </div>
             <div class="row">
                 <div>
-                    <label for="nr" class="form-txt">Nazwisko osoby reprezentujacej przedsiębiorstwo: </label>
+                    <label for="nr" class="form-txt">Tryb studiów: </label>
                 </div>
                 <div>
                     <input type="text" name="nr" id="nr" class="form-box">
@@ -71,7 +71,7 @@
             </div>
             <div class="row">
                 <div>
-                    <label class="form-txt">Imię studenta: </label>
+                    <label class="form-txt">Nazwa organizatora praktyki: </label>
                 </div>
                 <div>
                     <input th:text="*{employerFirstName}" type="text" class="form-box">
@@ -79,22 +79,14 @@
             </div>
             <div class="row">
                 <div>
-                    <label class="form-txt">Nazwisko studenta: </label>
+                    <label class="form-txt">Adres organizatora praktyki: </label>
                 </div>
                 <div>
                     <input th:text="*{employerLastName}" type="text" class="form-box">
                 </div>
             </div>
             <div class="row">
-                <div>
-                    <label class="form-txt">Numer albumu: </label>
-                </div>
-                <div>
-                    <input th:text="*{index}" type="text" class="form-box">
-                </div>
-            </div>
-            <div class="row">
-                <p class="form-txt">Czas trwania praktyki: </p>
+                <p class="form-txt">Termin odbywania praktyk: </p>
             </div>
             <div class="row">
                 <label class="form-txt">Od:</label>

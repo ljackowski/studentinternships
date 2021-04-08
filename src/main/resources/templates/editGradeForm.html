@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Edytuj przedmiot</title>
+    <title>Dodaj ocene</title>
     <link rel="stylesheet" href="../static/css/formDesign.css">
     <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
@@ -17,13 +17,13 @@
         <div class="link">
             <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
         </div>
-        <div class="link">
+        <div class="link indicator">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
             <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
         </div>
-        <div class="link indicator">
+        <div class="link">
             <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
         </div>
         <div class="link">
@@ -41,34 +41,36 @@
     </div>
     <div class="form">
         <div>
-            <h1>Edytuj przedmiot</h1>
+            <h1>Dodaj ocene</h1>
         </div>
-        <form action="#" th:action="@{/subjects/edit/${subjectId}}" th:object="${editSubjectForm}" method="post">
+        <form action="#" th:action="@{/grades/edit/${gradeId}}" th:object="${editGradeForm}" method="post">
             <div>
-                <p th:text="'Id: ' + ${subjectId}" class="id"></p>
+                <p th:text="'Id studenta: ' + ${editGradeForm.student.userId}" class="id"></p>
             </div>
-            <input th:field="*{subjectId}" type="hidden">
-            <div class="row">
+            <input th:field="*{student.userId}" type="hidden">
+            <div>
+                <p th:text="'Nazwa przedmiotu: ' + ${editGradeForm.subject.subjectName}" class="id"></p>
+            </div>
+            <input th:field="*{subject.subjectName}" type="hidden">
+            <div>
+                <p th:text="'Id oceny: ' + ${editGradeForm.gradeId}" class="id"></p>
+            </div>
+            <input th:field="*{gradeId}" type="hidden">
+            <input th:field="*{subject.subjectId}" type="hidden">
+            <div class="single-row">
                 <div class="column">
                     <div>
-                        <label for="first-name" class="form-txt">Nazwa przedmiotu: </label>
+                        <label for="grade_number" class="form-txt">Ocena: </label>
                     </div>
                     <div>
-                        <input th:field="*{subjectName}" type="text" name="first-name" id="first-name" class="form-box">
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <label for="last-name" class="form-txt">Kierunek: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{fieldOfStudy}" type="text" name="address" id="last-name" class="form-box">
+                        <input th:field="*{grade_number}" type="text" name="grade_number" id="grade_number"
+                               class="form-box">
                     </div>
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn btn-add">Edytuj</button>
-                <a class="btn btn-cancel" th:href="@{/students/list}">Anuluj</a>
+                <button type="submit" class="btn btn-add">Dodaj</button>
+                <a class="btn btn-cancel" th:href="@{/grades/list}">Anuluj</a>
             </div>
         </form>
     </div>

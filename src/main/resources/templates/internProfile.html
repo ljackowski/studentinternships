@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Mój Profil</title>
+    <link rel="stylesheet" href="../static/css/internProfile.css">
+    <link rel="stylesheet" th:href="@{/css/internProfile.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a href="documnts/studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="documnts/studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
+                praktyki</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">Ramowy
+                program praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
+        </div>
+        <div class="link">
+            <a href="../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+        </div>
+    </div>
+    <h1>
+        Witamy w panelu stażysty!
+    </h1>
+    <div class="form">
+        <div class="university">
+            <h2>Dane studenta</h2>
+            <p>Imię: <span th:text="${intern.student.firstName}"></span></p>
+            <p>Nazwisko: <span th:text="${intern.student.lastName}"></span></p>
+            <p>Email: <span th:text="${intern.student.email}"></span></p>
+            <p>Numer telefonu: <span th:text="${intern.student.telephoneNumber}"></span></p>
+            <p>Index: <span th:text="${intern.student.studentIndex}"></span></p>
+            <p>Kierunek: <span th:text="${intern.student.fieldOfStudy}"></span></p>
+            <p>Średnia ocen: <span th:text="${intern.student.averageGrade}"></span></p>
+            <h2>Dane Koordynatora:</h2>
+            <p>Koordynator: <span th:text="${intern.student.coordinator.firstName} + ${intern.student.coordinator.lastName}"></span></p>
+            <p>Email: <span th:text="${intern.student.coordinator.email}"></span></p>
+            <p>Numer telefonu: <span th:text="${intern.student.coordinator.telephoneNumber}"></span></p>
+        </div>
+        <div class="company">
+            <h2>Przedsiębiorstwo zatrudniające</h2>
+            <p>Nazwa firmy: <span th:text="${intern.company.companyName}"></span></p>
+            <p>Adres: <span th:text="${intern.company.city} + ${intern.company.street} + ${intern.company.buildingNumber} + ${intern.company.zipCode}"></span></p>
+            <p>Przedstawiciel firmy:<span th:text="${intern.company.representative.firstName} + ${intern.company.representative.lastName}"></span></p>
+            <p>Email:<span th:text="${intern.company.representative.email}"></span></p>
+            <p>Numer telefonu:<span th:text="${intern.company.representative.telephoneNumber}"></span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

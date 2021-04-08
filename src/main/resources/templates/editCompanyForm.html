@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Edytuj przedsiębiorstwo</title>
-    <link rel="stylesheet" href="../static/css/editCompanyForm.css">
-    <link rel="stylesheet" th:href="@{/css/editCompanyForm.css}">
+    <link rel="stylesheet" href="../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
@@ -15,7 +15,19 @@
             <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
+            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
+        </div>
+        <div class="link">
             <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
         </div>
         <div class="link">
             <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
@@ -32,43 +44,54 @@
             <h1>Edytuj przedsiębiorstwo</h1>
         </div>
         <form action="#" th:action="@{/companies/edit/${companyId}}" th:object="${editCompanyForm}" method="post">
+            <h2>Dane przedsiębiorstwa</h2>
             <div>
                 <p th:text="'Id: ' + ${companyId}" class="id"></p>
             </div>
             <input th:field="*{companyId}" type="hidden">
-            <div class="row">
-                <div class="column">
-                    <div>
-                        <label for="company-name" class="form-txt">Nazwa przedsiębiorstwa: </label>
-                    </div>
-                    <div>
-                        <input th:field="*{companyName}" type="text" name="company-name" id="company-name" class="form-box">
-                    </div>
+            <input type="hidden" th:field="*{address.addressId}">
+            <input type="hidden" th:field="*{representative.representativeId}">
+            <div class="single-row">
+                <div>
+                    <label for="company-name" class="form-txt">Nazwa przedsiębiorstwa: </label>
                 </div>
+                <div>
+                    <input th:field="*{companyName}" type="text" id="company-name" class="form-box">
+                </div>
+            </div>
+            <div class="row">
                 <div class="column">
                     <div>
                         <label for="city" class="form-txt">Miasto: </label>
                     </div>
                     <div>
-                        <input th:field="*{city}" type="text" name="city" id="city" class="form-box">
+                        <input th:field="*{address.city}" type="text" id="city" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="street" class="form-txt">Ulica: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.street}" type="text" id="street" class="form-box">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="column">
                     <div>
-                        <label for="street" class="form-txt">Numer telefonu: </label>
+                        <label for="building-number" class="form-txt">Numer budynku: </label>
                     </div>
                     <div>
-                        <input th:field="*{street}" type="text" name="street" id="street" class="form-box">
+                        <input th:field="*{address.buildingNumber}" type="text" id="building-number" class="form-box">
                     </div>
                 </div>
                 <div class="column">
                     <div>
-                        <label for="building-number" class="form-txt">Numer budynku: </label>
+                        <label for="apartment-number" class="form-txt">Numer lokalu: </label>
                     </div>
                     <div>
-                        <input th:field="*{buildingNumber}" type="text" name="building-number" id="building-number" class="form-box">
+                        <input th:field="*{address.apartmentNumber}" type="text" id="apartment-number" class="form-box">
                     </div>
                 </div>
             </div>
@@ -78,10 +101,68 @@
                         <label for="zipCode" class="form-txt">Kod pocztowy: </label>
                     </div>
                     <div>
-                        <input th:field="*{zipCode}" type="text" name="zipCode" id="zipCode" class="form-box">
+                        <input th:field="*{address.zipCode}" type="text" id="zipCode" class="form-box">
                     </div>
                 </div>
                 <div class="column">
+                    <div>
+                        <label for="post-office" class="form-txt">Poczta: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{address.postOffice}" type="text" id="post-office" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <h2>Dane reprezentanta</h2>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="first-name" class="form-txt">Imię: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{representative.firstName}" type="text" id="first-name"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="last-name" class="form-txt">Nazwisko: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{representative.lastName}" type="text" id="last-name"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{representative.email}" type="text" id="email"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="telephone-number" class="form-txt">Numer telefonu: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{representative.telephoneNumber}" type="text" id="telephone-number"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="single-row">
+                <div class="column">
+                    <div>
+                        <label for="position" class="form-txt">Stanowisko: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{representative.position}" type="text" id="position"
+                               class="form-box">
+                    </div>
                 </div>
             </div>
             <div class="button">
@@ -90,6 +171,9 @@
             </div>
         </form>
     </div>
+    <footer class="scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>

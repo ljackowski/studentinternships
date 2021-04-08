@@ -7,56 +7,48 @@ import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "representatives")
-public class Representative{
+public class Representative {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "representative_id")
     private Long representativeId;
 
-    @Column(name = "telephone_number")
-    @NotEmpty
-    private String telephoneNumber;
-
     @Column(name = "first_name")
-    @NotEmpty
     private String firstName;
 
     @Column(name = "last_name")
-    @NotEmpty
     private String lastName;
 
     @Column(name = "email")
-    @NotEmpty
     private String email;
 
-    @Column(name = "company_name")
-    @NotEmpty
-    private String companyName;
+    @Column(name = "position")
+    private String position;
 
-    @OneToOne(mappedBy = "representative", cascade = CascadeType.ALL)
+    @Column(name = "telephone_number")
+    private String telephoneNumber;
+
+    @OneToOne(mappedBy = "representative")
     private Company company;
 
     public Representative() {
     }
 
-    public Representative(Long representativeId, @NotEmpty String telephoneNumber, @NotEmpty String firstName, @NotEmpty String lastName,
-                          @NotEmpty String email, @NotEmpty String companyName, Company company) {
-        this.representativeId = representativeId;
-        this.telephoneNumber = telephoneNumber;
+    public Representative(String firstName, String lastName, String email, String position, String telephoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.companyName = companyName;
-        this.company = company;
+        this.position = position;
+        this.telephoneNumber = telephoneNumber;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getPosition() {
+        return position;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public Long getRepresentativeId() {
@@ -65,14 +57,6 @@ public class Representative{
 
     public void setRepresentativeId(Long representativeId) {
         this.representativeId = representativeId;
-    }
-
-    public String getTelephoneNumber() {
-        return telephoneNumber;
-    }
-
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
     }
 
     public String getFirstName() {
@@ -97,6 +81,14 @@ public class Representative{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTelephoneNumber() {
+        return telephoneNumber;
+    }
+
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephoneNumber = telephoneNumber;
     }
 
     public Company getCompany() {

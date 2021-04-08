@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista ocen</title>
-    <link rel="stylesheet" href="../static/css/subjectsList.css">
-    <link rel="stylesheet" th:href="@{/css/subjectsList.css}">
+    <link rel="stylesheet" href="../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
 </head>
 <body>
 <div class="container">
@@ -30,7 +30,6 @@
     <h1>
         Lista ocen
     </h1>
-    <a th:href="@{/grades/addGrade}" class="btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -45,7 +44,7 @@
                 <td th:text="${grade.subject.fieldOfStudy}"></td>
                 <td th:text="${grade.student.firstName}"></td>
                 <td th:text="${grade.student.lastName}"></td>
-                <td th:text="${grade.grade}"></td>
+                <td th:text="${grade.grade_number}"></td>
                 <td><a class="btn btn-edit" th:href="@{/grades/edit/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a></td>
                 <td><a class="btn btn-delete" th:href="@{/grades/delete/(gradeId=${grade.gradeId})}">Usuń</a></td>
             </tr>

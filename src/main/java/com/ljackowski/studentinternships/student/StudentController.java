@@ -1,10 +1,15 @@
 package com.ljackowski.studentinternships.student;
 
+import com.ljackowski.studentinternships.address.AddressService;
+import com.ljackowski.studentinternships.company.CompanyService;
 import com.ljackowski.studentinternships.coordinator.CoordinatorService;
 import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import com.ljackowski.studentinternships.grade.Grade;
 import com.ljackowski.studentinternships.grade.GradeService;
+import com.ljackowski.studentinternships.intern.InternService;
+import com.ljackowski.studentinternships.representative.Representative;
+import com.ljackowski.studentinternships.representative.RepresentativeService;
 import com.ljackowski.studentinternships.subject.Subject;
 import com.ljackowski.studentinternships.subject.SubjectService;
 import com.ljackowski.studentinternships.traineejournal.TraineeJournal;
@@ -20,7 +25,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Controller
@@ -32,24 +37,28 @@ public class StudentController {
     private final TemplateEngine templateEngine;
     private final TraineeJournalService traineeJournalService;
     private final SubjectService subjectService;
+    private final InternService internService;
+    private final AddressService addressService;
+    private final CompanyService companyService;
+    private final RepresentativeService representativeService;
 
     @Autowired
     ServletContext servletContext;
 
     @Autowired
-    public StudentController(StudentService studentService, CoordinatorService coordinatorService, GradeService gradeService, TemplateEngine templateEngine, TraineeJournalService traineeJournalService, SubjectService subjectService) {
+    public StudentController(StudentService studentService, CoordinatorService coordinatorService, GradeService gradeService,
+                             TemplateEngine templateEngine, TraineeJournalService traineeJournalService, SubjectService subjectService,
+                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService) {
         this.studentService = studentService;
         this.coordinatorService = coordinatorService;
         this.gradeService = gradeService;
         this.templateEngine = templateEngine;
         this.traineeJournalService = traineeJournalService;
         this.subjectService = subjectService;
-    }
-
-    @RequestMapping(path = "/studentProfile")
-    public String studentProfile(Model model) {
-        model.addAttribute("studentProfile", model);
-        return "userProfile";
+        this.internService = internService;
+        this.addressService = addressService;
+        this.companyService = companyService;
+        this.representativeService = representativeService;
     }
 
     @RequestMapping("/list")
@@ -63,9 +72,39 @@ public class StudentController {
         return "studentsList";
     }
 
-    @RequestMapping("/student/{userId}")
-    public Student getStudent(@PathVariable(name = "userId") long userId) {
-        return studentService.getStudentById(userId);
+    @GetMapping("/studentProfile/{userId}")
+    public String studentProfileForm(@PathVariable(name = "userId") long userId, Model model) {
+        Student student = studentService.getStudentById(userId);
+        if (student.getCompany() == null) {
+            model.addAttribute("student", student);
+            return "studentProfileBeforeSettingCompany";
+        } else {
+            model.addAttribute("student", student);
+            return "studentProfile";
+        }
+    }
+
+    @PostMapping("/student/{userId}")
+    public String studentProfile(@ModelAttribute Student student) {
+        Student studentBeforeUpdate = studentService.getStudentById(student.getUserId());
+        student.setUserId(studentBeforeUpdate.getUserId());
+        student.setPassword(studentBeforeUpdate.getPassword());
+        student.setEmail(studentBeforeUpdate.getEmail());
+        student.setRole(studentBeforeUpdate.getRole());
+        student.setFirstName(studentBeforeUpdate.getFirstName());
+        student.setLastName(studentBeforeUpdate.getLastName());
+        student.setTelephoneNumber(studentBeforeUpdate.getTelephoneNumber());
+        student.setStudentIndex(studentBeforeUpdate.getStudentIndex());
+        student.setFieldOfStudy(studentBeforeUpdate.getFieldOfStudy());
+        student.setDegree(studentBeforeUpdate.getDegree());
+        student.setAverageGrade(studentBeforeUpdate.getAverageGrade());
+        student.setAddress(studentBeforeUpdate.getAddress());
+        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
+        companyService.addCompany(student.getCompany());
+        addressService.addAddress(student.getCompany().getAddress());
+        representativeService.addRepresentative(student.getCompany().getRepresentative());
+        studentService.updateStudent(student);
+        return "redirect:/students/studentProfile/" + student.getUserId();
     }
 
     @GetMapping("/addStudent")
@@ -80,20 +119,21 @@ public class StudentController {
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         String email = student.getEmail();
+        addressService.addAddress(student.getAddress());
         studentService.addStudent(student);
-
         Student studentAfterCreation = studentService.getStudentByEmail(email);
         List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(studentAfterCreation.getFieldOfStudy());
-        for (Subject subject : studentsSubjectList){
+        for (Subject subject : studentsSubjectList) {
             studentAfterCreation.addGrade(gradeService.addGrade(new Grade(studentAfterCreation, subject, 0)));
         }
-
         return "redirect:/students/list";
     }
 
-    @GetMapping(path = "/delete")
+    @GetMapping("/delete")
     public String deleteStudentById(@RequestParam("userId") long userId) {
+        internService.deleteInternById(studentService.getStudentById(userId).getIntern().getInternId());
         studentService.deleteStudentById(userId);
+
         return "redirect:/students/list";
     }
 
@@ -110,16 +150,17 @@ public class StudentController {
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         Student student1 = studentService.getStudentById(student.getUserId());
-        if(!student.getFieldOfStudy().equals(student1.getFieldOfStudy())){
+        if (!student.getFieldOfStudy().equals(student1.getFieldOfStudy())) {
             List<Grade> gradeList = gradeService.getStudentsGrades(student.getUserId());
-            for (Grade grade : gradeList){
+            for (Grade grade : gradeList) {
                 gradeService.deleteGradeById(grade.getGradeId());
             }
             List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
-            for (Subject subject : studentsSubjectList){
+            for (Subject subject : studentsSubjectList) {
                 student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
             }
         }
+        addressService.updateAddress(student.getAddress());
         studentService.updateStudent(student);
         return "redirect:/students/list";
     }

@@ -5,17 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Dziennik praktyk</title>
-    <link href="../static/css/traineeJournal.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/traineeJournal.css}">
+    <link rel="stylesheet" href="../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a href="studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
+            <a href="documnts/studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
         </div>
         <div class="link">
-            <a href="studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
+            <a href="documnts/studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
                 praktyki</p></a>
         </div>
         <div class="link indicator">
@@ -35,7 +35,7 @@
     <h1>
         Dziennik praktyk
     </h1>
-    <a th:href="@{/students/addEntry/{userId}(userId=${userId})}" class="btn-add">Dodaj</a>
+    <a th:href="@{/students/addEntry/{userId}(userId=${userId})}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -46,16 +46,19 @@
                 <th colspan="2">Akcja</th>
             </tr>
             <tr th:each="entry : ${traineeJournal}">
-                <td th:text="${entry.day}">Dzień</td>
-                <td th:text="${entry.startingTime}">od</td>
-                <td th:text="${entry.endingTime}">do</td>
-                <td th:text="${entry.hours}">Liczba godzin</td>
-                <td th:text="${entry.description}">Uwagi</td>
+                <td th:text="${entry.day}"></td>
+                <td th:text="${entry.startingTime}"></td>
+                <td th:text="${entry.endingTime}"></td>
+                <td th:text="${entry.hours}"></td>
+                <td th:text="${entry.description}"></td>
                 <td><a th:href="@{/students/editEntry/{entryId}(entryId=${entry.entryId})}" class="btn btn-edit">Edytuj</a></td>
                 <td><a th:href="@{/students/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a></td>
             </tr>
         </table>
     </div>
+    <footer class="scrollable">
+        <p>Strona stworzona na potrzeby pracy licencjackiej</p>
+    </footer>
 </div>
 </body>
 </html>
