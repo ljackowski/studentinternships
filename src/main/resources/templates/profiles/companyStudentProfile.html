@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil przedsiębiorstwa</title>
+    <link rel="stylesheet" href="../../static/css/profileForm.css">
+    <link rel="stylesheet" th:href="@{/css/profileForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Profil koordynator: <span th:text="${company.companyId}"></span>
+    </h1>
+    <div class="form-coordinator">
+        <div class="university">
+            <h2>Przedsiębiorstwo zatrudniające</h2>
+            <p>Nazwa firmy: <span th:text="${company.companyName}">gggggggggggggg</span></p>
+            <p>Adres:
+                <span th:text="${company.address.city}"></span>
+                <span th:text="${company.address.street}"></span>
+                <span th:text="${company.address.buildingNumber}"></span>
+                <span th:text="${company?.address?.apartmentNumber}"></span>
+                <span th:text="${company.address.zipCode}"></span>
+                <span th:text="${company.address.postOffice}"></span>
+            </p>
+            <p>Należy do stażu: <span th:text="${company.isPartOfInternship()}"></span></p>
+            <p>Przedstawiciel firmy:<span th:text="${company.representative.firstName}"></span><span
+                    th:text="${company.representative.lastName}"></span></p>
+            <p>Email:<span th:text="${company.representative.email}"></span></p>
+            <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
+            <p>Numer telefonu:<span th:text="${company.representative.position}"></span></p>
+        </div>
+        <div class="students">
+            <h2>Student</h2>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>E-mail</th>
+                    <th>Numer Telefonu</th>
+                    <th>Numer albumu</th>
+                    <th>Kierunek</th>
+                    <th>Stopień</th>
+                    <th>Średnia</th>
+                </tr>
+                <tr>
+                    <td th:text="${company?.student?.firstName}">s</td>
+                    <td th:text="${company?.student?.lastName}">s</td>
+                    <td th:text="${company?.student?.email}">s</td>
+                    <td th:text="${company?.student?.telephoneNumber}">s</td>
+                    <td th:text="${company?.student?.studentIndex}">s</td>
+                    <td th:text="${company?.student?.fieldOfStudy}">s</td>
+                    <td th:text="${company?.student?.degree}">s</td>
+                    <td th:text="${company?.student?.averageGrade}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

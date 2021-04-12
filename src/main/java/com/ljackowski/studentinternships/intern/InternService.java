@@ -38,8 +38,8 @@ public class InternService {
     public void deleteAll(){
         internRepository.deleteAll();
     }
-    public void deleteInternByStudent(Student student){
-        internRepository.deleteByStudent(student);
-    };
+    public Intern getInternByStudent(Student student){
+        return internRepository.findByStudent(student);
+    }
 
 }

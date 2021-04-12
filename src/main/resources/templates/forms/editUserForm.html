@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj użytkownika</title>
+    <link rel="stylesheet" href="../../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link indicator">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <div class="form">
+        <div>
+            <h1>Edytuj użytkownika</h1>
+        </div>
+        <form action="#" th:action="@{/users/edit/${userId}}" th:object="${updateUserForm}" method="post">
+            <div>
+                <p th:text="'Id: ' + ${userId}" class="id"></p>
+            </div>
+            <input th:field="*{userId}" type="hidden">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{email}" type="text" name="address" id="email" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="password" class="form-txt">Hasło: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{password}" type="text" name="password" id="password" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="single-row">
+                <div class="column">
+                    <div>
+                        <label for="role" class="form-txt">Rola: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{role}" type="text" name="role" id="role"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn btn-add">Edytuj</button>
+                <a th:href="@{/users/list}" class="btn btn-cancel">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

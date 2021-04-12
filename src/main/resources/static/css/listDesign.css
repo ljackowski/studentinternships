@@ -3,10 +3,14 @@
     src: url("../fonts/Lato-Regular.ttf");
 }
 
+html{
+    height: 100%;
+    box-sizing: border-box;
+}
+
 body{
     font-family: Lato;
     margin: 0;
-    padding: 0;
     background: #2A323C;
     color: #92908D;
 }
@@ -15,10 +19,10 @@ body{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
+
 /*Navigation*/
 
 .navigation{
@@ -110,6 +114,16 @@ td{
     cursor: pointer;
 }
 
+.btn-profile{
+    color: #F4FBFC;
+    background: #6b0ba0;
+}
+
+.btn-profile:focus, .btn-profile:hover{
+    background: #630b94;
+    outline: none;
+}
+
 .btn-edit{
     color: #F4FBFC;
     background: #04A2B3;
@@ -148,21 +162,4 @@ td{
     outline: none;
     background: #21600d;
     color: #F4FBFC;
-}
-
-.scrollable{
-    font-size: 16px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-    background: #20272d;
-    text-align: center;
-}
-
-.un-scrollable{
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background: #20272d;
-    text-align: center;
 }

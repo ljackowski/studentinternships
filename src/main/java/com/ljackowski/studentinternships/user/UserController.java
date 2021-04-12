@@ -20,7 +20,7 @@ public class UserController {
     public String usersList(Model model) {
         List<User> usersList = userService.getUsers();
         model.addAttribute("users", usersList);
-        return "usersList";
+        return "lists/usersList";
     }
 
     @RequestMapping("/getOne/{userId}")
@@ -32,7 +32,7 @@ public class UserController {
     @GetMapping("/addUser")
     public String addUserForm(Model model) {
         model.addAttribute("addUserForm", new User());
-        return "addUserForm";
+        return "forms/addUserForm";
     }
 
     @PostMapping("/addUser")
@@ -51,7 +51,7 @@ public class UserController {
     public String updateUserForm(@PathVariable(name = "userId") int userId, Model model){
         User user = userService.getUserById(userId);
         model.addAttribute("updateUserForm", user);
-        return "editUserForm";
+        return "forms/editUserForm";
     }
 
     @PostMapping("/edit/{userId}")

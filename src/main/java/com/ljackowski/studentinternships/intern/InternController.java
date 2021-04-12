@@ -27,47 +27,48 @@ public class InternController {
     }
 
     @RequestMapping("/list")
-    public String getAllStudents(Model model){
+    public String getAllStudents(Model model) {
         List<Intern> interns = internService.getAllInterns();
         model.addAttribute("interns", interns);
-        return "internsList";
+        return "lists/internsList";
     }
 
-    @GetMapping("/internProfile/{internId}")
-    public String internProfileForm(Model model, @PathVariable(name = "internId") long internId){
+    @GetMapping("/intern/{internId}")
+    public String internProfileForm(Model model, @PathVariable(name = "internId") long internId) {
         Intern intern = internService.getInternById(internId);
-        List<Company> companies = companyService.getAllCompanies();
-        if (intern.getCompany() == null){
+        List<Company> companies = companyService.getCompaniesInInternship(true, 0);
+        if (intern.getCompany() == null) {
             model.addAttribute("companies", companies);
             model.addAttribute("intern", intern);
-            return "internProfileBeforeChoosingCompany";
-        }
-        else{
+            return "profiles/internProfileBeforeChoosingCompany";
+        } else {
             model.addAttribute("intern", intern);
-            return "internProfile";
+            return "profiles/internProfile";
         }
-
     }
 
-    @PostMapping("/internProfile/{internId}")
-    public String internProfile(@ModelAttribute Intern intern){
+    @PostMapping("/intern/{internId}")
+    public String internProfile(@ModelAttribute Intern intern) {
+        Company company = companyService.getCompanyById(intern.getCompany().getCompanyId());
+        company.setFreeSpaces(company.getFreeSpaces() - 1);
+        companyService.updateCompany(company);
         internService.updateIntern(intern);
-        return "redirect:/interns/internProfile/" + intern.getInternId();
+        return "redirect:/interns/intern/" + intern.getInternId();
     }
 
 
     @GetMapping("/addInterns")
-    public String populateInternsTable(){
+    public String populateInternsTable() {
         List<Intern> internList = internService.getAllInterns();
-        if (internList.isEmpty()){
+        if (internList.isEmpty()) {
             int i = 1;
             List<Student> studentsQualified = studentService.getFirst20StudentsByAvgGrade();
-            for (Student student : studentsQualified){
-                if (i <= 16){
-                    internService.addIntern(new Intern(student, null,false));
-                }
-                else {
-                    internService.addIntern(new Intern(student, null,true));
+            for (Student student : studentsQualified) {
+                student.setRole("INTERN");
+                if (i <= 16) {
+                    internService.addIntern(new Intern(student, null, false));
+                } else {
+                    internService.addIntern(new Intern(student, null, true));
                 }
                 i++;
             }
@@ -76,13 +77,13 @@ public class InternController {
     }
 
     @GetMapping("/delete")
-    public String deleteInternById(@RequestParam("internId") long internId){
+    public String deleteInternById(@RequestParam("internId") long internId) {
         internService.deleteInternById(internId);
         return "redirect:/interns/list";
     }
 
     @GetMapping("/deleteAllInterns")
-    public String deleteAllInterns(){
+    public String deleteAllInterns() {
         internService.deleteAll();
         return "redirect:/interns/list";
     }

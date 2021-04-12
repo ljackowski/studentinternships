@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista przedsiębiorstw</title>
+    <link rel="stylesheet" href="../../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista przedsiębiorstw
+    </h1>
+    <a th:href="@{/companies/addCompanyToInternShip}" class="btn btn-add">Dodaj</a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Nazwa przedsiębiorstwa</th>
+                <th colspan="2">Przedstawiciel</th>
+                <th>Miasto</th>
+                <th>Ulica</th>
+                <th>Numer budynku</th>
+                <th>Numer lokalu</th>
+                <th>Liczba wolnych miejsc</th>
+                <th>Należy do stażu</th>
+                <th colspan="3">Akcja</th>
+            </tr>
+            <tr th:each="company : ${companies}">
+                <td th:text="${company.companyName}"></td>
+                <td th:text="${company.representative.firstName}"></td>
+                <td th:text="${company.representative.lastName}"></td>
+                <td th:text="${company.address.city}"></td>
+                <td th:text="${company.address.street}"></td>
+                <td th:text="${company.address.buildingNumber}"></td>
+                <td th:text="${company.address.apartmentNumber}"></td>
+                <td th:text="${company.freeSpaces}"></td>
+                <td th:text="${company.isPartOfInternship()}"></td>
+                <td><a class="btn btn-profile" th:href="@{/companies/company/{companyId}(companyId=${company.companyId})}">Profil</a></td>
+                <td><a class="btn btn-edit" th:href="@{/companies/edit/{companyId}(companyId=${company.companyId})}">Edytuj</a>
+                </td>
+                <td><a class="btn btn-delete" th:href="@{/companies/delete/(companyId=${company.companyId})}">Usuń</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -35,7 +35,7 @@ public class CompanyService {
         companyRepository.deleteById(companyId);
     }
 
-    public Company getCompanyByCompanyName(String companyName){
-        return companyRepository.findByCompanyName(companyName);
+    public List<Company> getCompaniesInInternship(boolean partOfInternship, int freeSpaces){
+        return companyRepository.findAllByPartOfInternshipAndFreeSpacesGreaterThan(partOfInternship, freeSpaces);
     }
 }

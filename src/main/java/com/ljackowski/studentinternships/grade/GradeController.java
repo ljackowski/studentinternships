@@ -1,5 +1,7 @@
 package com.ljackowski.studentinternships.grade;
 
+import com.ljackowski.studentinternships.intern.Intern;
+import com.ljackowski.studentinternships.intern.InternService;
 import com.ljackowski.studentinternships.student.Student;
 import com.ljackowski.studentinternships.student.StudentService;
 import com.ljackowski.studentinternships.subject.Subject;
@@ -15,48 +17,40 @@ public class GradeController {
     private final GradeService gradeService;
     private final SubjectService subjectService;
     private final StudentService studentService;
+    private final InternService internService;
 
     @Autowired
-    public GradeController(GradeService gradeService, SubjectService subjectService, StudentService studentService) {
+    public GradeController(GradeService gradeService, SubjectService subjectService, StudentService studentService, InternService internService) {
         this.gradeService = gradeService;
         this.subjectService = subjectService;
         this.studentService = studentService;
+        this.internService = internService;
     }
 
     @RequestMapping("/list")
     public String getAllGrades(Model model) {
         model.addAttribute("grades", gradeService.getGrades());
-        return "gradesList";
+        return "lists/gradesList";
     }
-
-//    @GetMapping("/addGrade")
-//    public String addGradeForm(Model model) {
-//        model.addAttribute("addGradeForm", new Grade());
-//        return "editGradeForm";
-//    }
-//
-//    @PostMapping("/addGrade")
-//    public String addGrade(@ModelAttribute Grade grade) {
-//        gradeService.addGrade(grade);
-//        return "redirect:/grades/list";
-//    }
 
     @GetMapping("/delete")
     public String deleteGrade(@RequestParam("gradeId") long gradeId) {
+        Student student = studentService.getStudentById(gradeService.getGradeById(gradeId).getStudent().getUserId());
         gradeService.deleteGradeById(gradeId);
-        return "redirect:/grades/list";
+        return "redirect:/students/student/" + student.getUserId();
     }
 
     @GetMapping("/edit/{gradeId}")
-    public String editGradeForm(@PathVariable("gradeId") long gradeId, Model model) {
+    public String editStudentGradeForm(@PathVariable("gradeId") long gradeId, Model model) {
         Grade grade = gradeService.getGradeById(gradeId);
         model.addAttribute("editGradeForm", grade);
-        return "editGradeForm";
+        return "forms/editGradeForm";
     }
 
     @PostMapping("/edit/{gradeId}")
-    public String editGrade(@ModelAttribute Grade grade) {
+    public String editStudentGrade(@ModelAttribute Grade grade) {
         Student student = studentService.getStudentById(grade.getStudent().getUserId());
+        Intern intern = internService.getInternByStudent(student);
         Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
         double averageGrade = 0;
         if (student.getGradeList().size() != 0){
@@ -72,8 +66,46 @@ public class GradeController {
         studentService.updateStudent(student);
         subjectService.updateSubject(subject);
         gradeService.updateGrade(grade);
-        return "redirect:/grades/list";
+        if (student.getRole().equals("STUDENT")){
+            return "redirect:/students/student/" + student.getUserId();
+        }
+        else {
+            return "redirect:/interns/intern/" + intern.getInternId();
+        }
+
     }
+
+//    @GetMapping("/editInternGrade/{gradeId}")
+//    public String editInternGradeForm(@PathVariable("gradeId") long gradeId, Model model) {
+//        Grade grade = gradeService.getGradeById(gradeId);
+//        model.addAttribute("editGradeForm", grade);
+//        return "forms/editGradeForm";
+//    }
+//
+//    @PostMapping("/editInternGrade/{gradeId}")
+//    public String editInternGrade(@ModelAttribute Grade grade) {
+//        Student student = studentService.getStudentById(grade.getStudent().getUserId());
+//        Intern inter = internService.getInternByStudent(student);
+//        System.out.println(inter);
+//        Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
+//        double averageGrade = 0;
+//        if (student.getGradeList().size() != 0){
+//            for (Grade grade1 : student.getGradeList()) {
+//                if (grade1.getGradeId().equals(grade.getGradeId())){
+//                    grade1.setGrade_number(grade.getGrade_number());
+//                }
+//                averageGrade += grade1.getGrade_number();
+//            }
+//            averageGrade /= student.getGradeList().size();
+//        }
+//        student.setAverageGrade(averageGrade);
+//        studentService.updateStudent(student);
+//        subjectService.updateSubject(subject);
+//        gradeService.updateGrade(grade);
+//        return "redirect:/interns/intern/" + inter.getInternId();
+//    }
+
+
 
 
 }

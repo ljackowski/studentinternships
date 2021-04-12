@@ -35,21 +35,33 @@ public class CompanyController {
             companyService.updateCompany(company);
         }
         model.addAttribute("companies", companies);
-        return "companiesList";
+        return "lists/companiesList";
     }
 
-    @GetMapping("/addCompany")
+    @RequestMapping("/company/{companyId}")
+    public String getCompanyById(Model model, @PathVariable("companyId")long companyId){
+        Company company = companyService.getCompanyById(companyId);
+        if (company.isPartOfInternship()){
+            model.addAttribute("company", company);
+            return "profiles/companyInternshipProfile";
+        }
+        else {
+            model.addAttribute("company", company);
+            return "profiles/companyStudentProfile";
+        }
+    }
+
+    @GetMapping("/addCompanyToInternShip")
     public String addCompanyForm(Model model) {
         model.addAttribute("addCompanyForm", new Company());
-        return "addCompanyForm";
+        return "forms/addCompanyToInternshipForm";
     }
 
-    @PostMapping("/addCompany")
-    public String addCompany(@ModelAttribute Company company) {
+    @PostMapping("/addCompanyToInternShip")
+    public String addCompanyToInternShip(@ModelAttribute Company company) {
+        company.setPartOfInternship(true);
         representativeService.addRepresentative(company.getRepresentative());
         addressService.addAddress(company.getAddress());
-        company.setFreeSpaces(0);
-        company.setPartOfInternship(false);
         companyService.addCompany(company);
         return "redirect:/companies/list";
     }
@@ -67,7 +79,7 @@ public class CompanyController {
     public String editCompanyForm(@PathVariable("companyId") long companyId, Model model) {
         Company company = companyService.getCompanyById(companyId);
         model.addAttribute("editCompanyForm", company);
-        return "editCompanyForm";
+        return "forms/editCompanyForm";
     }
 
     @PostMapping("/edit/{companyId}")

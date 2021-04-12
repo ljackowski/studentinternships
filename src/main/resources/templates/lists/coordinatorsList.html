@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Koordynatorów</title>
+    <link rel="stylesheet" href="../../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista koordynatorów
+    </h1>
+    <a th:href="@{/coordinators/addCoordinator}" class="btn btn-add">Dodaj</a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+                <th>Numer Telefonu</th>
+                <th>Kierunek</th>
+                <th colspan="3">Akcja</th>
+            </tr>
+            <tr th:each="coordinator : ${coordinators}">
+                <td th:text="${coordinator.firstName}"></td>
+                <td th:text="${coordinator.lastName}"></td>
+                <td th:text="${coordinator.email}"></td>
+                <td th:text="${coordinator.telephoneNumber}"></td>
+                <td th:text="${coordinator.fieldOfStudy}"></td>
+                <td><a class="btn btn-profile" th:href="@{/coordinators/coordinator/{userId}(userId=${coordinator.userId})}">Profil</a></td>
+                <td><a th:href="@{/coordinators/edit/{userId}(userId=${coordinator.userId})}" class="btn btn-edit">Edytuj</a>
+                </td>
+                <td><a th:href="@{/coordinators/delete/(userId=${coordinator.userId})}" class="btn btn-delete">Usuń</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

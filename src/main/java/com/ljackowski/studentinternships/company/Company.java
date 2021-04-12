@@ -7,7 +7,6 @@ import com.ljackowski.studentinternships.representative.Representative;
 import com.ljackowski.studentinternships.student.Student;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -23,7 +22,7 @@ public class Company{
     private String companyName;
 
     @Column(name = "is_part_of_internship")
-    private boolean isPartOfInternship;
+    private boolean partOfInternship;
 
     @Column(name = "free_spaces")
     private int freeSpaces;
@@ -45,12 +44,20 @@ public class Company{
     public Company() {
     }
 
-    public Company(String companyName, boolean isPartOfInternship, int freeSpaces, Address address, Representative representative) {
+    public Company(String companyName, boolean PartOfInternship, int freeSpaces, Address address, Representative representative) {
         this.companyName = companyName;
-        this.isPartOfInternship = isPartOfInternship;
+        this.partOfInternship = PartOfInternship;
         this.freeSpaces = freeSpaces;
         this.address = address;
         this.representative = representative;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     public String getCompanyName() {
@@ -62,11 +69,11 @@ public class Company{
     }
 
     public boolean isPartOfInternship() {
-        return isPartOfInternship;
+        return partOfInternship;
     }
 
     public void setPartOfInternship(boolean partOfInternship) {
-        isPartOfInternship = partOfInternship;
+        this.partOfInternship = partOfInternship;
     }
 
     public Long getCompanyId() {

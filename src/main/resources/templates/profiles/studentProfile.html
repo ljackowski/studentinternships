@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil studenta</title>
+    <link rel="stylesheet" href="../../static/css/profileForm.css">
+    <link rel="stylesheet" th:href="@{/css/profileForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Profil studenta: <span th:text="${student.userId}"></span>
+    </h1>
+    <div class="form">
+        <div class="form-control">
+            <div class="university">
+                <h2>Dane studenta</h2>
+                <p>Imię: <span th:text="${student.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${student.lastName}"></span></p>
+                <p>Adres:
+                    <span th:text="${student.address.city}"></span>
+                    <span th:text="${student.address.street}"></span>
+                    <span th:text="${student.address.buildingNumber}"></span>
+                    <span th:text="${student?.address?.apartmentNumber}"></span>
+                    <span th:text="${student.address.zipCode}"></span>
+                    <span th:text="${student.address.postOffice}"></span>
+                </p>
+                <p>Email: <span th:text="${student.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${student.telephoneNumber}"></span></p>
+                <p>Index: <span th:text="${student.studentIndex}"></span></p>
+                <p>Kierunek: <span th:text="${student.fieldOfStudy}"></span></p>
+                <p>Średnia ocen: <span th:text="${student.averageGrade}"></span></p>
+                <h2>Dane Koordynatora:</h2>
+                <p>Koordynator: <span th:text="${student?.coordinator?.firstName}"></span> <span
+                        th:text="${student?.coordinator?.lastName}"></span></p>
+                <p>Email: <span th:text="${student?.coordinator?.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${student?.coordinator?.telephoneNumber}"></span></p>
+            </div>
+            <div class="company">
+                <h2>Przedsiębiorstwo zatrudniające</h2>
+                <p>Nazwa firmy: <span th:text="${student.company.companyName}"></span></p>
+                <p>Adres:
+                    <span th:text="${student.company.address.city}"></span>
+                    <span th:text="${student.company.address.street}"></span>
+                    <span th:text="${student.company.address.buildingNumber}"></span>
+                    <span th:text="${student?.company?.address?.apartmentNumber}"></span>
+                    <span th:text="${student.company.address.zipCode}"></span>
+                    <span th:text="${student.company.address.postOffice}"></span>
+                </p>
+                <p>Przedstawiciel firmy:<span th:text="${student.company.representative.firstName}"></span><span
+                        th:text="${student.company.representative.lastName}"></span></p>
+                <p>Email:<span th:text="${student.company.representative.email}"></span></p>
+                <p>Numer telefonu:<span th:text="${student.company.representative.telephoneNumber}"></span></p>
+                <p>Numer telefonu:<span th:text="${student.company.representative.position}"></span></p>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <th>Przedmiot</th>
+                <th>Ocena</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="grade : ${student.gradeList}">
+                <td th:text="${grade.subject.subjectName}"></td>
+                <td th:text="${grade.grade_number}"></td>
+                <td><a class="btn btn-edit" th:href="@{/grades/edit/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a>
+                </td>
+                <td><a class="btn btn-delete" th:href="@{/grades/delete/(gradeId=${grade.gradeId})}">Usuń</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil koordynatora</title>
+    <link rel="stylesheet" href="../../static/css/profileForm.css">
+    <link rel="stylesheet" th:href="@{/css/profileForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Profil koordynatora: <span th:text="${coordinator.userId}"></span>
+    </h1>
+    <div class="form-coordinator">
+        <div class="university">
+            <h2>Dane koordynatora</h2>
+            <p>Imię: <span th:text="${coordinator.firstName}"></span></p>
+            <p>Nazwisko: <span th:text="${coordinator.lastName}"></span></p>
+            <p>Email: <span th:text="${coordinator.email}"></span></p>
+            <p>Numer telefonu: <span th:text="${coordinator.telephoneNumber}"></span></p>
+            <p>Kierunek: <span th:text="${coordinator.fieldOfStudy}"></span></p>
+        </div>
+        <div class="students">
+            <h2>Studenci</h2>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>E-mail</th>
+                    <th>Numer Telefonu</th>
+                    <th>Numer albumu</th>
+                    <th>Kierunek</th>
+                    <th>Stopień</th>
+                    <th>Średnia</th>
+                </tr>
+                <tr th:each="student : ${coordinator.students}">
+                    <td th:text="${student.firstName}">s</td>
+                    <td th:text="${student.lastName}">s</td>
+                    <td th:text="${student.email}">s</td>
+                    <td th:text="${student.telephoneNumber}">s</td>
+                    <td th:text="${student.studentIndex}">s</td>
+                    <td th:text="${student.fieldOfStudy}">s</td>
+                    <td th:text="${student.degree}">s</td>
+                    <td th:text="${student.averageGrade}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

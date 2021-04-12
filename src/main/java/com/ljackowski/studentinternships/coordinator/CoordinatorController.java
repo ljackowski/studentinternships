@@ -24,10 +24,24 @@ public class CoordinatorController {
         this.studentService = studentService;
     }
 
+    @RequestMapping("/list")
+    public String getAllCoordinators(Model model) {
+        List<Coordinator> coordinatorList = coordinatorService.getCoordinators();
+        studentService.getStudents();
+        model.addAttribute("coordinators", coordinatorList);
+        return "lists/coordinatorsList";
+    }
+
+    @RequestMapping("/coordinator/{userId}")
+    public String getCoordinatorById(Model model, @PathVariable("userId") long userId){
+        model.addAttribute("coordinator", coordinatorService.getCoordinatorById(userId));
+        return "profiles/coordinatorProfile";
+    }
+
     @GetMapping("/addCoordinator")
     public String addCoordinatorForm(Model model) {
         model.addAttribute("addCoordinatorForm", new Coordinator());
-        return "addCoordinatorForm";
+        return "forms/addCoordinatorForm";
     }
 
     @PostMapping("/addCoordinator")
@@ -36,19 +50,6 @@ public class CoordinatorController {
         coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
         coordinatorService.addCoordinator(coordinator);
         return "redirect:/coordinators/list";
-    }
-
-    @RequestMapping("/list")
-    public String getAllCoordinators(Model model) {
-        List<Coordinator> coordinatorList = coordinatorService.getCoordinators();
-        studentService.getStudents();
-        model.addAttribute("coordinators", coordinatorList);
-        return "coordinatorsList";
-    }
-
-    @RequestMapping("/coordinator/{userId}")
-    public Coordinator getCoordinatorById(@PathVariable("userId") long userId) {
-        return coordinatorService.getCoordinatorById(userId);
     }
 
     @GetMapping("/delete")
@@ -64,7 +65,7 @@ public class CoordinatorController {
     public String editCoordinatorForm(@PathVariable("userId") long userId, Model model) {
         Coordinator coordinator = coordinatorService.getCoordinatorById(userId);
         model.addAttribute("editCoordinatorForm", coordinator);
-        return "editCoordinatorForm";
+        return "forms/editCoordinatorForm";
     }
 
     @PostMapping("/edit/{userId}")

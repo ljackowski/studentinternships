@@ -7,8 +7,8 @@ import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreeme
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import com.ljackowski.studentinternships.grade.Grade;
 import com.ljackowski.studentinternships.grade.GradeService;
+import com.ljackowski.studentinternships.intern.Intern;
 import com.ljackowski.studentinternships.intern.InternService;
-import com.ljackowski.studentinternships.representative.Representative;
 import com.ljackowski.studentinternships.representative.RepresentativeService;
 import com.ljackowski.studentinternships.subject.Subject;
 import com.ljackowski.studentinternships.subject.SubjectService;
@@ -25,7 +25,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Controller
@@ -69,19 +68,26 @@ public class StudentController {
             studentService.updateStudent(student);
         }
         model.addAttribute("students", studentsList);
-        return "studentsList";
+        return "lists/studentsList";
     }
 
-    @GetMapping("/studentProfile/{userId}")
+    @GetMapping("/student/{userId}")
     public String studentProfileForm(@PathVariable(name = "userId") long userId, Model model) {
         Student student = studentService.getStudentById(userId);
-        if (student.getCompany() == null) {
-            model.addAttribute("student", student);
-            return "studentProfileBeforeSettingCompany";
-        } else {
-            model.addAttribute("student", student);
-            return "studentProfile";
+        if (student.getRole().equals("STUDENT")){
+            if (student.getCompany() == null) {
+                model.addAttribute("student", student);
+                return "profiles/studentProfileBeforeSettingCompany";
+            } else {
+                model.addAttribute("student", student);
+                return "profiles/studentProfile";
+            }
         }
+        else if (student.getRole().equals("INTERN")){
+            Intern intern = internService.getInternByStudent(student);
+            return "redirect:/interns/intern/" + intern.getInternId();
+        }
+        return "";
     }
 
     @PostMapping("/student/{userId}")
@@ -110,7 +116,7 @@ public class StudentController {
     @GetMapping("/addStudent")
     public String addStudentForm(Model model) {
         model.addAttribute("addStudentForm", new Student());
-        return "addStudentForm";
+        return "forms/addStudentForm";
     }
 
     @PostMapping("/addStudent")
@@ -141,15 +147,16 @@ public class StudentController {
     public String editStudentForm(@PathVariable(value = "userId") int userId, Model model) {
         Student student = studentService.getStudentById(userId);
         model.addAttribute("editStudentForm", student);
-        return "editStudentForm";
+        return "forms/editStudentForm";
     }
 
     @PostMapping("/edit/{userId}")
     public String editStudent(@ModelAttribute Student student) {
+        Student student1 = studentService.getStudentById(student.getUserId());
         student.setRole("student".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-        Student student1 = studentService.getStudentById(student.getUserId());
+        student.setCompany(student1.getCompany());
         if (!student.getFieldOfStudy().equals(student1.getFieldOfStudy())) {
             List<Grade> gradeList = gradeService.getStudentsGrades(student.getUserId());
             for (Grade grade : gradeList) {
@@ -170,7 +177,7 @@ public class StudentController {
     @GetMapping("/traineeJournal/{userId}")
     public String getTraineeJournalByStudentId(@PathVariable(name = "userId") long studentId, Model model) {
         model.addAttribute("traineeJournal", traineeJournalService.getAllEntriesOfStudent(studentId));
-        return "traineeJournal";
+        return "lists/traineeJournal";
     }
 
     @GetMapping("/addEntry/{userId}")
@@ -179,7 +186,7 @@ public class StudentController {
         TraineeJournal traineeJournal = new TraineeJournal();
         traineeJournal.setStudent(student);
         model.addAttribute("addNewEntryToTraineeJournalForm", traineeJournal);
-        return "addNewEntryToTraineeJournalForm";
+        return "forms/addNewEntryToTraineeJournalForm";
     }
 
     @PostMapping("/addEntry/{userId}")
@@ -201,7 +208,7 @@ public class StudentController {
     public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
         TraineeJournal traineeJournal = traineeJournalService.getEntryById(entryId);
         model.addAttribute("editStudentEntryForm", traineeJournal);
-        return "editStudentEntryForm";
+        return "forms/editStudentEntryForm";
     }
 
     @PostMapping("/editEntry/{entryId}")
@@ -217,7 +224,7 @@ public class StudentController {
     @GetMapping("/organization")
     public String organizationForm(Model model) {
         model.addAttribute("studentAgreementForm", new OrganizationAgreement());
-        return "studentAgreementForm";
+        return "documents/studentAgreementForm";
     }
 
     @PostMapping(path = "/organization")

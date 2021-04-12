@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista użytkowników</title>
+    <link rel="stylesheet" href="../../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link indicator">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista użytkowników
+    </h1>
+    <a th:href="@{/users/addUser}" class="btn btn-add">Dodaj</a>
+    <div class="table">
+        <table>
+            <tr>
+                <th>_id</th>
+                <th>Email</th>
+                <th>Hasło</th>
+                <th>Rola</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.userId}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.role}"></td>
+                <td th:switch="${user.role}">
+                    <span th:case="'STUDENT'"><a th:href="@{/students/edit/{userId}(userId=${user.userId})}"
+                                                 class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/edit/{userId}(userId=${user.userId})}"
+                                                     class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="*"><a th:href="@{/users/edit/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                </td>
+                <td th:switch="${user.role}">
+                    <span th:case="'STUDENT'"><a th:href="@{/students/delete/(userId=${user.userId})}"
+                                                 class="btn btn-delete">Usuń</a></span>
+                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/delete/(userId=${user.userId})}"
+                                                     class="btn btn-delete">Usuń</a></span>
+                    <span th:case="*"><a th:href="@{/users/delete/(userId=${user.userId})}"
+                                         class="btn btn-delete">Usuń</a></span>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

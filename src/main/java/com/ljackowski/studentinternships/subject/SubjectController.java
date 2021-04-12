@@ -28,13 +28,13 @@ public class SubjectController {
     @RequestMapping("/list")
     public String getAllSubjects(Model model) {
         model.addAttribute("subjects", subjectService.getAllSubjects());
-        return "subjectsList";
+        return "lists/subjectsList";
     }
 
     @GetMapping("/addSubject")
     public String addSubjectForm(Model model) {
         model.addAttribute("addSubjectForm", new Subject());
-        return "addSubjectForm";
+        return "forms/addSubjectForm";
     }
 
     @PostMapping("/addSubject")
@@ -59,7 +59,7 @@ public class SubjectController {
     public String editSubjectForm(@PathVariable("subjectId") long subjectId, Model model) {
         Subject subject = subjectService.getSubjectBuId(subjectId);
         model.addAttribute("editSubjectForm", subject);
-        return "editSubjectForm";
+        return "forms/editSubjectForm";
     }
 
     @PostMapping("/edit/{subjectId}")

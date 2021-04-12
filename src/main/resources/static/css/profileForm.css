@@ -56,22 +56,101 @@ a:hover{
     border-bottom: 4px solid #dededd;
 }
 
-/*Form*/
+/*Content*/
 
-.form{
-    width: 60%;
+h1{
+    text-align: center;
+    font-size: 33px;
+    padding: 0;
+    margin-bottom: 1%;
+}
+
+h2{
+    text-align: center;
+}
+
+/*Coordinator*/
+
+.form-coordinator{
+    width: 70%;
     display: flex;
     flex-direction: column;
-    margin: 3% auto 3% auto;
+    margin: 1% auto 3% auto;
 
     background: #323C48;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 17px;
+    font-size: 20px;
 }
 
-.id{
+h1{
     text-align: center;
+    font-size: 33px;
+    padding: 0;
+    margin-bottom: 1%;
 }
+
+table{
+    margin: 2% 3%;
+}
+
+
+tr {
+    text-align: center;
+    font-size: 12px;
+}
+
+th{
+    font-size: 16px;
+    padding-bottom: 1%;
+    border-bottom: 4px solid #445161;
+}
+
+td{
+    width: 5%;
+    word-break: break-all;
+    border-bottom: 1px solid #445161;
+    padding: 1% 0 1% 0;
+}
+
+/*Profile*/
+
+.form{
+    width: 80%;
+    margin: 1% auto 3% auto;
+
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    font-size: 20px;
+}
+
+.form-control{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    margin: 0 5% 0 5%;
+}
+
+.university{
+    margin: 5%;
+}
+
+.company{
+    margin: 5%;
+}
+
+.grades{
+    width: 100%;
+}
+
+.university span, .company span{
+    font-size: 22px;
+    color: #969692;
+    margin-left: 3%;
+}
+
+
+/*Form*/
 
 .single-row{
     width: 100%;
@@ -83,18 +162,6 @@ a:hover{
     margin: 0 auto 0 auto;
     width: 50%;
     text-align: center;
-}
-
-h1{
-    font-style: normal;
-    font-size: 45px;
-    text-align: center;
-    margin: 5% 0 2% 0;
-}
-
-h2{
-    text-align: center;
-    font-size: 30px;
 }
 
 .row{
@@ -110,16 +177,11 @@ h2{
     margin: 1% 0 1% 0;
 }
 
-.form-txt{
-    font-style: normal;
-    font-size: 20px;
-}
-
 .form-box{
     background: #3B4654;
     color: #92908d;
-    font-size: 22px;
-    width: 50%;
+    font-size: 20px;
+    width: 70%;
     text-align: center;
 
     border: 2px solid #445161;
@@ -136,7 +198,7 @@ h2{
     font-size: 20px;
     border-radius: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 13px 27px;
+    padding: 12px 27px;
     cursor: pointer;
     margin: 0 2% 0 2%;
 }
@@ -170,11 +232,30 @@ h2{
     color: #F4FBFC;
 }
 
+table .btn{
+    border: none;
+    font-size: 14px;
+    border-radius: 15px;
+    padding: 12px 20px;
+    cursor: pointer;
+}
 
+.btn-edit{
+    color: #F4FBFC;
+    background: #04A2B3;
+}
 
+.btn-edit:focus, .btn-edit:hover{
+    background: #038d9b;
+    outline: none;
+}
 
+.btn-delete{
+    background: #7e0f0f;
+    color: #F4FBFC;
+}
 
-
-
-
-
+.btn-delete:focus, .btn-delete:hover{
+    background: #640a0a;
+    outline: none;
+}

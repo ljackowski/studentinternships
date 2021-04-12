@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj ocene</title>
+    <link rel="stylesheet" href="../../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <div class="form">
+        <div>
+            <h1>Dodaj ocene</h1>
+        </div>
+        <form action="#" th:action="@{/grades/edit/${gradeId}}" th:object="${editGradeForm}" method="post">
+            <div>
+                <p th:text="'Id studenta: ' + ${editGradeForm.student.userId}" class="id"></p>
+            </div>
+            <input th:field="*{student.userId}" type="hidden">
+            <div>
+                <p th:text="'Nazwa przedmiotu: ' + ${editGradeForm.subject.subjectName}" class="id"></p>
+            </div>
+            <input th:field="*{subject.subjectName}" type="hidden">
+            <div>
+                <p th:text="'Id oceny: ' + ${editGradeForm.gradeId}" class="id"></p>
+            </div>
+            <input th:field="*{gradeId}" type="hidden">
+            <input th:field="*{subject.subjectId}" type="hidden">
+            <div class="single-row">
+                <div class="column">
+                    <div>
+                        <label for="grade_number" class="form-txt">Ocena: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{grade_number}" type="text" name="grade_number" id="grade_number"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn btn-add">Dodaj</button>
+                <a class="btn btn-cancel" th:href="@{/grades/list}">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
