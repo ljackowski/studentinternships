@@ -91,10 +91,11 @@
                     </div>
                     <div class="column">
                         <div>
-                            <label for="zip-code" class="form-txt">Kod pocztowy: </label>
+                            <label for="apartment-number" class="form-txt">Numer lokalu: </label>
                         </div>
                         <div>
-                            <input th:field="*{address.zipCode}" type="text" id="zip-code" class="form-box">
+                            <input th:field="*{address.apartmentNumber}" type="text" id="apartment-number"
+                                   class="form-box">
                         </div>
                     </div>
                 </div>
@@ -110,10 +111,30 @@
                     </div>
                     <div class="column">
                         <div>
-                            <label for="apartment-number" class="form-txt">Numer lokalu: </label>
+                            <label for="zip-code" class="form-txt">Kod pocztowy: </label>
                         </div>
                         <div>
-                            <input th:field="*{address.apartmentNumber}" type="text" id="apartment-number"
+                            <input th:field="*{address.zipCode}" type="text" id="zip-code" class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="starting-date" class="form-txt">Data rozpoczęcia praktyki: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{startingDate}" type="date" id="starting-date"
+                                   class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="ending-date" class="form-txt">Data zakończenia praktyki: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{endingDate}" type="date"
+                                   id="ending-date"
                                    class="form-box">
                         </div>
                     </div>
@@ -122,19 +143,19 @@
                 <div class="row">
                     <div class="column">
                         <div>
-                            <label for="first-name" class="form-txt">Imię: </label>
+                            <label for="representative-first-name" class="form-txt">Imię: </label>
                         </div>
                         <div>
-                            <input th:field="*{representative.firstName}" type="text" id="first-name"
+                            <input th:field="*{representative.firstName}" type="text" id="representative-first-name"
                                    class="form-box">
                         </div>
                     </div>
                     <div class="column">
                         <div>
-                            <label for="last-name" class="form-txt">Nazwisko: </label>
+                            <label for="representative-last-name" class="form-txt">Nazwisko: </label>
                         </div>
                         <div>
-                            <input th:field="*{representative.lastName}" type="text" id="last-name"
+                            <input th:field="*{representative.lastName}" type="text" id="representative-last-name"
                                    class="form-box">
                         </div>
                     </div>
@@ -142,19 +163,19 @@
                 <div class="row">
                     <div class="column">
                         <div>
-                            <label for="email" class="form-txt">Email: </label>
+                            <label for="representative-email" class="form-txt">Email: </label>
                         </div>
                         <div>
-                            <input th:field="*{representative.email}" type="text" id="email"
+                            <input th:field="*{representative.email}" type="text" id="representative-email"
                                    class="form-box">
                         </div>
                     </div>
                     <div class="column">
                         <div>
-                            <label for="telephone-number" class="form-txt">Numer telefonu: </label>
+                            <label for="representative-telephone-number" class="form-txt">Numer telefonu: </label>
                         </div>
                         <div>
-                            <input th:field="*{representative.telephoneNumber}" type="text" id="telephone-number"
+                            <input th:field="*{representative.telephoneNumber}" type="text" id="representative-telephone-number"
                                    class="form-box">
                         </div>
                     </div>
@@ -162,10 +183,54 @@
                 <div class="single-row">
                     <div class="column">
                         <div>
-                            <label for="position" class="form-txt">Stanowisko: </label>
+                            <label for="representative-position" class="form-txt">Stanowisko: </label>
                         </div>
                         <div>
-                            <input th:field="*{representative.position}" type="text" id="position"
+                            <input th:field="*{representative.position}" type="text" id="representative-position"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <h2>Dane opiekuna</h2>
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-first-name" class="form-txt">Imię: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{guardian.firstName}" type="text"
+                                   id="guardian-first-name"
+                                   class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="guardian-last-name" class="form-txt">Nazwisko: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{guardian.lastName}" type="text"
+                                   id="guardian-last-name"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-email" class="form-txt">Email: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{guardian.email}" type="text" id="guardian-email"
+                                   class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="guardian-telephone-number" class="form-txt">Numer telefonu: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{guardian.telephoneNumber}" type="text"
+                                   id="guardian-telephone-number"
                                    class="form-box">
                         </div>
                     </div>

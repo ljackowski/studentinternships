@@ -60,9 +60,6 @@ public class Student extends User {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<TraineeJournal> traineeJournal;
 
-    public Student() {
-    }
-
     public Student(String email, String password, String role, int studentIndex,
                    String firstName, String lastName, String telephoneNumber,
                    String fieldOfStudy, String degree, double averageGrade, Address address) {
@@ -75,6 +72,9 @@ public class Student extends User {
         this.degree = degree;
         this.averageGrade = averageGrade;
         this.address = address;
+    }
+
+    public Student() {
     }
 
     public Company getCompany() {

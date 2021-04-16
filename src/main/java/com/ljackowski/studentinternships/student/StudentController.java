@@ -3,10 +3,10 @@ package com.ljackowski.studentinternships.student;
 import com.ljackowski.studentinternships.address.AddressService;
 import com.ljackowski.studentinternships.company.CompanyService;
 import com.ljackowski.studentinternships.coordinator.CoordinatorService;
-import com.ljackowski.studentinternships.documentsgeneration.OrganizationAgreement;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
 import com.ljackowski.studentinternships.grade.Grade;
 import com.ljackowski.studentinternships.grade.GradeService;
+import com.ljackowski.studentinternships.guardian.GuardianService;
 import com.ljackowski.studentinternships.intern.Intern;
 import com.ljackowski.studentinternships.intern.InternService;
 import com.ljackowski.studentinternships.representative.RepresentativeService;
@@ -40,6 +40,7 @@ public class StudentController {
     private final AddressService addressService;
     private final CompanyService companyService;
     private final RepresentativeService representativeService;
+    private final GuardianService guardianService;
 
     @Autowired
     ServletContext servletContext;
@@ -47,7 +48,7 @@ public class StudentController {
     @Autowired
     public StudentController(StudentService studentService, CoordinatorService coordinatorService, GradeService gradeService,
                              TemplateEngine templateEngine, TraineeJournalService traineeJournalService, SubjectService subjectService,
-                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService) {
+                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService, GuardianService guardianService) {
         this.studentService = studentService;
         this.coordinatorService = coordinatorService;
         this.gradeService = gradeService;
@@ -58,6 +59,7 @@ public class StudentController {
         this.addressService = addressService;
         this.companyService = companyService;
         this.representativeService = representativeService;
+        this.guardianService = guardianService;
     }
 
     @RequestMapping("/list")
@@ -74,7 +76,7 @@ public class StudentController {
     @GetMapping("/student/{userId}")
     public String studentProfileForm(@PathVariable(name = "userId") long userId, Model model) {
         Student student = studentService.getStudentById(userId);
-        if (student.getRole().equals("STUDENT")){
+        if (student.getRole().equals("STUDENT")) {
             if (student.getCompany() == null) {
                 model.addAttribute("student", student);
                 return "profiles/studentProfileBeforeSettingCompany";
@@ -82,8 +84,7 @@ public class StudentController {
                 model.addAttribute("student", student);
                 return "profiles/studentProfile";
             }
-        }
-        else if (student.getRole().equals("INTERN")){
+        } else if (student.getRole().equals("INTERN")) {
             Intern intern = internService.getInternByStudent(student);
             return "redirect:/interns/intern/" + intern.getInternId();
         }
@@ -109,8 +110,9 @@ public class StudentController {
         companyService.addCompany(student.getCompany());
         addressService.addAddress(student.getCompany().getAddress());
         representativeService.addRepresentative(student.getCompany().getRepresentative());
+        guardianService.addGuardian(student.getCompany().getGuardian());
         studentService.updateStudent(student);
-        return "redirect:/students/studentProfile/" + student.getUserId();
+        return "redirect:/students/student/" + student.getUserId();
     }
 
     @GetMapping("/addStudent")
@@ -218,25 +220,24 @@ public class StudentController {
         return "redirect:/students/traineeJournal/" + userId;
     }
 
-
     //PDFS
 
-    @GetMapping("/organization")
-    public String organizationForm(Model model) {
-        model.addAttribute("studentAgreementForm", new OrganizationAgreement());
-        return "documents/studentAgreementForm";
-    }
-
-    @PostMapping(path = "/organization")
-    public ResponseEntity<?> getPDF(@ModelAttribute OrganizationAgreement organizationAgreement, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    @GetMapping("/trainingDeclaration/{studentId}")
+    public ResponseEntity<?> generateTrainingDeclaration(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generateQuestionnaire(request, response, "Umowa_o_organizacje_praktyki_zawodowej", organizationAgreement);
+        return pdfGeneration.generateStudentPDF(request, response, "documents/trainingDeclaration", studentService.getStudentById(studentId));
     }
 
-    @RequestMapping(path = "/pdf")
+    @GetMapping("/trainingAgreement/{studentId}")
+    public ResponseEntity<?> generateTrainingAgreement(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
+        return pdfGeneration.generateStudentPDF(request, response, "documents/trainingAgreement", studentService.getStudentById(studentId));
+    }
+
+    @RequestMapping("/pdf")
     public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generatePDF(request, response, "Deklaracja_planowanej_praktyki_zawodowej");
+        return pdfGeneration.generatePDF(request, response, "documents/trainingDeclaration");
     }
 
 }

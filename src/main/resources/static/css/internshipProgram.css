@@ -1,0 +1,89 @@
+@font-face {
+    font-family: Liberation;
+    src: url("../fonts/liberation-serif.ttf");
+}
+
+@font-face {
+    font-family: "Liberation Bold";
+    src: url("../fonts/liberation-serif-bold.ttf");
+}
+
+@font-face {
+    font-family: "Liberation Italic";
+    src: url("../fonts/liberation-serif-italic.ttf");
+}
+
+body {
+    font-family: Liberation;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0 16px;
+}
+
+h1{
+    text-align: center;
+    font-family: "Liberation Bold";
+    font-size: 18px;
+}
+
+.under-header{
+    text-align: center;
+}
+
+.under-header p{
+    margin: 5px 0;
+    padding: 0;
+}
+.bold{
+    font-family: "Liberation Bold";
+}
+
+.table{
+    margin: 5px 0;
+    padding: 0;
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.row{
+    display: table-row;
+}
+
+.cell{
+    width: 50%;
+    word-wrap: break-word;
+    text-align: center;
+    display: table-cell;
+    font-size: 12px;
+    border: solid black 1px;
+}
+
+.cell p{
+    padding: 0;
+    margin: 10px 0 10px 5px;
+    text-align: left;
+    font-size: 14px;
+}
+
+table{
+    margin: 100px 0;
+    border-collapse: collapse;
+}
+
+td,th{
+    border: solid black 1px;
+    width: 14%;
+    word-wrap: break-word;
+    text-align: center;
+    padding: 0;
+    height: 60px;
+}
+
+th{
+    font-family: "Liberation Bold";
+}

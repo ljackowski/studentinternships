@@ -5,65 +5,54 @@
 <head>
     <meta charset="UTF-8">
     <title>Deklaracja planowanej praktyki zawodowej</title>
-    <link rel="stylesheet" href="../../static/css/Deklaracja_planowanej_praktyki_zawodowej.css">
-    <link rel="stylesheet" th:href="@{/css/Deklaracja_planowanej_praktyki_zawodowej.css}">
+<!--    <link rel="stylesheet" href="../../static/css/trainingDeclaration.css">-->
+    <link rel="stylesheet" th:href="@{/css/trainingDeclaration.css}">
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <div class="header-logo">
-            <img th:src="@{images/logo_instytutu.png}" src="../../static/images/logo_instytutu.png">
-        </div>
-        <div class="header-text">
-            <p class="pt-16">Uniwersytet w Białymstoku</p>
-            <p class="pt-12">Instytut Informatyki</p>
-            <table class="line">
-                <tr>
-                    <th></th>
-                </tr>
-            </table>
-            <p class="headear-italic">
-                ul. Konstantego Ciołkowskiego 1M, 15-245 Białystok tel. 85 738 83 33
-            </p>
-            <p class="headear-italic">
-                <a href="mailto: instytut-informatyki@uwb.edu.pl ">instytut-informatyki@uwb.edu.pl </a>
-            </p>
-        </div>
-    </div>
     <p class="align-left">Białystok, dnia ..........................................</p>
     <h1>DEKLARACJA PLANOWANEJ PRAKTYKI ZAWODOWEJ</h1>
-    <h1>w roku akademickim 20../ 20..</h1>
+    <h1>w roku akademickim <span class="year" th:text="${year}"></span>/<span class="year" th:text="${year+1}"></span></h1>
     <h1>organizowanej przez Instytut Informatyki Uniwersytetu w Białymstoku</h1>
     <table class="information-table">
         <tr>
             <td><p>Imiona i nazwisko studenta</p></td>
-            <td class="information-table-content"></td>
+            <td class="information-table-content">
+                <span th:text="${student.firstName}"></span>
+                <span th:text="${student.lastName}"></span>
+            </td>
         </tr>
         <tr>
             <td><p>Nr albumu</p></td>
-            <td class="information-table-content"></td>
+            <td class="information-table-content"><span th:text="${student.studentIndex}"></span></td>
         </tr>
         <tr>
-            <td><p>Kierunek i rok studiów</p></td>
-            <td class="information-table-content"></td>
-        </tr>
-        <tr>
-            <td><p>Tryb studiów</p></td>
-            <td class="information-table-content"></td>
+            <td><p>Kierunek i stopień studiów</p></td>
+            <td class="information-table-content">
+                <span th:text="${student.fieldOfStudy}"></span>
+                <span th:text="${student.degree}"></span>
+            </td>
         </tr>
         <tr>
             <td><p>Termin odbywania praktyk</p></td>
             <td class="information-table-content">
-            <p class="starting-date">od: </p>
-            <p class="ending-date">do: </p></td>
+            <p class="starting-date">od: <span th:text="${student.company.startingDate}"></span></p>
+            <p class="ending-date">do: <span th:text="${student.company.endingDate}"></span></p></td>
         </tr>
         <tr>
             <td><p>Nazwa organizatora praktyki</p></td>
-            <td class="information-table-content"></td>
+            <td class="information-table-content"><span th:text="${student.company.companyName}"></span></td>
         </tr>
         <tr>
             <td><p>Adres organizatora praktyki</p></td>
-            <td class="information-table-content"></td>
+            <td class="information-table-content">
+                <span th:text="${student.company.address.city}"></span>
+                ,<span th:text="${student.company.address.street}"></span>
+                ,<span th:text="${student.company.address.buildingNumber}"></span>
+                /<span th:text="${student.company.address.apartmentNumber}"></span>
+                ,<span th:text="${student.company.address.zipCode}"></span>
+                ,<span th:text="${student.company.address.postOffice}"></span>.
+            </td>
         </tr>
     </table>
     <p>Ja niżej podpisany(-na) oświadczam, że:</p>

@@ -4,65 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Umowa_Praktyka_2020</title>
-    <link rel="stylesheet" th:href="@{/css/Umowa_Praktyka_2020.css}">
-    <!--    <link rel="stylesheet" href="../static/css/Umowa_o_organizacje_praktyki_zawodowej.css">-->
+    <link rel="stylesheet" th:href="@{/css/trainingAgreement.css}">
+<!--    <link rel="stylesheet" href="../../static/css/trainingAgreement.css">-->
 </head>
 <body>
 <div class="container">
-    <div class="header">
-        <div class="header-logo">
-            <img th:src="@{images/logo_instytutu.png}" src="../../static/images/logo_instytutu.png">
-        </div>
-        <div class="header-text">
-            <p class="pt-16">Uniwersytet w Białymstoku</p>
-            <p class="pt-12">Instytut Informatyki</p>
-            <table>
-                <tr>
-                    <th></th>
-                </tr>
-            </table>
-            <p class="headear-italic">
-                ul. Konstantego Ciołkowskiego 1M, 15-245 Białystok tel. 85 738 83 33
-            </p>
-            <p class="headear-italic">
-                <a href="mailto: instytut-informatyki@uwb.edu.pl ">instytut-informatyki@uwb.edu.pl </a>
-            </p>
-        </div>
-        <p class="headear-foot">
-            Załącznik nr 1 do Regulaminu studenckich praktyk zawodowych
-        </p>
-    </div>
     <h1>
         UMOWA O ORGANIZACJĘ PRAKTYKI ZAWODOWEJ
     </h1>
     <p>Dnia ................................... r. pomiędzy:</p>
     <p class="inline">
-    <p class="bold">Uniwersytetem w Białymstoku</p>, ul. Świerkowa 20 B, 15-328 Białystok, reprezentowanym
-    na podstawie upoważnienia Rektora przez prof. dr hab. Eugeniusza Zieniuka, Dyrektora Instytutu Informatyki z
-    siedzibą w Białymstoku, ul Ciołkowskiego 1M, 15-245 Białystok
-    zwanym dalej <p class="bold">"Uczelnią"</p>, a
-    </p>
-    <p th:text="${studentAgreementForm.companyName}">...............................................................................................................</p>
+    <p class="bold">Uniwersytetem w Białymstoku</p>, ul. Świerkowa 20 B, 15-328 Białystok, Instytutem Informatyki z
+    siedzibą w Białymstoku, ul Ciołkowskiego 1M, 15-245 Białystok zwanym dalej <p class="bold">"Uczelnią"</p>, a
+    <p th:text="${student.company.companyName}"></p>
     <p>(pełna nazwa instytucji przyjmującej studenta na praktykę)</p>
-    <p>z siedzibą</p>
-    <p>....................................................................................................................................</p>
-    <p>adres instytucji przyjmującej studenta na praktykę)</p>
-    <p>reprezentowanym przez</p>
-    <p>....................................................................................................................................................</p>
+    <p>z siedzibą:
+        <span th:text="${student.company.address.city}"></span>
+        <span th:text="${student.company.address.street}"></span>
+        <span th:text="${student.company.address.buildingNumber}"></span>
+        <span th:text="${student.company.address?.apartmentNumber}"></span>
+        <span th:text="${student.company.address.zipCode}"></span>
+        <span th:text="${student.company.address.postOffice}"></span>
+    </p>
+    <p>(adres instytucji przyjmującej studenta na praktykę)</p>
+    <p>reprezentowanym przez:
+        <span th:text="${student.company.representative.position}"></span>
+        <span th:text="${student.company.representative.firstName}"></span>
+        <span th:text="${student.company.representative.lastName}"></span>
+    </p>
     <p>(stanowisko, imię i nazwisko osoby reprezentującej instytucję)</p>
     <p>zwanym w dalszej części umowy ,,Organizatorem praktyki”.</p>
-    <p class="paragraph">
-        § 1
-    </p>
+    <p class="paragraph">§ 1</p>
     <p>Uczelnia kieruje do Organizatora praktyki niżej wymienionego studenta</p>
-    <p>....................................................................................................................................................</p>
+    <p>
+        <span th:text="${student.firstName}"></span>
+        <span th:text="${student.lastName}"></span>
+        <span th:text="${student.studentIndex}"></span>
+    </p>
     <p>(imię, nazwisko, numer albumu)</p>
     <p>do odbycia nieodpłatnej praktyki zawodowej przewidzianej programem studiów w terminie </p>
-    <p>....................................................................................................................................................</p>
-    <p>(termin odbywania praktyk)</p>
-    <p class="paragraph">
-        § 2
+    <p>
+        od:
+        <span th:text="${student.company.startingDate}"></span>
+        do:
+        <span th:text="${student.company.endingDate}"></span>
     </p>
+    <p>(termin odbywania praktyk)</p>
+    <p class="paragraph">§ 2</p>
     <p>W czasie odbywania praktyki Organizator praktyki:</p>
     <ol class="bracket">
         <li>zapewnia studentowi odpowiednie stanowisko pracy,</li>
@@ -71,36 +59,24 @@
         </li>
         <li>sprawuje nadzór nad właściwym wykonywaniem przez studenta czynności zgodnych z programem praktyki.</li>
     </ol>
-    <p class="paragraph">
-        § 3
-    </p>
+    <p class="paragraph">§ 3</p>
     <p>W celu zapewnienia realizacji powyższych zadań Organizator praktyki wyznacza z grona swoich pracowników opiekuna
         praktyk</p>
-    <p>....................................................................................................................................................</p>
+    <p>
+        <span th:text="${student.company.guardian.firstName}"></span>
+        <span th:text="${student.company.guardian.lastName}"></span>,
+        <span th:text="${student.company.guardian.telephoneNumber}"></span>,
+        <span th:text="${student.company.guardian.email}"></span>.
+    </p>
     <p>(imię i nazwisko, dane kontaktowe: tel., e-mail)</p>
     <p>Uczelnia z grona nauczycieli akademickich wyznacza opiekuna praktyki </p>
-    <p>...................................................................................................................................................</p>
+    <p>
+        <span th:text="${student.coordinator.firstName}"></span>
+        <span th:text="${student.coordinator.lastName}"></span>,
+        <span th:text="${student.coordinator.telephoneNumber}"></span>,
+        <span th:text="${student.coordinator.email}"></span>.
+    </p>
     <p>(imię i nazwisko, dane kontaktowe: tel., e-mail)</p>
-    <div class="header">
-        <div class="header-logo">
-            <img th:src="@{images/logo_instytutu.png}" src="../../static/images/logo_instytutu.png">
-        </div>
-        <div class="header-text">
-            <p class="pt-16">Uniwersytet w Białymstoku</p>
-            <p class="pt-12">Instytut Informatyki</p>
-            <table>
-                <tr>
-                    <th></th>
-                </tr>
-            </table>
-            <p class="headear-italic">
-                ul. Konstantego Ciołkowskiego 1M, 15-245 Białystok tel. 85 738 83 33
-            </p>
-            <p class="headear-italic">
-                <a href="mailto: instytut-informatyki@uwb.edu.pl ">instytut-informatyki@uwb.edu.pl </a>
-            </p>
-        </div>
-    </div>
     <p class="paragraph">§ 4</p>
     <ol>
         <li>
@@ -142,11 +118,11 @@
     <p class="last">Umowę sporządzono w dwóch jednobrzmiących egzemplarzach po jednym dla każdej ze stron.</p>
     <div class="signatures">
         <div class="academy-signature">
-            <p>................</p>
+            <p>.........................................................</p>
             <p>UCZELNIA</p>
         </div>
         <div class="employer-signature">
-            <p>................................................</p>
+            <p>.........................................................</p>
             <p>ORGANIZATOR PRAKTYKI</p>
         </div>
     </div>

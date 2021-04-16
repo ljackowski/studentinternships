@@ -46,7 +46,7 @@
                     <span th:text="${student.address.city}"></span>
                     <span th:text="${student.address.street}"></span>
                     <span th:text="${student.address.buildingNumber}"></span>
-                    <span th:text="${student?.address?.apartmentNumber}"></span>
+                    <span th:text="${student.address?.apartmentNumber}"></span>
                     <span th:text="${student.address.zipCode}"></span>
                     <span th:text="${student.address.postOffice}"></span>
                 </p>
@@ -68,15 +68,22 @@
                     <span th:text="${student.company.address.city}"></span>
                     <span th:text="${student.company.address.street}"></span>
                     <span th:text="${student.company.address.buildingNumber}"></span>
-                    <span th:text="${student?.company?.address?.apartmentNumber}"></span>
+                    <span th:text="${student.company.address?.apartmentNumber}"></span>
                     <span th:text="${student.company.address.zipCode}"></span>
                     <span th:text="${student.company.address.postOffice}"></span>
                 </p>
+                <p>Rozpoczęcie praktyki: <span th:text="${student.company.startingDate}"></span></p>
+                <p>Zakończenie praktyki: <span th:text="${student.company.endingDate}"></span></p>
                 <p>Przedstawiciel firmy:<span th:text="${student.company.representative.firstName}"></span><span
                         th:text="${student.company.representative.lastName}"></span></p>
                 <p>Email:<span th:text="${student.company.representative.email}"></span></p>
                 <p>Numer telefonu:<span th:text="${student.company.representative.telephoneNumber}"></span></p>
-                <p>Numer telefonu:<span th:text="${student.company.representative.position}"></span></p>
+                <p>Stanowisko:<span th:text="${student.company.representative.position}"></span></p>
+                <h2>Opiekun praktyki:</h2>
+                <p>Imię: <span th:text="${student.company.guardian.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${student.company.guardian.lastName}"></span></p>
+                <p>Numer telefonu: <span th:text="${student.company.guardian.telephoneNumber}"></span></p>
+                <p>Email: <span th:text="${student.company.guardian.email}"></span></p>
             </div>
         </div>
         <table>

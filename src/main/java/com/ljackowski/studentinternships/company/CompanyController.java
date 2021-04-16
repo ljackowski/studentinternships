@@ -1,6 +1,7 @@
 package com.ljackowski.studentinternships.company;
 
 import com.ljackowski.studentinternships.address.AddressService;
+import com.ljackowski.studentinternships.guardian.GuardianService;
 import com.ljackowski.studentinternships.representative.RepresentativeService;
 import com.ljackowski.studentinternships.student.Student;
 import com.ljackowski.studentinternships.student.StudentService;
@@ -19,13 +20,15 @@ public class CompanyController {
     private final RepresentativeService representativeService;
     private final AddressService addressService;
     private final StudentService studentService;
+    private final GuardianService guardianService;
 
     @Autowired
-    public CompanyController(CompanyService companyService, RepresentativeService representativeService, AddressService addressService, StudentService studentService) {
+    public CompanyController(CompanyService companyService, RepresentativeService representativeService, AddressService addressService, StudentService studentService, GuardianService guardianService) {
         this.companyService = companyService;
         this.representativeService = representativeService;
         this.addressService = addressService;
         this.studentService = studentService;
+        this.guardianService = guardianService;
     }
 
     @RequestMapping("/list")
@@ -62,6 +65,7 @@ public class CompanyController {
         company.setPartOfInternship(true);
         representativeService.addRepresentative(company.getRepresentative());
         addressService.addAddress(company.getAddress());
+        guardianService.addGuardian(company.getGuardian());
         companyService.addCompany(company);
         return "redirect:/companies/list";
     }
@@ -86,6 +90,7 @@ public class CompanyController {
     public String editCompany(@ModelAttribute Company company) {
         addressService.updateAddress(company.getAddress());
         representativeService.updateRepresentative(company.getRepresentative());
+        guardianService.updateGuardian(company.getGuardian());
         companyService.updateCompany(company);
         return "redirect:/companies/list";
     }

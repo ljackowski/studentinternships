@@ -40,11 +40,6 @@ body{
     width: 82%;
 }
 
-.line{
-    border-bottom: 1px solid black;
-    width: 100%;
-}
-
 .pt-16{
     padding: 0;
     margin: 0;
@@ -55,6 +50,11 @@ body{
     padding: 0;
     margin: 0 0 16px 0;
     font-size: 16px;
+}
+
+table{
+    border-bottom: 1px solid black;
+    width: 100%;
 }
 
 .headear-italic{
@@ -69,70 +69,79 @@ a{
     text-decoration: none;
 }
 
+.headear-foot{
+    padding: 0;
+    margin-top: 32px;
+    font-family: "Liberation Italic";
+    font-size: 12px;
+    text-align: right;
+}
+
 h1{
     text-align: center;
+    font-size: 16px;
     font-family: "Liberation Bold";
-    font-size: 16px;
     padding: 0;
-    margin: 0;
-}
-
-.align-left{
-    font-size: 16px;
-    padding: 0;
-    margin: 48px 0 40px 0;
-    text-align: right;
-}
-
-
-.information-table, td,tr{
-    border: 1px solid black;
-    padding: 0;
-    margin: 0;
-}
-
-.information-table{
-    margin: 32px 0 22px 0;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.information-table-content{
-    width: 65%;
-}
-
-td{
-    height: 28px;
-}
-
-.starting-date, .ending-date{
-    display: inline-block;
-    width: 50%;
-}
-
-.information-table p{
-    padding: 0;
-    margin: 0 0 0 16px;
-}
-
-.signature{
-    padding: 0;
-    margin: 64px 0 0 0;
-    text-align: right;
+    margin: 24px 0 32px 0;
 }
 
 p{
-    padding: 0;
-    margin: 1px 0 1px 0;
-}
-
-ol, ul{
+    justify-content: center;
     margin: 0;
+    padding: 0;
 }
 
-li{
-    margin: 1px 0 1px 0;
+.paragraph{
+    margin: 10px 0;
+    text-align: center;
 }
 
+.bold{
+    padding: 0;
+    margin: 0;
+    font-family: "Liberation Bold";
+    display: inline-block;
+}
 
+.inline{
+    display: inline-block;
+    justify-content: center;
+}
 
+.bracket {
+    counter-reset: list;
+}
+.bracket > li {
+    list-style: none;
+}
+
+.bracket > li:before {
+    content: counter(list, decimal) ") ";
+    counter-increment: list;
+}
+
+.employer-signature, .academy-signature{
+    padding: 0;
+    display: inline-block;
+}
+
+.last{
+    padding: 0;
+    margin-bottom: 128px;
+}
+
+.academy-signature{
+    width: 50%;
+    justify-content: center;
+    text-align: center;
+}
+
+.employer-signature{
+    width: 50%;
+    text-align: center;
+    justify-content: center;
+}
+
+.signatures{
+    text-align: center;
+}

@@ -1,0 +1,94 @@
+@font-face {
+    font-family: Liberation;
+    src: url("../fonts/liberation-serif.ttf");
+}
+@font-face {
+    font-family: "Liberation Bold";
+    src: url("../fonts/liberation-serif-bold.ttf");
+}
+@font-face {
+    font-family: "Liberation Italic";
+    src: url("../fonts/liberation-serif-italic.ttf");
+}
+
+body{
+    font-family: Liberation;
+    font-size: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    margin: 0 16px;
+}
+
+h1{
+    text-align: center;
+    font-size: 24px;
+    font-family: "Liberation Bold";
+    margin: 3px 0;
+    padding: 0;
+}
+
+.under-header{
+    text-align: center;
+}
+
+.under-header p{
+    margin: 3px 0;
+    padding: 0;
+}
+
+.student-credentials, .company-credentials, .representative-credentials, .coordinator-credentials{
+    margin: 25px 0;
+    padding: 0;
+}
+
+.student-credentials p, .company-credentials p, .representative-credentials p, .coordinator-credentials p{
+    margin: 3px 0;
+    padding: 0;
+}
+
+.line{
+    border-bottom: solid black 1px;
+    padding: 0;
+    margin: 2px 0;
+}
+
+.extra-information{
+    font-family: "Liberation Italic";
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+}
+
+.extra-information p{
+    margin: 0 0 2px 0;
+    padding: 0;
+}
+
+.signatures{
+    display: table;
+    width: 100%;
+    margin: 75px 0 30px 0;
+    border-collapse: collapse;
+}
+
+.row{
+    display: table-row;
+}
+
+.cell{
+    width: 50%;
+    word-wrap: break-word;
+    text-align: center;
+    display: table-cell;
+    font-size: 12px;
+    border: solid black 1px;
+}
+
+.cell p{
+    margin-top: 50px;
+    margin-bottom: 0;
+    padding: 0;
+}

@@ -2,11 +2,14 @@ package com.ljackowski.studentinternships.company;
 
 
 import com.ljackowski.studentinternships.address.Address;
+import com.ljackowski.studentinternships.guardian.Guardian;
 import com.ljackowski.studentinternships.intern.Intern;
 import com.ljackowski.studentinternships.representative.Representative;
 import com.ljackowski.studentinternships.student.Student;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -27,6 +30,14 @@ public class Company{
     @Column(name = "free_spaces")
     private int freeSpaces;
 
+    @Column(name = "starting_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate startingDate;
+
+    @Column(name = "ending_date")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endingDate;
+
     @OneToMany(mappedBy = "company")
     private List<Intern> internList;
 
@@ -41,15 +52,46 @@ public class Company{
     @OneToOne(mappedBy = "company")
     private Student student;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "guardian_id")
+    private Guardian guardian;
+
     public Company() {
     }
 
-    public Company(String companyName, boolean PartOfInternship, int freeSpaces, Address address, Representative representative) {
+    public Company(String companyName, boolean PartOfInternship, int freeSpaces, LocalDate startingDate, LocalDate endingDate, Address address, Representative representative, Guardian guardian) {
         this.companyName = companyName;
         this.partOfInternship = PartOfInternship;
         this.freeSpaces = freeSpaces;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
         this.address = address;
         this.representative = representative;
+        this.guardian = guardian;
+    }
+
+    public LocalDate getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(LocalDate startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public LocalDate getEndingDate() {
+        return endingDate;
+    }
+
+    public void setEndingDate(LocalDate endingDate) {
+        this.endingDate = endingDate;
+    }
+
+    public Guardian getGuardian() {
+        return guardian;
+    }
+
+    public void setGuardian(Guardian guardian) {
+        this.guardian = guardian;
     }
 
     public Student getStudent() {

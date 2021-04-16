@@ -67,13 +67,25 @@
                     <span th:text="${intern.company.address.city}"></span>
                     <span th:text="${intern.company.address.street}"></span>
                     <span th:text="${intern.company.address.buildingNumber}"></span>
-                    <span th:text="${intern.company?.address?.apartmentNumber}"></span>
+                    <span th:text="${intern.company.address?.apartmentNumber}"></span>
                     <span th:text="${intern.company.address.zipCode}"></span>
                     <span th:text="${intern.company.address.postOffice}"></span>
                 </p>
-                <p>Przedstawiciel firmy:<span th:text="${intern.company.representative.firstName} + ${intern.company.representative.lastName}"></span></p>
+                <p>Rozpoczęcie praktyki: <span th:text="${intern.company.startingDate}"></span></p>
+                <p>Zakończenie praktyki: <span th:text="${intern.company.endingDate}"></span></p>
+                <p>
+                    Przedstawiciel firmy:
+                    <span th:text="${intern.company.representative.firstName}"></span>
+                    <span th:text="${intern.company.representative.lastName}"></span>
+                </p>
                 <p>Email:<span th:text="${intern.company.representative.email}"></span></p>
                 <p>Numer telefonu:<span th:text="${intern.company.representative.telephoneNumber}"></span></p>
+                <p>Stanowisko:<span th:text="${intern.company.representative.position}"></span></p>
+                <h2>Opiekun praktyki:</h2>
+                <p>Imię: <span th:text="${intern.company.guardian.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${intern.company.guardian.lastName}"></span></p>
+                <p>Numer telefonu: <span th:text="${intern.company.guardian.telephoneNumber}"></span></p>
+                <p>Email: <span th:text="${intern.company.guardian.email}"></span></p>
             </div>
         </div>
         <table>
