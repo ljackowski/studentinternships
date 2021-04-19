@@ -22,6 +22,9 @@ public class Guardian {
     @Column(name = "telephone_number")
     private String telephoneNumber;
 
+    @Column(name = "position")
+    private String position;
+
     @Column(name = "email")
     private String email;
 
@@ -31,11 +34,28 @@ public class Guardian {
     public Guardian() {
     }
 
-    public Guardian(String firstName, String lastName, String telephoneNumber, String email) {
+    public Guardian(String firstName, String lastName, String telephoneNumber, String email, String position) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
         this.email = email;
+        this.position = position;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public Long getGuardianId() {

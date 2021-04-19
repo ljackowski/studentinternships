@@ -61,7 +61,7 @@
                 <td th:text="${intern.student.fieldOfStudy}"></td>
                 <td th:text="${intern.reserve}"></td>
                 <td><a class="btn btn-profile" th:href="@{/interns/intern/{internId}(internId=${intern.internId})}">Profil</a></td>
-                <!--                <td><a class="btn btn-edit" th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a></td>-->
+                <!--                <td><a class="btn btn-edit" th:href="@{/students/edit/{userId}(userId=${object.userId})}">Edytuj</a></td>-->
                 <td><a class="btn btn-delete" th:href="@{/interns/delete/(internId=${intern.internId})}">Usuń</a></td>
             </tr>
         </table>

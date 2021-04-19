@@ -12,20 +12,18 @@ import java.util.List;
 public class Coordinator extends User {
 
     @Column(name = "first_name")
-    @NotEmpty
     private String firstName;
 
-    @Column(name = "last_name")
-    @NotEmpty
     private String lastName;
 
     @Column(name = "field_of_study")
-    @NotEmpty
     private String fieldOfStudy;
 
     @Column(name = "telephone_number")
-    @NotEmpty
     private String telephoneNumber;
+
+    @Column(name = "position")
+    private String position;
 
     @OneToMany(mappedBy = "coordinator", cascade = CascadeType.PERSIST)
     private List<Student> students;
@@ -34,12 +32,21 @@ public class Coordinator extends User {
     }
 
     public Coordinator(String email, String password, String role, String firstName,
-                       String lastName, String fieldOfStudy, String telephoneNumber) {
+                       String lastName, String fieldOfStudy, String telephoneNumber, String position) {
         super(email, password, role);
         this.firstName = firstName;
         this.lastName = lastName;
         this.fieldOfStudy = fieldOfStudy;
         this.telephoneNumber = telephoneNumber;
+        this.position = position;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 
     public List<Student> getStudents() {

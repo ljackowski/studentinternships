@@ -52,21 +52,21 @@
                 <th colspan="3">Akcja</th>
             </tr>
             <tr th:each="student : ${students}">
-                <td th:text="${student.firstName}"></td>
-                <td th:text="${student.lastName}"></td>
-                <td th:text="${student.email}"></td>
-                <td th:text="${student.telephoneNumber}"></td>
-                <td th:text="${student.studentIndex}"></td>
-                <td th:text="${student.fieldOfStudy}"></td>
-                <td th:text="${student.degree}"></td>
-                <td th:text="${student.averageGrade}"></td>
-                <td th:text="${student?.coordinator?.firstName}"></td>
-                <td th:text="${student?.coordinator?.lastName}"></td>
-                <td><a class="btn btn-profile" th:href="@{/students/student/{userId}(userId=${student.userId})}">Profil</a></td>
+                <td th:text="${object.firstName}"></td>
+                <td th:text="${object.lastName}"></td>
+                <td th:text="${object.email}"></td>
+                <td th:text="${object.telephoneNumber}"></td>
+                <td th:text="${object.studentIndex}"></td>
+                <td th:text="${object.fieldOfStudy}"></td>
+                <td th:text="${object.degree}"></td>
+                <td th:text="${object.averageGrade}"></td>
+                <td th:text="${object?.coordinator?.firstName}"></td>
+                <td th:text="${object?.coordinator?.lastName}"></td>
+                <td><a class="btn btn-profile" th:href="@{/students/student/{userId}(userId=${object.userId})}">Profil</a></td>
                 <td><a class="btn btn-edit"
-                       th:href="@{/students/edit/{userId}(userId=${student.userId})}">Edytuj</a>
+                       th:href="@{/students/edit/{userId}(userId=${object.userId})}">Edytuj</a>
                 </td>
-                <td><a class="btn btn-delete" th:href="@{/students/delete/(userId=${student.userId})}">Usuń</a></td>
+                <td><a class="btn btn-delete" th:href="@{/students/delete/(userId=${object.userId})}">Usuń</a></td>
             </tr>
         </table>
     </div>

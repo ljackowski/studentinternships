@@ -32,15 +32,15 @@
             <h1>Dodaj wpis do dziennka</h1>
         </div>
         <form action="#"
-              th:action="@{/students/addEntry/{studentId}(studentId=${addNewEntryToTraineeJournalForm.student.userId})}"
-              th:object="${addNewEntryToTraineeJournalForm}" method="post">
+              th:action="@{/interns/addEntry/{internId}(internId=${journal.student.intern.internId})}"
+              th:object="${journal}" method="post">
             <div class="row">
                 <div class="column">
                     <div>
                         <label for="company-name" class="form-txt">Dzień: </label>
                     </div>
                     <div>
-                        <input th:value="*{day}" th:field="*{day}" type="date" id="company-name"
+                        <input th:field="*{day}" type="date" id="company-name"
                                class="form-box">
                     </div>
                 </div>
@@ -85,7 +85,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a class="btn btn-cancel" th:href="@{/representatives/list}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/interns/internJournal/{internId}(internId=${journal.student.intern.internId})}">Anuluj</a>
             </div>
         </form>
     </div>

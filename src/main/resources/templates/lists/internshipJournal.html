@@ -36,7 +36,7 @@
     <h1>
         Dziennik praktyk
     </h1>
-    <a th:href="@{/students/addEntry/{userId}(userId=${userId})}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/interns/addEntry/{internId}(internId=${internId})}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -52,9 +52,8 @@
                 <td th:text="${entry.endingTime}"></td>
                 <td th:text="${entry.hours}"></td>
                 <td th:text="${entry.description}"></td>
-                <td><a th:href="@{/students/editEntry/{entryId}(entryId=${entry.entryId})}"
-                       class="btn btn-edit">Edytuj</a></td>
-                <td><a th:href="@{/students/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
+                <td><a th:href="@{/interns/editEntry/{entryId}(entryId=${entry.entryId})}" class="btn btn-edit">Edytuj</a></td>
+                <td><a th:href="@{/interns/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
                 </td>
             </tr>
         </table>

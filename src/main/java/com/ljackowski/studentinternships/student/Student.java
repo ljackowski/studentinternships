@@ -5,13 +5,10 @@ import com.ljackowski.studentinternships.company.Company;
 import com.ljackowski.studentinternships.coordinator.Coordinator;
 import com.ljackowski.studentinternships.grade.Grade;
 import com.ljackowski.studentinternships.intern.Intern;
-import com.ljackowski.studentinternships.traineejournal.TraineeJournal;
+import com.ljackowski.studentinternships.journal.Journal;
 import com.ljackowski.studentinternships.user.User;
-import com.sun.istack.Nullable;
-import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +55,7 @@ public class Student extends User {
     private List<Grade> gradeList = new ArrayList<>();
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<TraineeJournal> traineeJournal;
+    private List<Journal> journal;
 
     public Student(String email, String password, String role, int studentIndex,
                    String firstName, String lastName, String telephoneNumber,
@@ -97,12 +94,12 @@ public class Student extends User {
         this.gradeList.add(grade);
     }
 
-    public List<TraineeJournal> getTraineeJournal() {
-        return traineeJournal;
+    public List<Journal> getTraineeJournal() {
+        return journal;
     }
 
-    public void setTraineeJournal(List<TraineeJournal> traineeJournal) {
-        this.traineeJournal = traineeJournal;
+    public void setTraineeJournal(List<Journal> journal) {
+        this.journal = journal;
     }
 
     public List<Grade> getGradeList() {

@@ -84,22 +84,22 @@ public class GradeController {
 //
 //    @PostMapping("/editInternGrade/{gradeId}")
 //    public String editInternGrade(@ModelAttribute Grade grade) {
-//        Student student = studentService.getStudentById(grade.getStudent().getUserId());
-//        Intern inter = internService.getInternByStudent(student);
+//        Student object = studentService.getStudentById(grade.getStudent().getUserId());
+//        Intern inter = internService.getInternByStudent(object);
 //        System.out.println(inter);
 //        Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
 //        double averageGrade = 0;
-//        if (student.getGradeList().size() != 0){
-//            for (Grade grade1 : student.getGradeList()) {
+//        if (object.getGradeList().size() != 0){
+//            for (Grade grade1 : object.getGradeList()) {
 //                if (grade1.getGradeId().equals(grade.getGradeId())){
 //                    grade1.setGrade_number(grade.getGrade_number());
 //                }
 //                averageGrade += grade1.getGrade_number();
 //            }
-//            averageGrade /= student.getGradeList().size();
+//            averageGrade /= object.getGradeList().size();
 //        }
-//        student.setAverageGrade(averageGrade);
-//        studentService.updateStudent(student);
+//        object.setAverageGrade(averageGrade);
+//        studentService.updateStudent(object);
 //        subjectService.updateSubject(subject);
 //        gradeService.updateGrade(grade);
 //        return "redirect:/interns/intern/" + inter.getInternId();

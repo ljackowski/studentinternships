@@ -59,14 +59,14 @@
                     <th>Średnia</th>
                 </tr>
                 <tr th:each="student : ${coordinator.students}">
-                    <td th:text="${student.firstName}">s</td>
-                    <td th:text="${student.lastName}">s</td>
-                    <td th:text="${student.email}">s</td>
-                    <td th:text="${student.telephoneNumber}">s</td>
-                    <td th:text="${student.studentIndex}">s</td>
-                    <td th:text="${student.fieldOfStudy}">s</td>
-                    <td th:text="${student.degree}">s</td>
-                    <td th:text="${student.averageGrade}"></td>
+                    <td th:text="${object.firstName}">s</td>
+                    <td th:text="${object.lastName}">s</td>
+                    <td th:text="${object.email}">s</td>
+                    <td th:text="${object.telephoneNumber}">s</td>
+                    <td th:text="${object.studentIndex}">s</td>
+                    <td th:text="${object.fieldOfStudy}">s</td>
+                    <td th:text="${object.degree}">s</td>
+                    <td th:text="${object.averageGrade}"></td>
                 </tr>
             </table>
         </div>

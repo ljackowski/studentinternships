@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/css/bill.css">
-    <link rel="stylesheet" th:href="@{/css/bill.css}">
+    <link rel="stylesheet" href="../../static/css/internshipBill.css">
+    <link rel="stylesheet" th:href="@{/css/internshipBill.css}">
 </head>
 <body>
 <div class="container">
@@ -23,13 +23,20 @@
         </p>
     </div>
     <div class="student-credentials">
-        <p>Nazwisko: <span></span></p>
-        <p>Imię/Imiona: <span></span></p>
+        <p>Nazwisko: <span th:text="${intern.student.lastName}"></span></p>
+        <p>Imię/Imiona: <span th:text="${intern.student.firstName}"></span></p>
         <p>Imię ojca: <span></span></p>
         <p>Imię matki: <span></span></p>
         <p>Miejsce i data urodzenia: <span></span></p>
         <p>Numer PESEL: <span></span></p>
-        <p>Adres: <span></span></p>
+        <p>Adres:
+            <span th:text="${intern.student.address.city}"></span>
+            <span th:text="${intern.student.address.street}"></span>
+            <span th:text="${intern.student.address.buildingNumber}"></span>
+            <span th:text="${intern.student.address?.apartmentNumber}"></span>
+            <span th:text="${intern.student.address.zipCode}"></span>
+            <span th:text="${intern.student.address.postOffice}"></span>
+        </p>
         <p>Numer rachunku bankowego: <span></span></p>
         <p>Urząd skarbowy: <span></span> za wykonanie umowy zlecenia wynagrodzenie w kwocie: <span></span></p>
     </div>

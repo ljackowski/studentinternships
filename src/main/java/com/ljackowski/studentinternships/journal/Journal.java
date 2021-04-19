@@ -1,18 +1,15 @@
-package com.ljackowski.studentinternships.traineejournal;
+package com.ljackowski.studentinternships.journal;
 
 import com.ljackowski.studentinternships.student.Student;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
-@Table(name = "traineejournal")
-public class TraineeJournal {
+@Table(name = "journals")
+public class Journal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -39,10 +36,10 @@ public class TraineeJournal {
     @JoinColumn(name = "student_id")
     private Student student;
 
-    public TraineeJournal() {
+    public Journal() {
     }
 
-    public TraineeJournal(Long entryId, LocalDate day, LocalTime startingTime, LocalTime endingTime, double hours, String description) {
+    public Journal(Long entryId, LocalDate day, LocalTime startingTime, LocalTime endingTime, double hours, String description) {
         this.entryId = entryId;
         this.day = day;
         this.startingTime = startingTime;
@@ -107,7 +104,4 @@ public class TraineeJournal {
         this.description = description;
     }
 
-    public void addStudentToEntry(Student student) {
-        this.student = student;
-    }
 }

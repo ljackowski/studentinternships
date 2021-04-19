@@ -1,5 +1,7 @@
 package com.ljackowski.studentinternships.student;
 
+import com.itextpdf.html2pdf.ConverterProperties;
+import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.ljackowski.studentinternships.address.AddressService;
 import com.ljackowski.studentinternships.company.CompanyService;
 import com.ljackowski.studentinternships.coordinator.CoordinatorService;
@@ -12,8 +14,8 @@ import com.ljackowski.studentinternships.intern.InternService;
 import com.ljackowski.studentinternships.representative.RepresentativeService;
 import com.ljackowski.studentinternships.subject.Subject;
 import com.ljackowski.studentinternships.subject.SubjectService;
-import com.ljackowski.studentinternships.traineejournal.TraineeJournal;
-import com.ljackowski.studentinternships.traineejournal.TraineeJournalService;
+import com.ljackowski.studentinternships.journal.Journal;
+import com.ljackowski.studentinternships.journal.JournalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,6 @@ import org.thymeleaf.TemplateEngine;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -34,32 +35,32 @@ public class StudentController {
     private final CoordinatorService coordinatorService;
     private final GradeService gradeService;
     private final TemplateEngine templateEngine;
-    private final TraineeJournalService traineeJournalService;
+    private final JournalService journalService;
     private final SubjectService subjectService;
     private final InternService internService;
     private final AddressService addressService;
     private final CompanyService companyService;
     private final RepresentativeService representativeService;
     private final GuardianService guardianService;
-
-    @Autowired
-    ServletContext servletContext;
+    private final ServletContext servletContext;
 
     @Autowired
     public StudentController(StudentService studentService, CoordinatorService coordinatorService, GradeService gradeService,
-                             TemplateEngine templateEngine, TraineeJournalService traineeJournalService, SubjectService subjectService,
-                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService, GuardianService guardianService) {
+                             TemplateEngine templateEngine, JournalService journalService, SubjectService subjectService,
+                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService,
+                             GuardianService guardianService, ServletContext servletContext) {
         this.studentService = studentService;
         this.coordinatorService = coordinatorService;
         this.gradeService = gradeService;
         this.templateEngine = templateEngine;
-        this.traineeJournalService = traineeJournalService;
+        this.journalService = journalService;
         this.subjectService = subjectService;
         this.internService = internService;
         this.addressService = addressService;
         this.companyService = companyService;
         this.representativeService = representativeService;
         this.guardianService = guardianService;
+        this.servletContext = servletContext;
     }
 
     @RequestMapping("/list")
@@ -123,7 +124,7 @@ public class StudentController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
-        student.setRole("student".toUpperCase());
+        student.setRole("object".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         String email = student.getEmail();
@@ -141,7 +142,6 @@ public class StudentController {
     public String deleteStudentById(@RequestParam("userId") long userId) {
         internService.deleteInternById(studentService.getStudentById(userId).getIntern().getInternId());
         studentService.deleteStudentById(userId);
-
         return "redirect:/students/list";
     }
 
@@ -155,7 +155,7 @@ public class StudentController {
     @PostMapping("/edit/{userId}")
     public String editStudent(@ModelAttribute Student student) {
         Student student1 = studentService.getStudentById(student.getUserId());
-        student.setRole("student".toUpperCase());
+        student.setRole("object".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         student.setCompany(student1.getCompany());
@@ -174,70 +174,73 @@ public class StudentController {
         return "redirect:/students/list";
     }
 
-    //Student trainee journal
+    //Trainee journal
 
     @GetMapping("/traineeJournal/{userId}")
-    public String getTraineeJournalByStudentId(@PathVariable(name = "userId") long studentId, Model model) {
-        model.addAttribute("traineeJournal", traineeJournalService.getAllEntriesOfStudent(studentId));
+    public String getTraineeJournalByStudentId(@PathVariable(name = "userId") long userId, Model model) {
+        model.addAttribute("journal", journalService.getAllEntriesOfStudent(userId));
         return "lists/traineeJournal";
     }
 
     @GetMapping("/addEntry/{userId}")
-    public String addEntryForm(Model model, @PathVariable(name = "userId") long studentId) {
-        Student student = studentService.getStudentById(studentId);
-        TraineeJournal traineeJournal = new TraineeJournal();
-        traineeJournal.setStudent(student);
-        model.addAttribute("addNewEntryToTraineeJournalForm", traineeJournal);
-        return "forms/addNewEntryToTraineeJournalForm";
+    public String addEntryForm(Model model, @PathVariable(name = "userId") long userId) {
+        Journal journal = new Journal();
+        journal.setStudent(studentService.getStudentById(userId));
+        model.addAttribute("journal", journal);
+        return "forms/addNewEntryToStudentJournalForm";
     }
 
     @PostMapping("/addEntry/{userId}")
-    public String addEntry(@ModelAttribute TraineeJournal traineeJournal, @PathVariable(name = "userId") long studentId) {
-        Student student = studentService.getStudentById(studentId);
-        traineeJournal.addStudentToEntry(student);
-        traineeJournalService.addEntry(traineeJournal);
-        return "redirect:/students/traineeJournal/{userId}";
+    public String addEntry(@ModelAttribute Journal journal, @PathVariable(name = "userId") long userId) {
+        journal.setStudent(studentService.getStudentById(userId));
+        journalService.addEntry(journal);
+        return "redirect:/students/traineeJournal/" + userId;
     }
 
     @GetMapping("/deleteEntry")
     public String deleteStudentEntryById(@RequestParam("entryId") long entryId) {
-        long userId = traineeJournalService.getEntryById(entryId).getStudent().getUserId();
-        traineeJournalService.deleteEntryById(entryId);
+        long userId = journalService.getEntryById(entryId).getStudent().getUserId();
+        journalService.deleteEntryById(entryId);
         return "redirect:/students/traineeJournal/" + userId;
     }
 
     @GetMapping("/editEntry/{entryId}")
     public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
-        TraineeJournal traineeJournal = traineeJournalService.getEntryById(entryId);
-        model.addAttribute("editStudentEntryForm", traineeJournal);
+        model.addAttribute("editStudentEntryForm", journalService.getEntryById(entryId));
         return "forms/editStudentEntryForm";
     }
 
     @PostMapping("/editEntry/{entryId}")
-    public String editStudentEntry(@ModelAttribute TraineeJournal traineeJournal) {
-        long userId = traineeJournalService.getEntryById(traineeJournal.getEntryId()).getStudent().getUserId();
-        traineeJournalService.editEntry(traineeJournal);
+    public String editStudentEntry(@ModelAttribute Journal journal) {
+        long userId = journalService.getEntryById(journal.getEntryId()).getStudent().getUserId();
+        journalService.editEntry(journal);
         return "redirect:/students/traineeJournal/" + userId;
     }
 
     //PDFS
 
     @GetMapping("/trainingDeclaration/{studentId}")
-    public ResponseEntity<?> generateTrainingDeclaration(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generateStudentPDF(request, response, "documents/trainingDeclaration", studentService.getStudentById(studentId));
+    public ResponseEntity<?> generateTrainingDeclaration(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) {
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
+        return pdfGeneration.generateStudentPDF("documents/trainingDeclaration", studentService.getStudentById(studentId));
     }
 
     @GetMapping("/trainingAgreement/{studentId}")
-    public ResponseEntity<?> generateTrainingAgreement(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generateStudentPDF(request, response, "documents/trainingAgreement", studentService.getStudentById(studentId));
+    public ResponseEntity<?> generateTrainingAgreement(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) {
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
+        return pdfGeneration.generateStudentPDF("documents/trainingAgreement", studentService.getStudentById(studentId));
     }
 
-    @RequestMapping("/pdf")
-    public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext);
-        return pdfGeneration.generatePDF(request, response, "documents/trainingDeclaration");
+    @GetMapping("/trainingJournal/{studentId}")
+    public ResponseEntity<?> generateTrainingJournal(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) {
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
+        return pdfGeneration.generateStudentPDF("documents/journal", studentService.getStudentById(studentId));
     }
+//
+//    @RequestMapping("/pdf")
+//    public ResponseEntity<?> getPDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, byteArrayOutputStream, converterProperties);
+//        return pdfGeneration.generatePDF(request, response, "documents/trainingDeclaration");
+//    }
 
 }
