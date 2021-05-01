@@ -17,31 +17,31 @@
         <div class="form-control">
             <div class="university">
                 <h2>Dane studenta</h2>
-                <p>Imię: <span th:text="${object.firstName}"></span></p>
-                <p>Nazwisko: <span th:text="${object.lastName}"></span></p>
+                <p>Imię: <span th:text="${student.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${student.lastName}"></span></p>
                 <p>Adres:
-                    <span th:text="${object.address.city}"></span>
-                    <span th:text="${object.address.street}"></span>
-                    <span th:text="${object.address.buildingNumber}"></span>
-                    <span th:text="${object?.address?.apartmentNumber}"></span>
-                    <span th:text="${object.address.zipCode}"></span>
-                    <span th:text="${object.address.postOffice}"></span>
+                    <span th:text="${student.address.city}"></span>
+                    <span th:text="${student.address.street}"></span>
+                    <span th:text="${student.address.buildingNumber}"></span>
+                    <span th:text="${student?.address?.apartmentNumber}"></span>
+                    <span th:text="${student.address.zipCode}"></span>
+                    <span th:text="${student.address.postOffice}"></span>
                 </p>
-                <p>Email: <span th:text="${object.email}"></span></p>
-                <p>Numer telefonu: <span th:text="${object.telephoneNumber}"></span></p>
-                <p>Index: <span th:text="${object.studentIndex}"></span></p>
-                <p>Kierunek: <span th:text="${object.fieldOfStudy}"></span></p>
-                <p>Średnia ocen: <span th:text="${object.averageGrade}"></span></p>
+                <p>Email: <span th:text="${student.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${student.telephoneNumber}"></span></p>
+                <p>Index: <span th:text="${student.studentIndex}"></span></p>
+                <p>Kierunek: <span th:text="${student.fieldOfStudy}"></span></p>
+                <p>Średnia ocen: <span th:text="${student.averageGrade}"></span></p>
                 <h2>Dane Koordynatora:</h2>
-                <p>Koordynator: <span th:text="${object?.coordinator?.firstName}"></span><span
-                        th:text="${object?.coordinator?.lastName}"></span></p>
-                <p>Email: <span th:text="${object?.coordinator?.email}"></span></p>
-                <p>Numer telefonu: <span th:text="${object?.coordinator?.telephoneNumber}"></span></p>
+                <p>Koordynator: <span th:text="${student?.coordinator?.firstName}"></span><span
+                        th:text="${student?.coordinator?.lastName}"></span></p>
+                <p>Email: <span th:text="${student?.coordinator?.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${student?.coordinator?.telephoneNumber}"></span></p>
             </div>
             <div class="company">
                 <div class="form-container">
-                    <form action="#" th:action="@{/students/student/{userId}(userId=${object.userId})}"
-                          th:object="${object}"
+                    <form action="#" th:action="@{/students/student/{userId}(userId=${student.userId})}"
+                          th:object="${student}"
                           method="post">
                         <h2>Dane Przedsiębiorstwa</h2>
                         <div class="single-row">

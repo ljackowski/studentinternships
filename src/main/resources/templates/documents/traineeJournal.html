@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dziennik stażu</title>
+<!--    <link rel="stylesheet" href="../../static/css/traineeJournal.css">-->
+    <link rel="stylesheet" th:href="@{/css/traineeJournal.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Dziennik praktyk</h1>
+    <p class="student-fl-name">
+        <span th:text="${student.firstName}"></span>
+        <span th:text="${student.lastName}"></span>
+    </p>
+    <p class="student-index">
+        Nr albumu:
+        <span th:text="${student.studentIndex}"></span>
+    </p>
+    <p class="university-seal">
+        Pieczęć
+    </p>
+    <div class="director-signature">
+        <div class="row">
+            <div class="cell">
+                <p>..................................................</p>
+                <p>Podpis Dyrektora</p>
+            </div>
+        </div>
+    </div>
+    <div class="opinion">
+        <div class="company-seal">
+            <p>.............................................</p>
+            <p>Pieczątka</p>
+        </div>
+        <h2>Opinia o Praktykancie</h2>
+        <div class="credentials">
+            <p>Imię i nazwisko studenta:</p>
+            <p>
+                <span th:text="${student.firstName}"></span>
+                <span th:text="${student.lastName}"></span>
+            </p>
+            <p>Instytucja, w której odbyto praktykę studencką:</p>
+            <p><span th:text="${student.company.companyName}"></span></p>
+            <p>
+                Termin odbywania praktyki:
+                <span th:text="${student.company.startingDate}"></span>,
+                <span th:text="${student.company.endingDate}"></span>
+            </p>
+            <p>
+                Imię i nazwisko zakładowego opiekuna studenta:
+            </p>
+            <p>
+                <span th:text="${student.company.guardian.firstName}"></span>
+                <span th:text="${student.company.guardian.lastName}"></span>
+            </p>
+        </div>
+        <div class="grade">
+            <p>Ocena merytorycznego przygotowania studenta do zajęć wypełnianych podczas praktyki:</p>
+            <p>.............................................................................................................................................................</p>
+            <p>.............................................................................................................................................................</p>
+            <p>.............................................................................................................................................................</p>
+            <p>.............................................................................................................................................................</p>
+            <p> Ogólna ocena studenta: </p>
+            <p class="grades">(stopnie: bdb, +db, db, +dst, dst, ndst)</p>
+        </div>
+    </div>
+    <div class="table">
+        <table>
+            <tr>
+                <th>
+                    <p>Dzień</p>
+                </th>
+                <th>
+                    <p>Godziny pracy od - do</p>
+                </th>
+                <th>
+                    <p>Liczba godzin pracy</p>
+                </th>
+                <th>
+                    <p>Uwagi, obserwacje i wnioski studenta co do wykonywanej pracy</p>
+                </th>
+            </tr>
+            <tr th:each="entry : ${student.journal}">
+                <td class="day-column">
+                    <p><span th:text="${entry.day}"></span></p>
+                </td>
+                <td class="start-end-column">
+                    <p>
+                        <span th:text="${entry.startingTime}"></span> - <span th:text="${entry.endingTime}"></span>
+                    </p>
+                </td>
+                <td class="hours-column">
+                    <p><span th:text="${entry.hours}"></span></p>
+                </td>
+                <td class="description-column">
+                    <p><span th:text="${entry.description}"></span></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

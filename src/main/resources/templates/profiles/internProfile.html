@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Mój profil</title>
+    <title>Profil stażysty</title>
     <link rel="stylesheet" href="../../static/css/profileForm.css">
     <link rel="stylesheet" th:href="@{/css/profileForm.css}">
 </head>
@@ -34,7 +34,7 @@
         </div>
     </div>
     <h1>
-        Mój profil
+        Profil stażysty
     </h1>
     <div class="form">
         <div class="form-control">
@@ -53,7 +53,7 @@
                 <p>Email: <span th:text="${intern.student.email}"></span></p>
                 <p>Numer telefonu: <span th:text="${intern.student.telephoneNumber}"></span></p>
                 <p>Index: <span th:text="${intern.student.studentIndex}"></span></p>
-                <p>Kierunek: <span th:text="${intern.student.fieldOfStudy}"></span>,<span th:text="${intern.student.degree}">Stopień: </span></p>
+                <p>Kierunek: <span th:text="${intern.student.fieldOfStudy}"></span>, stopień: <span th:text="${intern.student.degree}">Stopień: </span></p>
                 <p>Średnia ocen: <span th:text="${intern.student.averageGrade}"></span></p>
                 <h2>Dane Koordynatora:</h2>
                 <p>Koordynator: <span th:text="${intern.student.coordinator.firstName} + ${intern.student.coordinator.lastName}"></span></p>

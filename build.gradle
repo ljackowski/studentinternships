@@ -16,6 +16,7 @@ dependencies {
     compile group: 'org.thymeleaf', name: 'thymeleaf-spring5', version: '3.0.11.RELEASE'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.5'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '2.4.2'

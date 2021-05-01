@@ -1,0 +1,137 @@
+@font-face {
+    font-family: Liberation;
+    src: url("../fonts/liberation-serif.ttf");
+}
+
+@font-face {
+    font-family: "Liberation Bold";
+    src: url("../fonts/liberation-serif-bold.ttf");
+}
+
+@font-face {
+    font-family: "Liberation Italic";
+    src: url("../fonts/liberation-serif-italic.ttf");
+}
+
+body {
+    font-family: Liberation;
+    font-size: 17px;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 0 16px;
+}
+
+h1 {
+    margin-top: 150px;
+    padding: 0;
+    text-align: center;
+    font-size: 40px;
+}
+
+.student-fl-name {
+    text-align: center;
+    margin-top: 150px;
+    padding: 0;
+    font-size: 24px;
+}
+
+.student-index {
+    text-align: left;
+    margin-top: 35px;
+    padding: 0;
+}
+
+.university-seal {
+    text-align: left;
+    font-size: 10px;
+    padding: 0;
+    margin-top: 200px;
+}
+
+.director-signature {
+    display: table;
+    width: 100%;
+    margin: 120px 0 210px 0;
+}
+
+.row {
+    display: table-row;
+}
+
+.cell {
+    text-align: right;
+    display: table-cell;
+    font-size: 10px;
+}
+
+table, th, tr, td {
+    border: solid black 1px;
+    border-collapse: collapse;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+th{
+    font-family: "Liberation Bold";
+}
+
+.description-column{
+    width: 60%;
+}
+
+.hours-column{
+    width: 1%;
+}
+
+.day-column, .start-end-column{
+    width: 11%;
+}
+
+
+table p {
+    font-size: 12px;
+    padding: 7px 5px;
+    word-wrap: break-word;
+}
+
+.opinion{
+    margin-top: 60px;
+    margin-bottom: 450px;
+}
+
+.company-seal {
+    text-align: left;
+}
+
+.company-seal p {
+    padding: 0;
+    margin: 0;
+    font-size: 11px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 25px;
+    font-family: "Liberation Bold";
+}
+
+.credentials{
+    margin-top: 5px;
+    padding: 0;
+}
+
+.credentials p{
+    margin-top: 0;
+    margin-bottom: 3px;
+    padding: 0;
+}
+
+.grades{
+    text-align: center;
+    font-size: 12px;
+    margin-top: 5px;
+}
+

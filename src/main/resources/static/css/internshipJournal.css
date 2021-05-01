@@ -92,3 +92,45 @@ h1{
     margin-bottom: 0;
     padding: 0;
 }
+
+table, th, tr, td {
+    border: solid black 1px;
+    border-collapse: collapse;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+th{
+    font-family: "Liberation Bold";
+}
+
+.description-column{
+    width: 60%;
+}
+
+.hours-column{
+    width: 1%;
+}
+
+.day-column{
+    width: 11%;
+}
+
+.start-end-column{
+    width: 14%;
+}
+
+
+table p {
+    font-size: 12px;
+    padding: 7px 5px;
+    word-wrap: break-word;
+}
+
+.credentials{
+    margin-bottom: 550px;
+}
+
+span{
+    margin: 0 3px;
+}

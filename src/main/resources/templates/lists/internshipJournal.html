@@ -47,11 +47,11 @@
                 <th colspan="2">Akcja</th>
             </tr>
             <tr th:each="entry : ${journal}">
-                <td th:text="${entry.day}"></td>
-                <td th:text="${entry.startingTime}"></td>
-                <td th:text="${entry.endingTime}"></td>
-                <td th:text="${entry.hours}"></td>
-                <td th:text="${entry.description}"></td>
+                <td th:text="${entry.day}" class="day-column"></td>
+                <td th:text="${entry.startingTime}" class="start-end-column"></td>
+                <td th:text="${entry.endingTime}" class="start-end-column"></td>
+                <td th:text="${entry.hours}" class="hours-column"></td>
+                <td th:text="${entry.description}" class="description-column"></td>
                 <td><a th:href="@{/interns/editEntry/{entryId}(entryId=${entry.entryId})}" class="btn btn-edit">Edytuj</a></td>
                 <td><a th:href="@{/interns/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
                 </td>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Rachunek</title>
+    <link rel="stylesheet" href="../../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <div class="form">
+        <div>
+            <h1>Podaj dane do rachunku</h1>
+        </div>
+        <form action="#" th:action="@{/interns/internshipBill/internId(internId=${internId})}" th:object="${bill}" method="post">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="father-name" class="form-txt">Imię ojca: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{fathersName}" type="text" id="father-name" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="mother-name" class="form-txt">Imię matki: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{mothersName}" type="text" id="mother-name" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="birth-location" class="form-txt">Miejsce urodzenia: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{birthLocation}" type="text" id="birth-location" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="birth-date" class="form-txt">Data urodzenia: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{birthDate}" type="date" id="birth-date" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="PESEL" class="form-txt">PESEL: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{PESEL}" type="text" id="PESEL" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="bank-account-number" class="form-txt">Numer rachunku bankowego: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{bankAccountNumber}" type="text" id="bank-account-number"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="single-row">
+                <div class="column">
+                    <div>
+                        <label for="tax-office" class="form-txt">Urząd skarbowy: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{taxOffice}" type="text" id="tax-office" class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="button">
+                <button type="submit" class="btn btn-add">Dodaj</button>
+                <a th:href="@{/interns/intern/{internId}(internId=${internId})}" class="btn btn-cancel">Anuluj</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

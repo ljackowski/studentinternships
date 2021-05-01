@@ -2,9 +2,8 @@ package com.ljackowski.studentinternships.documentsgeneration;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
-import com.ljackowski.studentinternships.intern.Intern;
-import com.ljackowski.studentinternships.student.Student;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ljackowski.studentinternships.models.Intern;
+import com.ljackowski.studentinternships.models.Student;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.thymeleaf.TemplateEngine;
@@ -14,7 +13,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.time.LocalDate;
 
 public class PDFGeneration {
@@ -54,13 +52,20 @@ public class PDFGeneration {
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(byteArrayOutputStream.toByteArray());
     }
 
-    public ResponseEntity<?> generatePDF(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
-        WebContext context = new WebContext(request, response, servletContext);
-        ConverterProperties converterProperties = new ConverterProperties();
-        ByteArrayOutputStream target = new ByteArrayOutputStream();
-        converterProperties.setBaseUri("http://localhost:8080");
-        HtmlConverter.convertToPdf(templateEngine.process(url, context), target, converterProperties);
-        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(target.toByteArray());
+    public ResponseEntity<?> generateInternPDF(String url, Intern intern, InternshipBill internshipBill) {
+        WebContext webContext = generateContext(intern, "intern");
+        webContext.setVariable("internshipBill", internshipBill);
+        HtmlConverter.convertToPdf(templateEngine.process(url, webContext), byteArrayOutputStream, converterProperties);
+        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(byteArrayOutputStream.toByteArray());
     }
+
+//    public ResponseEntity<?> generatePDF(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
+//        WebContext context = new WebContext(request, response, servletContext);
+//        ConverterProperties converterProperties = new ConverterProperties();
+//        ByteArrayOutputStream target = new ByteArrayOutputStream();
+//        converterProperties.setBaseUri("http://localhost:8080");
+//        HtmlConverter.convertToPdf(templateEngine.process(url, context), target, converterProperties);
+//        return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(target.toByteArray());
+//    }
 
 }
