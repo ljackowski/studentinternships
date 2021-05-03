@@ -37,17 +37,17 @@
         <div>
             <h1>Dodaj ocene</h1>
         </div>
-        <form action="#" th:action="@{/grades/edit/${gradeId}}" th:object="${editGradeForm}" method="post">
+        <form action="#" th:action="@{/admin/editGrade/${gradeId}}" th:object="${gradeToEdit}" method="post">
             <div>
-                <p th:text="'Id studenta: ' + ${editGradeForm.student.userId}" class="id"></p>
+                <p th:text="'Id studenta: ' + ${gradeToEdit.student.userId}" class="id"></p>
             </div>
             <input th:field="*{student.userId}" type="hidden">
             <div>
-                <p th:text="'Nazwa przedmiotu: ' + ${editGradeForm.subject.subjectName}" class="id"></p>
+                <p th:text="'Nazwa przedmiotu: ' + ${gradeToEdit.subject.subjectName}" class="id"></p>
             </div>
             <input th:field="*{subject.subjectName}" type="hidden">
             <div>
-                <p th:text="'Id oceny: ' + ${editGradeForm.gradeId}" class="id"></p>
+                <p th:text="'Id oceny: ' + ${gradeToEdit.gradeId}" class="id"></p>
             </div>
             <input th:field="*{gradeId}" type="hidden">
             <input th:field="*{subject.subjectId}" type="hidden">
@@ -64,7 +64,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a class="btn btn-cancel" th:href="@{/grades/list}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/admin/student/{studentId}(studentId=${gradeToEdit.student.userId})}">Anuluj</a>
             </div>
         </form>
     </div>

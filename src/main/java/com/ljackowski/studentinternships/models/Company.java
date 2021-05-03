@@ -51,6 +51,9 @@ public class Company{
     @JoinColumn(name = "guardian_id")
     private Guardian guardian;
 
+    @OneToMany(mappedBy = "company")
+    private List<InternshipPlan> internshipPlan;
+
     public Company() {
     }
 

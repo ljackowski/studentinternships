@@ -33,43 +33,19 @@ public class InternController {
     private final InternService internService;
     private final CompanyService companyService;
     private final StudentService studentService;
-    private final JavaMailSender javaMailSender;
     private final ServletContext servletContext;
     private final TemplateEngine templateEngine;
     private final JournalService journalService;
 
     @Autowired
-    public InternController(InternService internService, CompanyService companyService, StudentService studentService, JavaMailSender javaMailSender, ServletContext servletContext, TemplateEngine templateEngine, JournalService journalService) {
+    public InternController(InternService internService, CompanyService companyService, StudentService studentService,
+                            ServletContext servletContext, TemplateEngine templateEngine, JournalService journalService) {
         this.internService = internService;
         this.companyService = companyService;
         this.studentService = studentService;
-        this.javaMailSender = javaMailSender;
         this.servletContext = servletContext;
         this.templateEngine = templateEngine;
         this.journalService = journalService;
-    }
-
-    public void SendInternshipNotification(Intern intern) {
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(intern.getStudent().getEmail());
-        mailMessage.setFrom("pexy3475@gmail.com");
-        mailMessage.setSubject("Informacja o stażu");
-        if (!intern.isReserve()) {
-            mailMessage.setText("Gratulujemy dostał się pan na staż na listę główną, proszę zalogować się do SOPiS przy pomocy tego emaila: "
-                    + intern.getStudent().getEmail()
-                    + "\n oraz tego hasła: "
-                    + intern.getStudent().getPassword());
-        } else {
-            mailMessage.setText("Gratulujemy dostał się pan na staż na listę rezerwową. Poinformujemy Pana/Panią jeśli miejsce na liście głównej się zwolni");
-        }
-        javaMailSender.send(mailMessage);
-    }
-
-    @RequestMapping("/list")
-    public String getAllStudents(Model model) {
-        List<Intern> interns = internService.getAllInterns();
-        model.addAttribute("interns", interns);
-        return "lists/internsList";
     }
 
     @GetMapping("/intern/{internId}")
@@ -93,54 +69,6 @@ public class InternController {
         companyService.updateCompany(company);
         internService.updateIntern(intern);
         return "redirect:/interns/intern/" + intern.getInternId();
-    }
-
-
-    @GetMapping("/addInterns")
-    public String populateInternsTable() {
-        List<Intern> internList = internService.getAllInterns();
-        if (internList.isEmpty()) {
-            int i = 1;
-            List<Student> studentsQualified = studentService.getFirst20StudentsByAvgGrade();
-            for (Student student : studentsQualified) {
-                student.setRole("INTERN");
-                if (i <= 15) {
-                    internService.addIntern(new Intern(student, null, false));
-                } else {
-                    internService.addIntern(new Intern(student, null, true));
-                }
-                i++;
-            }
-//            List<Intern> interns = internService.getAllInterns();
-//            for (Intern intern : interns) {
-//                SendInternshipNotification(intern);
-//            }
-        }
-        return "redirect:/interns/list";
-    }
-
-    @GetMapping("/delete")
-    public String deleteInternById(@RequestParam("internId") long internId) {
-        Intern intern = internService.getInternById(internId);
-        if (!intern.isReserve()) {
-            List<Intern> interns = internService.getAllInterns();
-            Intern intern1 = internService.getInternById(interns.get(interns.indexOf(intern) + 1).getInternId());
-            intern1.setReserve(false);
-            SendInternshipNotification(intern1);
-            internService.updateIntern(intern1);
-        }
-        internService.deleteInternById(internId);
-        return "redirect:/interns/list";
-    }
-
-    @GetMapping("/deleteAllInterns")
-    public String deleteAllInterns() {
-        List<Intern> interns = internService.getAllInterns();
-        for (Intern intern : interns) {
-            intern.getStudent().setRole("STUDENT");
-        }
-        internService.deleteAll();
-        return "redirect:/interns/list";
     }
 
 //    Internship Journal

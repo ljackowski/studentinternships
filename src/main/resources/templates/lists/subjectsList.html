@@ -33,7 +33,7 @@
     <h1>
         Lista przedmiotów
     </h1>
-    <a th:href="@{/subjects/addSubject}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/admin/addSubject}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -44,9 +44,9 @@
             <tr th:each="subject : ${subjects}">
                 <td th:text="${subject.subjectName}"></td>
                 <td th:text="${subject.fieldOfStudy}"></td>
-                <td><a class="btn btn-edit" th:href="@{/subjects/edit/{subjectId}(subjectId=${subject.subjectId})}">Edytuj</a>
+                <td><a class="btn btn-edit" th:href="@{/admin/editSubject/{subjectId}(subjectId=${subject.subjectId})}">Edytuj</a>
                 </td>
-                <td><a class="btn btn-delete" th:href="@{/subjects/delete/(subjectId=${subject.subjectId})}">Usuń</a>
+                <td><a class="btn btn-delete" th:href="@{/admin/deleteSubject/(subjectId=${subject.subjectId})}">Usuń</a>
                 </td>
             </tr>
         </table>

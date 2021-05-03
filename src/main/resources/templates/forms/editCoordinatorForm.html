@@ -37,9 +37,9 @@
         <div>
             <h1>Edytuj koordynatora</h1>
         </div>
-        <form action="#" th:action="@{/coordinators/edit/${userId}}" th:object="${editCoordinatorForm}" method="post">
+        <form action="#" th:action="@{/admin/editCoordinator/${coordinatorToEdit.userId}}" th:object="${coordinatorToEdit}" method="post">
             <div>
-                <p th:text="'Id: ' + ${userId}" class="id"></p>
+                <p th:text="'Id: ' + ${coordinatorToEdit.userId}" class="id"></p>
             </div>
             <input th:field="*{userId}" type="hidden">
             <div class="row">
@@ -98,7 +98,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Edytuj</button>
-                <a class="btn btn-cancel" th:href="@{/coordinators/list}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/admin/coordinatorsList}">Anuluj</a>
             </div>
         </form>
     </div>

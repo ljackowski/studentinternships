@@ -1,8 +1,5 @@
 package com.ljackowski.studentinternships.models;
 
-import com.ljackowski.studentinternships.models.Coordinator;
-import com.ljackowski.studentinternships.models.Intern;
-
 import javax.persistence.*;
 
 @Entity
@@ -19,8 +16,8 @@ public class InternshipPlan {
     private Intern intern;
 
     @ManyToOne
-    @JoinColumn(name = "coordinator_id")
-    private Coordinator coordinator;
+    @JoinColumn(name = "company_id")
+    private Company company;
 
     @Column(name = "description")
     private String description;
@@ -28,9 +25,9 @@ public class InternshipPlan {
     public InternshipPlan() {
     }
 
-    public InternshipPlan(Intern intern, Coordinator coordinator, String description) {
+    public InternshipPlan(Intern intern, Company company, String description) {
         this.intern = intern;
-        this.coordinator = coordinator;
+        this.company = company;
         this.description = description;
     }
 
@@ -50,12 +47,12 @@ public class InternshipPlan {
         this.intern = intern;
     }
 
-    public Coordinator getCoordinator() {
-        return coordinator;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setCoordinator(Coordinator coordinator) {
-        this.coordinator = coordinator;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public String getDescription() {

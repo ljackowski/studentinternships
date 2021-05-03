@@ -33,7 +33,7 @@
     <h1>
         Lista przedsiębiorstw
     </h1>
-    <a th:href="@{/companies/addCompanyToInternShip}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/admin/addCompanyToInternShip}" class="btn btn-add">Dodaj przedsiębiorstwo do stażu</a>
     <div class="table">
         <table>
             <tr>
@@ -57,10 +57,10 @@
                 <td th:text="${company.address.apartmentNumber}"></td>
                 <td th:text="${company.freeSpaces}"></td>
                 <td th:text="${company.isPartOfInternship()}"></td>
-                <td><a class="btn btn-profile" th:href="@{/companies/company/{companyId}(companyId=${company.companyId})}">Profil</a></td>
-                <td><a class="btn btn-edit" th:href="@{/companies/edit/{companyId}(companyId=${company.companyId})}">Edytuj</a>
+                <td><a class="btn btn-profile" th:href="@{/admin/company/{companyId}(companyId=${company.companyId})}">Profil</a></td>
+                <td><a class="btn btn-edit" th:href="@{/admin/editCompany/{companyId}(companyId=${company.companyId})}">Edytuj</a>
                 </td>
-                <td><a class="btn btn-delete" th:href="@{/companies/delete/(companyId=${company.companyId})}">Usuń</a>
+                <td><a class="btn btn-delete" th:href="@{/admin/deleteCompany/(companyId=${company.companyId})}">Usuń</a>
                 </td>
             </tr>
         </table>

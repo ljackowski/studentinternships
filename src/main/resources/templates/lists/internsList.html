@@ -34,8 +34,8 @@
         Lista stażystów
     </h1>
     <div class="operations">
-        <a th:href="@{/interns/addInterns}" class="btn btn-add">Dodaj stażystów</a>
-        <a th:href="@{/interns/deleteAllInterns}" class="btn btn-delete">Usuń stażystów</a>
+        <a th:href="@{/admin/addInterns}" class="btn btn-add">Dodaj stażystów</a>
+        <a th:href="@{/admin/deleteAllInterns}" class="btn btn-delete">Usuń stażystów</a>
     </div>
     <div class="table">
         <table>
@@ -57,9 +57,8 @@
                 <td th:text="${intern.student.studentIndex}"></td>
                 <td th:text="${intern.student.fieldOfStudy}"></td>
                 <td th:text="${intern.reserve}"></td>
-                <td><a class="btn btn-profile" th:href="@{/interns/intern/{internId}(internId=${intern.internId})}">Profil</a></td>
-                <!--                <td><a class="btn btn-edit" th:href="@{/students/edit/{userId}(userId=${object.userId})}">Edytuj</a></td>-->
-                <td><a class="btn btn-delete" th:href="@{/interns/delete/(internId=${intern.internId})}">Usuń</a></td>
+                <td><a class="btn btn-profile" th:href="@{/admin/intern/{internId}(internId=${intern.internId})}">Profil</a></td>
+                <td><a class="btn btn-delete" th:href="@{/admin/deleteIntern/(internId=${intern.internId})}">Usuń</a></td>
             </tr>
         </table>
     </div>

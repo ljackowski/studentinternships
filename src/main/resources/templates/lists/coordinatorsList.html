@@ -33,7 +33,7 @@
     <h1>
         Lista koordynatorów
     </h1>
-    <a th:href="@{/coordinators/addCoordinator}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/admin/addCoordinator}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -50,10 +50,10 @@
                 <td th:text="${coordinator.email}"></td>
                 <td th:text="${coordinator.telephoneNumber}"></td>
                 <td th:text="${coordinator.fieldOfStudy}"></td>
-                <td><a class="btn btn-profile" th:href="@{/coordinators/coordinator/{userId}(userId=${coordinator.userId})}">Profil</a></td>
-                <td><a th:href="@{/coordinators/edit/{userId}(userId=${coordinator.userId})}" class="btn btn-edit">Edytuj</a>
+                <td><a class="btn btn-profile" th:href="@{/admin/coordinator/{coordinatorId}(coordinatorId=${coordinator.userId})}">Profil</a></td>
+                <td><a th:href="@{/admin/editCoordinator/{coordinatorId}(coordinatorId=${coordinator.userId})}" class="btn btn-edit">Edytuj</a>
                 </td>
-                <td><a th:href="@{/coordinators/delete/(userId=${coordinator.userId})}" class="btn btn-delete">Usuń</a>
+                <td><a th:href="@{/coordinators/delete/(coordinatorId=${coordinator.userId})}" class="btn btn-delete">Usuń</a>
                 </td>
             </tr>
         </table>

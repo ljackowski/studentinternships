@@ -37,7 +37,7 @@
         <div>
             <h1>Dodaj przedmiot</h1>
         </div>
-        <form action="#" th:action="@{/subjects/addSubject}" th:object="${addSubjectForm}" method="post">
+        <form action="#" th:action="@{/admin/addSubject}" th:object="${newSubject}" method="post">
             <div class="row">
                 <div class="column">
                     <div>
@@ -58,7 +58,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a th:href="@{/subjects/list}" class="btn btn-cancel">Anuluj</a>
+                <a th:href="@{/admin/subjectsList}" class="btn btn-cancel">Anuluj</a>
             </div>
         </form>
     </div>

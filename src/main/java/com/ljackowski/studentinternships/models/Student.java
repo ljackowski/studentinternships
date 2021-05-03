@@ -40,7 +40,7 @@ public class Student extends User {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @OneToOne(mappedBy = "student")
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
     private Intern intern;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)

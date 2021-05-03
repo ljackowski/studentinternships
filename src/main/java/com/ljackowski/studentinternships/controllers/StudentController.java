@@ -2,22 +2,11 @@ package com.ljackowski.studentinternships.controllers;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.ljackowski.studentinternships.services.AddressService;
-import com.ljackowski.studentinternships.services.CompanyService;
-import com.ljackowski.studentinternships.services.CoordinatorService;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
-import com.ljackowski.studentinternships.models.Grade;
-import com.ljackowski.studentinternships.services.GradeService;
-import com.ljackowski.studentinternships.services.GuardianService;
 import com.ljackowski.studentinternships.models.Intern;
-import com.ljackowski.studentinternships.services.InternService;
-import com.ljackowski.studentinternships.models.Student;
-import com.ljackowski.studentinternships.services.RepresentativeService;
-import com.ljackowski.studentinternships.models.Subject;
-import com.ljackowski.studentinternships.services.StudentService;
-import com.ljackowski.studentinternships.services.SubjectService;
 import com.ljackowski.studentinternships.models.Journal;
-import com.ljackowski.studentinternships.services.JournalService;
+import com.ljackowski.studentinternships.models.Student;
+import com.ljackowski.studentinternships.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,17 +17,14 @@ import org.thymeleaf.TemplateEngine;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 @Controller
-@RequestMapping("/students")
+@RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
     private final CoordinatorService coordinatorService;
-    private final GradeService gradeService;
     private final TemplateEngine templateEngine;
     private final JournalService journalService;
-    private final SubjectService subjectService;
     private final InternService internService;
     private final AddressService addressService;
     private final CompanyService companyService;
@@ -47,16 +33,15 @@ public class StudentController {
     private final ServletContext servletContext;
 
     @Autowired
-    public StudentController(StudentService studentService, CoordinatorService coordinatorService, GradeService gradeService,
-                             TemplateEngine templateEngine, JournalService journalService, SubjectService subjectService,
-                             InternService internService, AddressService addressService, CompanyService companyService, RepresentativeService representativeService,
+    public StudentController(StudentService studentService, CoordinatorService coordinatorService,
+                             TemplateEngine templateEngine, JournalService journalService,
+                             InternService internService, AddressService addressService,
+                             CompanyService companyService, RepresentativeService representativeService,
                              GuardianService guardianService, ServletContext servletContext) {
         this.studentService = studentService;
         this.coordinatorService = coordinatorService;
-        this.gradeService = gradeService;
         this.templateEngine = templateEngine;
         this.journalService = journalService;
-        this.subjectService = subjectService;
         this.internService = internService;
         this.addressService = addressService;
         this.companyService = companyService;
@@ -65,21 +50,10 @@ public class StudentController {
         this.servletContext = servletContext;
     }
 
-    @RequestMapping("/list")
-    public String getAllStudents(Model model) {
-        List<Student> studentsList = studentService.getStudents();
-        for (Student student : studentsList) {
-            student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-            studentService.updateStudent(student);
-        }
-        model.addAttribute("students", studentsList);
-        return "lists/studentsList";
-    }
-
-    @GetMapping("/student/{userId}")
-    public String studentProfileForm(@PathVariable(name = "userId") long userId, Model model) {
+    @GetMapping("/{studentId}")
+    public String studentProfileForm(@PathVariable(name = "studentId") long userId, Model model) {
         Student student = studentService.getStudentById(userId);
-        if (student.getRole().equals("STUDENT")) {
+        if (student.getRole().equals("ROLE_STUDENT")) {
             if (student.getCompany() == null) {
                 model.addAttribute("student", student);
                 return "profiles/studentProfileBeforeSettingCompany";
@@ -87,14 +61,14 @@ public class StudentController {
                 model.addAttribute("student", student);
                 return "profiles/studentProfile";
             }
-        } else if (student.getRole().equals("INTERN")) {
+        } else if (student.getRole().equals("ROLE_INTERN")) {
             Intern intern = internService.getInternByStudent(student);
             return "redirect:/interns/intern/" + intern.getInternId();
         }
         return "";
     }
 
-    @PostMapping("/student/{userId}")
+    @PostMapping("/{studentId}")
     public String studentProfile(@ModelAttribute Student student) {
         Student studentBeforeUpdate = studentService.getStudentById(student.getUserId());
         student.setUserId(studentBeforeUpdate.getUserId());
@@ -116,64 +90,6 @@ public class StudentController {
         guardianService.addGuardian(student.getCompany().getGuardian());
         studentService.updateStudent(student);
         return "redirect:/students/student/" + student.getUserId();
-    }
-
-    @GetMapping("/addStudent")
-    public String addStudentForm(Model model) {
-        model.addAttribute("addStudentForm", new Student());
-        return "forms/addStudentForm";
-    }
-
-    @PostMapping("/addStudent")
-    public String addStudent(@ModelAttribute Student student) {
-        student.setRole("object".toUpperCase());
-        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
-        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-        String email = student.getEmail();
-        addressService.addAddress(student.getAddress());
-        studentService.addStudent(student);
-        Student studentAfterCreation = studentService.getStudentByEmail(email);
-        List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(studentAfterCreation.getFieldOfStudy());
-        for (Subject subject : studentsSubjectList) {
-            studentAfterCreation.addGrade(gradeService.addGrade(new Grade(studentAfterCreation, subject, 0)));
-        }
-        return "redirect:/students/list";
-    }
-
-    @GetMapping("/delete")
-    public String deleteStudentById(@RequestParam("userId") long userId) {
-        internService.deleteInternById(studentService.getStudentById(userId).getIntern().getInternId());
-        studentService.deleteStudentById(userId);
-        return "redirect:/students/list";
-    }
-
-    @GetMapping("/edit/{userId}")
-    public String editStudentForm(@PathVariable(value = "userId") int userId, Model model) {
-        Student student = studentService.getStudentById(userId);
-        model.addAttribute("editStudentForm", student);
-        return "forms/editStudentForm";
-    }
-
-    @PostMapping("/edit/{userId}")
-    public String editStudent(@ModelAttribute Student student) {
-        Student student1 = studentService.getStudentById(student.getUserId());
-        student.setRole("object".toUpperCase());
-        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
-        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-        student.setCompany(student1.getCompany());
-        if (!student.getFieldOfStudy().equals(student1.getFieldOfStudy())) {
-            List<Grade> gradeList = gradeService.getStudentsGrades(student.getUserId());
-            for (Grade grade : gradeList) {
-                gradeService.deleteGradeById(grade.getGradeId());
-            }
-            List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
-            for (Subject subject : studentsSubjectList) {
-                student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
-            }
-        }
-        addressService.updateAddress(student.getAddress());
-        studentService.updateStudent(student);
-        return "redirect:/students/list";
     }
 
     //Trainee journal

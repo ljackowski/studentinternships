@@ -24,8 +24,6 @@ public class Coordinator extends User {
     @OneToMany(mappedBy = "coordinator", cascade = CascadeType.PERSIST)
     private List<Student> students;
 
-    @OneToMany(mappedBy = "coordinator")
-    private List<InternshipPlan> internshipPlans;
 
     public Coordinator() {
     }

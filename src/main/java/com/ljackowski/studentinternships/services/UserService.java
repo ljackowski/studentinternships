@@ -28,11 +28,15 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void updateUserById(User user){
+    public void updateUser(User user){
         userRepository.save(user);
     }
 
     public void deleteUserById(long userId){
         userRepository.deleteById(userId);
+    }
+
+    public User getUserByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

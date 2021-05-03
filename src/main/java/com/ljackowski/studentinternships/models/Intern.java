@@ -12,7 +12,7 @@ public class Intern{
     @Column(name = "intern_id")
     private Long internId;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
@@ -33,6 +33,14 @@ public class Intern{
         this.company = company;
         this.student = student;
         this.reserve = reserve;
+    }
+
+    public List<InternshipPlan> getInternshipPlans() {
+        return internshipPlans;
+    }
+
+    public void setInternshipPlans(List<InternshipPlan> internshipPlans) {
+        this.internshipPlans = internshipPlans;
     }
 
     public Long getInternId() {

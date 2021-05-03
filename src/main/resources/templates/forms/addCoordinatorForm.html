@@ -37,7 +37,7 @@
         <div>
             <h1>Dodaj koordynatora</h1>
         </div>
-        <form action="#" th:action="@{/coordinators/addCoordinator}" th:object="${addCoordinatorForm}" method="post">
+        <form action="#" th:action="@{/admin/addCoordinator}" th:object="${newCoordinator}" method="post">
             <div class="row">
                 <div class="column">
                     <div>
@@ -94,7 +94,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a class="btn btn-cancel" th:href="@{/coordinators/list}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/admin/coordinatorsList}">Anuluj</a>
             </div>
         </form>
     </div>

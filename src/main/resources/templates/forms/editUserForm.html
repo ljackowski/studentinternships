@@ -37,7 +37,7 @@
         <div>
             <h1>Edytuj użytkownika</h1>
         </div>
-        <form action="#" th:action="@{/users/edit/${userId}}" th:object="${updateUserForm}" method="post">
+        <form action="#" th:action="@{/admin/editUser/${userId}}" th:object="${userToUpdate}" method="post">
             <div>
                 <p th:text="'Id: ' + ${userId}" class="id"></p>
             </div>
@@ -73,7 +73,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Edytuj</button>
-                <a th:href="@{/users/list}" class="btn btn-cancel">Anuluj</a>
+                <a th:href="@{/admin/usersList}" class="btn btn-cancel">Anuluj</a>
             </div>
         </form>
     </div>

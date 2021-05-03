@@ -33,7 +33,7 @@
     <h1>
         Lista użytkowników
     </h1>
-    <a th:href="@{/users/addUser}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/admin/addUser}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -49,19 +49,14 @@
                 <td th:text="${user.password}"></td>
                 <td th:text="${user.role}"></td>
                 <td th:switch="${user.role}">
-                    <span th:case="'STUDENT'"><a th:href="@{/students/edit/{userId}(userId=${user.userId})}"
-                                                 class="btn btn-edit">Edytuj</a></span>
-                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/edit/{userId}(userId=${user.userId})}"
-                                                     class="btn btn-edit">Edytuj</a></span>
-                    <span th:case="*"><a th:href="@{/users/edit/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'STUDENT'"><a th:href="@{/admin/editStudent/{studentId}(studentId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'COORDINATOR'"><a th:href="@{/admin/editCoordinator/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="*"><a th:href="@{/admin/editUser/{userId}(userId=${user.userId})}"class="btn btn-edit">Edytuj</a></span>
                 </td>
                 <td th:switch="${user.role}">
-                    <span th:case="'STUDENT'"><a th:href="@{/students/delete/(userId=${user.userId})}"
-                                                 class="btn btn-delete">Usuń</a></span>
-                    <span th:case="'COORDINATOR'"><a th:href="@{/coordinators/delete/(userId=${user.userId})}"
-                                                     class="btn btn-delete">Usuń</a></span>
-                    <span th:case="*"><a th:href="@{/users/delete/(userId=${user.userId})}"
-                                         class="btn btn-delete">Usuń</a></span>
+                    <span th:case="'ROLE_STUDENT'"><a th:href="@{/admin/deleteStudent/(studentId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
+                    <span th:case="'ROLE_COORDINATOR'"><a th:href="@{/admin/deleteCoordinator/(userId=${user.userId})}"class="btn btn-delete">Usuń</a></span>
+                    <span th:case="*"><a th:href="@{/admin/deleteUser/(userId=${user.userId})}"class="btn btn-delete">Usuń</a></span>
                 </td>
             </tr>
         </table>
