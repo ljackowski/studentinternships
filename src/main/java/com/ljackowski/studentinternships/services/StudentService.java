@@ -37,10 +37,6 @@ public class StudentService {
         studentRepository.deleteById(userId);
     }
 
-    public Student getStudentByFieldOfStudy(String fieldOfStudy){
-        return studentRepository.findByFieldOfStudy(fieldOfStudy);
-    }
-
     public Student getStudentByEmail(String email){
         return studentRepository.findByEmail(email);
     }
@@ -56,5 +52,4 @@ public class StudentService {
     public List<Student> getAllStudentsInCompany(Company company){
         return studentRepository.findAllByCompany(company);
     }
-
 }

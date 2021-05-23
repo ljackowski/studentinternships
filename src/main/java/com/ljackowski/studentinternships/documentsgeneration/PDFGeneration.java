@@ -3,6 +3,7 @@ package com.ljackowski.studentinternships.documentsgeneration;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;
 import com.ljackowski.studentinternships.models.Intern;
+import com.ljackowski.studentinternships.models.InternshipBill;
 import com.ljackowski.studentinternships.models.Student;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

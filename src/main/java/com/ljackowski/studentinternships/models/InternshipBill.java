@@ -1,4 +1,4 @@
-package com.ljackowski.studentinternships.documentsgeneration;
+package com.ljackowski.studentinternships.models;
 
 public class InternshipBill {
     private String mothersName;

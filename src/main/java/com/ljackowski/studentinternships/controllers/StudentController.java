@@ -9,6 +9,7 @@ import com.ljackowski.studentinternships.models.Student;
 import com.ljackowski.studentinternships.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,8 +51,9 @@ public class StudentController {
         this.servletContext = servletContext;
     }
 
-    @GetMapping("/{studentId}")
-    public String studentProfileForm(@PathVariable(name = "studentId") long userId, Model model) {
+    @GetMapping("/{userId}")
+    @PreAuthorize("authentication.principal.userId == #userId")
+    public String studentProfileForm(@PathVariable(name = "userId") long userId, Model model) {
         Student student = studentService.getStudentById(userId);
         if (student.getRole().equals("ROLE_STUDENT")) {
             if (student.getCompany() == null) {

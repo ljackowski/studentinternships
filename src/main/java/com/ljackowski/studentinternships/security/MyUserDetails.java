@@ -15,6 +15,7 @@ public class MyUserDetails implements UserDetails {
     private String email;
     private String password;
     private List<GrantedAuthority> authorityList;
+    private long userId;
 
     public MyUserDetails() {
     }
@@ -23,6 +24,7 @@ public class MyUserDetails implements UserDetails {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.authorityList = Arrays.stream(user.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.userId = user.getUserId();
     }
 
     @Override
@@ -58,5 +60,9 @@ public class MyUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public long getUserId() {
+        return userId;
     }
 }
