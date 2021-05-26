@@ -33,6 +33,8 @@ public class Company{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endingDate;
 
+    private String fieldOfStudy;
+
     @OneToMany(mappedBy = "company")
     private List<Intern> internList;
 
@@ -51,13 +53,13 @@ public class Company{
     @JoinColumn(name = "guardian_id")
     private Guardian guardian;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<InternshipPlan> internshipPlan;
 
     public Company() {
     }
 
-    public Company(String companyName, boolean PartOfInternship, int freeSpaces, LocalDate startingDate, LocalDate endingDate, Address address, Representative representative, Guardian guardian) {
+    public Company(String companyName, boolean PartOfInternship, int freeSpaces, LocalDate startingDate, LocalDate endingDate, Address address, Representative representative, Guardian guardian, String fieldOfStudy) {
         this.companyName = companyName;
         this.partOfInternship = PartOfInternship;
         this.freeSpaces = freeSpaces;
@@ -66,6 +68,7 @@ public class Company{
         this.address = address;
         this.representative = representative;
         this.guardian = guardian;
+        this.fieldOfStudy = fieldOfStudy;
     }
 
     public LocalDate getStartingDate() {
@@ -154,5 +157,21 @@ public class Company{
 
     public void setRepresentative(Representative representative) {
         this.representative = representative;
+    }
+
+    public String getFieldOfStudy() {
+        return fieldOfStudy;
+    }
+
+    public void setFieldOfStudy(String fieldOfStudy) {
+        this.fieldOfStudy = fieldOfStudy;
+    }
+
+    public List<InternshipPlan> getInternshipPlan() {
+        return internshipPlan;
+    }
+
+    public void setInternshipPlan(List<InternshipPlan> internshipPlan) {
+        this.internshipPlan = internshipPlan;
     }
 }

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+  <meta charset="UTF-8">
+  <title>Lista przedsiębiorstw na stażu</title>
+  <link rel="stylesheet" href="../../static/css/listDesign.css">
+  <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+  <div class="navigation">
+    <div class="link">
+      <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
+        profil</p></a>
+    </div>
+    <div class="link indicator">
+      <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
+              class="link-text">Studenci</p></a>
+    </div>
+
+  </div>
+  <h1>
+    Lista przedsiębiorstw na stażu
+  </h1>
+  <div>
+    <table>
+      <tr>
+        <th>Przedsiębiorstwo</th>
+        <th colspan="2">Reprezentant</th>
+        <th colspan="2">Opiekun</th>
+      </tr>
+      <tr th:each="company : ${companies}">
+        <td th:text="${company.companyName}"></td>
+        <td th:text="${company.representative.firstName}"></td>
+        <td th:text="${company.representative.lastName}"></td>
+        <td th:text="${company.guardian.firstName}" ></td>
+        <td th:text="${company.guardian.lastName}"></td>
+        <td><a th:href="@{/coordinator/{coordinatorId}/company/{companyId}(coordinatorId=${coordinatorId}, companyId=${company.companyId})}">Profil</a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+</body>
+</html>

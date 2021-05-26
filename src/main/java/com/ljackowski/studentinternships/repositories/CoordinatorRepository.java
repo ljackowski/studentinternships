@@ -11,4 +11,5 @@ import java.util.List;
 public interface CoordinatorRepository extends JpaRepository<Coordinator, Long> {
     Coordinator findByFieldOfStudy(String fieldOfStudy);
     List<Student> findAllByFieldOfStudy(String fieldOfStudy);
+    Coordinator findByEmail(String email);
 }

@@ -116,7 +116,7 @@ td{
     margin: 1% 0 1% 0;
 }
 
-.operations .btn-delete, .operations .btn-add{
+.operations .btn-delete, .operations .btn-add, .operations .btn-generate{
     padding: 13px 27px;
     font-size: 20px;
     margin: 0 1% 0 1%;
@@ -138,6 +138,16 @@ td{
 
 .btn-profile:focus, .btn-profile:hover{
     background: #630b94;
+    outline: none;
+}
+
+.btn-generate{
+    color: #F4FBFC;
+    background: #164f9b;
+}
+
+.btn-generate:focus, .btn-generate:hover{
+    background: #16478f;
     outline: none;
 }
 

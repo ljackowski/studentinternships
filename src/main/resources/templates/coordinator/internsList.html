@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Lista stażystów</title>
+    <link rel="stylesheet" href="../../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj profil</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                    class="link-text">Stażyści</p></a>
+        </div>
+    </div>
+    <h1>
+        Lista stażystów
+    </h1>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+                <th>Numer Telefonu</th>
+                <th>Numer albumu</th>
+                <th>Kierunek</th>
+                <th>Status</th>
+                <th colspan="2">Akcja</th>
+            </tr>
+            <tr th:each="intern : ${interns}">
+                <td th:text="${intern.student.firstName}"></td>
+                <td th:text="${intern.student.lastName}"></td>
+                <td th:text="${intern.student.email}"></td>
+                <td th:text="${intern.student.telephoneNumber}"></td>
+                <td th:text="${intern.student.studentIndex}"></td>
+                <td th:text="${intern.student.fieldOfStudy}"></td>
+                <td th:text="${intern.reserve}"></td>
+                <td><a class="btn btn-profile" th:href="@{/coordinator/{coordinatorId}/intern/{internId}(coordinatorId=${coordinatorId},internId=${intern.internId})}">Profil</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

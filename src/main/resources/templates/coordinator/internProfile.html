@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil stażysty</title>
+    <link rel="stylesheet" href="../../static/css/profileForm.css">
+    <link rel="stylesheet" th:href="@{/css/profileForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj profil</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                    class="link-text">Stażyści</p></a>
+        </div>
+    </div>
+    <h1>
+        Profil stażysty:
+        <span th:text="${intern.student.firstName}"></span>
+        <span th:text="${intern.student.lastName}"></span>
+    </h1>
+    <div class="form">
+        <div class="form-control">
+            <div class="university">
+                <h2>Dane studenta</h2>
+                <p>Imię: <span th:text="${intern.student.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${intern.student.lastName}"></span></p>
+                <p>Adres:
+                    <span th:text="${intern.student.address.city}"></span>
+                    <span th:text="${intern.student.address.street}"></span>
+                    <span th:text="${intern.student.address.buildingNumber}"></span>
+                    <span th:text="${intern.student?.address?.apartmentNumber}"></span>
+                    <span th:text="${intern.student.address.zipCode}"></span>
+                    <span th:text="${intern.student.address.postOffice}"></span>
+                </p>
+                <p>Email: <span th:text="${intern.student.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${intern.student.telephoneNumber}"></span></p>
+                <p>Index: <span th:text="${intern.student.studentIndex}"></span></p>
+                <p>Kierunek: <span th:text="${intern.student.fieldOfStudy}"></span>, stopień: <span th:text="${intern.student.degree}">Stopień: </span></p>
+                <p>Średnia ocen: <span th:text="${intern.student.averageGrade}"></span></p>
+                <h2>Dane Koordynatora:</h2>
+                <p>Koordynator: <span th:text="${intern.student.coordinator.firstName} + ${intern.student.coordinator.lastName}"></span></p>
+                <p>Email: <span th:text="${intern.student.coordinator.email}"></span></p>
+                <p>Numer telefonu: <span th:text="${intern.student.coordinator.telephoneNumber}"></span></p>
+            </div>
+            <div class="company">
+                <h2>Przedsiębiorstwo zatrudniające</h2>
+                <p>Nazwa firmy: <span th:text="${intern?.company?.companyName}"></span></p>
+                <p>Adres:
+                    <span th:text="${intern?.company?.address?.city}"></span>
+                    <span th:text="${intern?.company?.address?.street}"></span>
+                    <span th:text="${intern?.company?.address?.buildingNumber}"></span>
+                    <span th:text="${intern?.company?.address?.apartmentNumber}"></span>
+                    <span th:text="${intern?.company?.address?.zipCode}"></span>
+                    <span th:text="${intern?.company?.address?.postOffice}"></span>
+                </p>
+                <p>Rozpoczęcie praktyki: <span th:text="${intern?.company?.startingDate}"></span></p>
+                <p>Zakończenie praktyki: <span th:text="${intern?.company?.endingDate}"></span></p>
+                <p>
+                    Przedstawiciel firmy:
+                    <span th:text="${intern?.company?.representative?.firstName}"></span>
+                    <span th:text="${intern?.company?.representative?.lastName}"></span>
+                </p>
+                <p>Email:<span th:text="${intern?.company?.representative?.email}"></span></p>
+                <p>Numer telefonu:<span th:text="${intern?.company?.representative?.telephoneNumber}"></span></p>
+                <p>Stanowisko:<span th:text="${intern?.company?.representative?.position}"></span></p>
+                <h2>Opiekun praktyki:</h2>
+                <p>Imię: <span th:text="${intern?.company?.guardian?.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${intern?.company?.guardian?.lastName}"></span></p>
+                <p>Numer telefonu: <span th:text="${intern?.company?.guardian?.telephoneNumber}"></span></p>
+                <p>Email: <span th:text="${intern?.company?.guardian?.email}"></span></p>
+            </div>
+            <a th:href="@{/coordinator/{coordinatorId}/internshipJournal/{internId}(coordinatorId=${coordinatorId}, internId=${intern.internId})}">Dziennik stażu</a>
+        </div>
+        <table>
+            <tr>
+                <th>Przedmiot</th>
+                <th>Ocena</th>
+            </tr>
+            <tr th:each="grade : ${intern.student.gradeList}">
+                <td th:text="${grade.subject.subjectName}"></td>
+                <td th:text="${grade.grade_number}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

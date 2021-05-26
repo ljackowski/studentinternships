@@ -25,6 +25,10 @@ public class CoordinatorService {
         return coordinatorRepository.findById(coordinatorId).get();
     }
 
+    public Coordinator getCoordinatorByEmail(String email){
+        return coordinatorRepository.findByEmail(email);
+    }
+
     public void addCoordinator(Coordinator coordinator){
         coordinatorRepository.save(coordinator);
     }

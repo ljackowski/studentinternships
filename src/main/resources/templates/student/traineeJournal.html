@@ -12,31 +12,31 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a href="../documents/studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
-        </div>
-        <div class="link">
-            <a href="../documents/studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
-                praktyki</p></a>
+            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
         </div>
         <div class="link indicator">
-            <a href="../../static/pdfs/training/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik praktyk</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/training/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">
-                Ramowy
-                program praktyk</p></a>
+            <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Deklaracja praktyki</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
+            <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Umowa organizacji praktyki</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Program praktyk zawodowych</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Regulamin praktyk</p></a>
         </div>
     </div>
     <h1>
         Dziennik praktyk
     </h1>
-    <a th:href="@{/student/addEntry/{studentId}(studentId=${studentId})}" class="btn btn-add">Dodaj</a>
+    <div class="operations">
+        <a th:href="@{/student/addEntry/{studentId}(studentId=${studentId})}" class="btn btn-add">Dodaj</a>
+        <a th:href="@{/student/trainingJournal/{studentId}(studentId=${studentId})}" target="_blank" class="btn btn-generate">Generuj</a>
+    </div>
     <div class="table">
         <table>
             <tr>

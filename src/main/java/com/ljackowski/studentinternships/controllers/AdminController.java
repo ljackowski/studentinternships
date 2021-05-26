@@ -54,13 +54,13 @@ public class AdminController {
     @RequestMapping("/usersList")
     public String usersList(Model model) {
         model.addAttribute("users",userService.getUsers());
-        return "lists/usersList";
+        return "admin/usersList";
     }
 
     @GetMapping("/addUser")
     public String addUserForm(Model model) {
         model.addAttribute("newUser", new User());
-        return "forms/addUserForm";
+        return "admin/addUserForm";
     }
 
     @PostMapping("/addUser")
@@ -79,7 +79,7 @@ public class AdminController {
     public String updateUserForm(@PathVariable(name = "userId") int userId, Model model) {
         User user = userService.getUserById(userId);
         model.addAttribute("userToUpdate", user);
-        return "forms/editUserForm";
+        return "admin/editUserForm";
     }
 
     @PostMapping("/editUser/{userId}")
@@ -340,46 +340,46 @@ public class AdminController {
     //endregion
 
     //region CRUD Student Journal
-    @GetMapping("/studentJournal/{studentId}")
-    public String getTraineeJournalByStudentId(@PathVariable(name = "studentId") long userId, Model model) {
-        model.addAttribute("journal", studentService.getStudentById(userId).getJournal());
-        return "lists/traineeJournal";
-    }
-
-    @GetMapping("/addStudentEntry/{studentId}")
-    public String addEntryForm(Model model, @PathVariable(name = "studentId") long userId) {
-        Journal journal = new Journal();
-        journal.setStudent(studentService.getStudentById(userId));
-        model.addAttribute("journal", journal);
-        return "forms/addNewEntryToStudentJournalForm";
-    }
-
-    @PostMapping("/addStudentEntry/{userId}")
-    public String addEntry(@ModelAttribute Journal journal, @PathVariable(name = "userId") long userId) {
-        journal.setStudent(studentService.getStudentById(userId));
-        journalService.addEntry(journal);
-        return "redirect:/admin/studentJournal/" + userId;
-    }
-
-    @GetMapping("/deleteStudentEntry")
-    public String deleteStudentEntryById(@RequestParam("entryId") long entryId) {
-        long userId = journalService.getEntryById(entryId).getStudent().getUserId();
-        journalService.deleteEntryById(entryId);
-        return "redirect:/admin/studentJournal/" + userId;
-    }
-
-    @GetMapping("/editStudentEntry/{entryId}")
-    public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
-        model.addAttribute("studentEntryToEdit", journalService.getEntryById(entryId));
-        return "forms/editStudentEntryForm";
-    }
-
-    @PostMapping("/editStudentEntry/{entryId}")
-    public String editStudentEntry(@ModelAttribute Journal journal) {
-        long userId = journalService.getEntryById(journal.getEntryId()).getStudent().getUserId();
-        journalService.editEntry(journal);
-        return "redirect:/admin/studentJournal/" + userId;
-    }
+//    @GetMapping("/studentJournal/{studentId}")
+//    public String getTraineeJournalByStudentId(@PathVariable(name = "studentId") long userId, Model model) {
+//        model.addAttribute("journal", studentService.getStudentById(userId).getJournal());
+//        return "lists/traineeJournal";
+//    }
+//
+//    @GetMapping("/addStudentEntry/{studentId}")
+//    public String addEntryForm(Model model, @PathVariable(name = "studentId") long userId) {
+//        Journal journal = new Journal();
+//        journal.setStudent(studentService.getStudentById(userId));
+//        model.addAttribute("journal", journal);
+//        return "forms/addNewEntryToStudentJournalForm";
+//    }
+//
+//    @PostMapping("/addStudentEntry/{userId}")
+//    public String addEntry(@ModelAttribute Journal journal, @PathVariable(name = "userId") long userId) {
+//        journal.setStudent(studentService.getStudentById(userId));
+//        journalService.addEntry(journal);
+//        return "redirect:/admin/studentJournal/" + userId;
+//    }
+//
+//    @GetMapping("/deleteStudentEntry")
+//    public String deleteStudentEntryById(@RequestParam("entryId") long entryId) {
+//        long userId = journalService.getEntryById(entryId).getStudent().getUserId();
+//        journalService.deleteEntryById(entryId);
+//        return "redirect:/admin/studentJournal/" + userId;
+//    }
+//
+//    @GetMapping("/editStudentEntry/{entryId}")
+//    public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
+//        model.addAttribute("studentEntryToEdit", journalService.getEntryById(entryId));
+//        return "forms/editStudentEntryForm";
+//    }
+//
+//    @PostMapping("/editStudentEntry/{entryId}")
+//    public String editStudentEntry(@ModelAttribute Journal journal) {
+//        long userId = journalService.getEntryById(journal.getEntryId()).getStudent().getUserId();
+//        journalService.editEntry(journal);
+//        return "redirect:/admin/studentJournal/" + userId;
+//    }
     //endregion
 
     //region CRUD Subjects

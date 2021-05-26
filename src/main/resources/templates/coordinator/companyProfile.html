@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil stażysty</title>
+    <link rel="stylesheet" href="../../static/css/profileForm.css">
+    <link rel="stylesheet" th:href="@{/css/profileForm.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
+                profil</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
+                    class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                    class="link-text">Stażyści</p></a>
+        </div>
+    </div>
+    <h1>
+        Profil stażysty:
+        <span th:text="${company.companyName}"></span>
+    </h1>
+    <div class="form">
+        <div class="form-control">
+            <div class="university">
+                <div class="company">
+                    <h2>Przedsiębiorstwo</h2>
+                    <p>Nazwa przedsiębiorstwa: <span th:text="${company.companyName}"></span></p>
+                    <p>Adres:
+                        <span th:text="${company.address.city}"></span>
+                        <span th:text="${company.address.street}"></span>
+                        <span th:text="${company.address.buildingNumber}"></span>
+                        <span th:text="${company.address.apartmentNumber}"></span>
+                        <span th:text="${company.address.zipCode}"></span>
+                        <span th:text="${company.address.postOffice}"></span>
+                    </p>
+                    <p>Rozpoczęcie praktyki: <span th:text="${company.startingDate}"></span></p>
+                    <p>Zakończenie praktyki: <span th:text="${company.endingDate}"></span></p>
+                    <p>
+                        Przedstawiciel firmy:
+                        <span th:text="${company.representative.firstName}"></span>
+                        <span th:text="${company.representative.lastName}"></span>
+                    </p>
+                    <p>Email:<span th:text="${company.representative.email}"></span></p>
+                    <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
+                    <p>Stanowisko:<span th:text="${company.representative.position}"></span></p>
+                    <h2>Opiekun praktyki:</h2>
+                    <p>Imię: <span th:text="${company.guardian.firstName}"></span></p>
+                    <p>Nazwisko: <span th:text="${company.guardian.lastName}"></span></p>
+                    <p>Numer telefonu: <span th:text="${company.guardian.telephoneNumber}"></span></p>
+                    <p>Email: <span th:text="${company.guardian.email}"></span></p>
+                </div>
+            </div>
+            <a th:href="@{/coordinator/{coordinatorId}/addEntry/{companyId}(coordinatorId=${coordinatorId}, companyId=${company.companyId})}">Dodaj wpis do planu</a>
+            <table>
+                <tr>
+                    <th>Opis</th>
+                    <th colspan="2">Akcja</th>
+                </tr>
+                <tr th:each="entry : ${company.internshipPlan}">
+                    <td th:text="${entry.description}"></td>
+                    <td><a th:href="@{/coordinator/{coordinatorId}/deleteEntry/{companyId}(coordinatorId=${coordinatorId}, companyId=${company.companyId}, entryId=${entry.internshipPlanId})}">Usuń</a></td>
+                    <td><a th:href="@{/coordinator/{coordinatorId}/editEntry/{companyId}/{entryId}(coordinatorId=${coordinatorId}, companyId=${company.companyId}, entryId=${entry.internshipPlanId})}">edytuj</a></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

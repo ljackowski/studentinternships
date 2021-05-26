@@ -2,17 +2,23 @@ package com.ljackowski.studentinternships.controllers;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.ljackowski.studentinternships.services.InternService;
-import com.ljackowski.studentinternships.models.Company;
-import com.ljackowski.studentinternships.services.CompanyService;
-import com.ljackowski.studentinternships.models.InternshipBill;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
+import com.ljackowski.studentinternships.models.Company;
 import com.ljackowski.studentinternships.models.Intern;
-import com.ljackowski.studentinternships.services.StudentService;
+import com.ljackowski.studentinternships.models.InternshipBill;
 import com.ljackowski.studentinternships.models.Journal;
+import com.ljackowski.studentinternships.services.CompanyService;
+import com.ljackowski.studentinternships.services.InternService;
 import com.ljackowski.studentinternships.services.JournalService;
+import com.ljackowski.studentinternships.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +27,13 @@ import org.thymeleaf.TemplateEngine;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/interns")
+@RequestMapping("/intern")
 public class InternController {
 
     private final InternService internService;
@@ -45,25 +54,30 @@ public class InternController {
         this.journalService = journalService;
     }
 
-    @GetMapping("/intern/{internId}")
+    @GetMapping("/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId")
     public String internProfileForm(Model model, @PathVariable(name = "internId") long internId) {
-        Intern intern = internService.getInternById(internId);
+        Intern intern = internService.getInternByStudent(studentService.getStudentById(internId));
         List<Company> companies = companyService.getCompaniesInInternship(true, 0);
         if (intern.getCompany() == null) {
             model.addAttribute("companies", companies);
             model.addAttribute("intern", intern);
-            return "profiles/internProfileBeforeChoosingCompany";
+            return "intern/internProfileBeforeChoosingCompany";
         } else {
             model.addAttribute("intern", intern);
-            return "profiles/internProfile";
+            return "intern/internProfile";
         }
     }
 
-    @PostMapping("/intern/{internId}")
-    public String internProfile(@ModelAttribute Intern intern) {
+    @PostMapping("/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId")
+    public String internProfile(@ModelAttribute Intern intern, @PathVariable(name = "internId") long internId) {
         Company company = companyService.getCompanyById(intern.getCompany().getCompanyId());
         company.setFreeSpaces(company.getFreeSpaces() - 1);
         companyService.updateCompany(company);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(intern, intern.getStudent().getPassword(),
+                Arrays.stream(intern.getStudent().getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         internService.updateIntern(intern);
         return "redirect:/interns/intern/" + intern.getInternId();
     }
@@ -71,66 +85,74 @@ public class InternController {
 //    Internship Journal
 
     @GetMapping("/journal/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public String getInternJournalByInternId(@PathVariable(name = "internId") long internId, Model model) {
-        model.addAttribute("journal", internService.getInternById(internId).getStudent().getJournal());
-        return "lists/internshipJournal";
+        model.addAttribute("journal", studentService.getStudentById(internId).getJournal());
+        return "intern/internshipJournal";
     }
 
     @GetMapping("/addEntry/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public String addInternEntryForm(Model model, @PathVariable(name = "internId") long internId) {
         Journal journal = new Journal();
-        journal.setStudent(studentService.getStudentById(internService.getInternById(internId).getStudent().getUserId()));
+        journal.setStudent(studentService.getStudentById(internId));
         model.addAttribute("journal", journal);
-        return "forms/addNewEntryToInternshipJournalForm";
+        return "intern/addNewEntryToInternshipJournalForm";
     }
 
     @PostMapping("/addEntry/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public String addInternEntry(@ModelAttribute Journal journal, @PathVariable(name = "internId") long internId) {
-        journal.setStudent(studentService.getStudentById(internService.getInternById(internId).getStudent().getUserId()));
+        journal.setStudent(studentService.getStudentById(internId));
         journalService.addEntry(journal);
-        return "redirect:/interns/internJournal/" + internId;
+        return "redirect:/intern/journal/" + internId;
     }
 
-    @GetMapping("/deleteEntry")
-    public String deleteInternEntryById(@RequestParam("entryId") long entryId) {
-        long internId = journalService.getEntryById(entryId).getStudent().getIntern().getInternId();
+    @GetMapping("/{internId}/deleteEntry")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
+    public String deleteInternEntryById(@PathVariable(name = "internId") long internId, @RequestParam("entryId") long entryId) {
         journalService.deleteEntryById(entryId);
-        return "redirect:/interns/internJournal/" + internId;
+        return "redirect:/intern/journal/" + internId;
     }
 
-    @GetMapping("/editEntry/{entryId}")
-    public String editInternEntryForm(@PathVariable("entryId") long entryId, Model model) {
+    @GetMapping("/{internId}/editEntry/{entryId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
+    public String editInternEntryForm(@PathVariable("entryId") long entryId, Model model, @PathVariable(name = "internId") long internId) {
         model.addAttribute("journal", journalService.getEntryById(entryId));
-        return "forms/editInternEntryForm";
+        return "intern/editInternEntryForm";
     }
 
-    @PostMapping("/editEntry/{entryId}")
-    public String editInternEntry(@ModelAttribute Journal journal) {
+    @PostMapping("/{internId}/editEntry/{entryId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
+    public String editInternEntry(@ModelAttribute Journal journal, @PathVariable(name = "internId") long internId) {
         journal.setStudent(journalService.getEntryById(journal.getEntryId()).getStudent());
         journalService.editEntry(journal);
-        return "redirect:/interns/internJournal/" + journal.getStudent().getIntern().getInternId();
+        return "redirect:/intern/journal/" + journal.getStudent().getUserId();
     }
 
 //    PDFS
 
     @GetMapping("/internshipProgram/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public ResponseEntity<?> generateInternshipProgram(@PathVariable("internId") long internId, HttpServletRequest request, HttpServletResponse response) {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
         return pdfGeneration.generateInternPDF("documents/internshipProgram", internService.getInternById(internId));
     }
 
     @GetMapping("/internshipBill/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public String generateInternshipBillForm(Model model, @PathVariable("internId") long internId) {
         model.addAttribute("internId", internId);
         model.addAttribute("bill", new InternshipBill());
-        return "forms/internshipBillForm";
+        return "intern/internshipBillForm";
     }
 
     @PostMapping("/internshipBill/{internId}")
-    public ResponseEntity<?> generateInternshipBill(@ModelAttribute InternshipBill internshipBill, HttpServletRequest request, HttpServletResponse response) {
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
+    public ResponseEntity<?> generateInternshipBill(@PathVariable("internId") long internId, @ModelAttribute InternshipBill internshipBill, HttpServletRequest request, HttpServletResponse response) {
         int sum = 0;
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
-        Intern intern = internService.getInternById(internshipBill.getInternId());
+        Intern intern = internService.getInternByStudent(studentService.getStudentById(internId));
         List<Journal> journalList = intern.getStudent().getJournal();
         for (Journal journal : journalList) {
             sum += journal.getHours();
@@ -140,11 +162,18 @@ public class InternController {
     }
 
     @GetMapping("/internshipJournal/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public ResponseEntity<?> generateInternshipJournal(@PathVariable("internId") long internId, HttpServletRequest request, HttpServletResponse response) {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
         Intern intern = internService.getInternById(internId);
         intern.getStudent().setJournal(journalService.sortByDate(intern.getStudent().getJournal()));
         return pdfGeneration.generateInternPDF("documents/internshipJournal", intern);
+    }
+
+    @GetMapping("/declaration/{internId}")
+    @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
+    public ResponseEntity<?> generateDeclaration(@PathVariable("internId") long internId) throws IOException {
+        return new PDFGeneration(new HttpHeaders()).generateInternPDF("Deklaracja_oświadczenie.pdf");
     }
 
 }

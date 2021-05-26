@@ -40,7 +40,7 @@
         <div>
             <h1>Dodaj wpis do dziennka</h1>
         </div>
-        <form action="#" th:action="@{/admin/editStudentEntry/{entryId}}" th:object="${studentEntryToEdit}" method="post">
+        <form action="#" th:action="@{/student/{studentId}/editEntry/{entryId}(studentId=${studentId}, entryId=${entryId})}" th:object="${entryToEdit}" method="post">
             <input th:field="*{student.userId}" type="hidden">
             <input th:field="*{entryId}" type="hidden">
             <div class="row">

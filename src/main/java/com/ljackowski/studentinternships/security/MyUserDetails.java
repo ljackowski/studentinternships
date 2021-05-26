@@ -1,6 +1,6 @@
 package com.ljackowski.studentinternships.security;
 
-import com.ljackowski.studentinternships.models.User;
+import com.ljackowski.studentinternships.models.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,11 +11,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
-
     private String email;
     private String password;
     private List<GrantedAuthority> authorityList;
     private long userId;
+    private Company company;
+    private String fieldOfStudy;
 
     public MyUserDetails() {
     }
@@ -25,6 +26,30 @@ public class MyUserDetails implements UserDetails {
         this.password = user.getPassword();
         this.authorityList = Arrays.stream(user.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         this.userId = user.getUserId();
+    }
+
+    public MyUserDetails(Student studentUser) {
+        this.email = studentUser.getEmail();
+        this.password = studentUser.getPassword();
+        this.authorityList = Arrays.stream(studentUser.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.userId = studentUser.getUserId();
+        this.company = studentUser.getCompany();
+    }
+
+    public MyUserDetails(Intern internUser) {
+        this.email = internUser.getStudent().getEmail();
+        this.password = internUser.getStudent().getPassword();
+        this.authorityList = Arrays.stream(internUser.getStudent().getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.userId = internUser.getStudent().getUserId();
+        this.company = internUser.getCompany();
+    }
+
+    public MyUserDetails(Coordinator coordinatorUser) {
+        this.email = coordinatorUser.getEmail();
+        this.password = coordinatorUser.getPassword();
+        this.authorityList = Arrays.stream(coordinatorUser.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+        this.fieldOfStudy = coordinatorUser.getFieldOfStudy();
+        this.userId = coordinatorUser.getUserId();
     }
 
     @Override
@@ -64,5 +89,13 @@ public class MyUserDetails implements UserDetails {
 
     public long getUserId() {
         return userId;
+    }
+
+    public Company getCompany(){
+        return company;
+    }
+
+    public String getFieldOfStudy() {
+        return fieldOfStudy;
     }
 }

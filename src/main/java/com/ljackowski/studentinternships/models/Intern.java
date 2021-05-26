@@ -23,9 +23,6 @@ public class Intern{
     @Column(name = "reserve")
     private boolean reserve;
 
-    @OneToMany(mappedBy = "intern")
-    private List<InternshipPlan> internshipPlans;
-
     public Intern() {
     }
 
@@ -33,14 +30,6 @@ public class Intern{
         this.company = company;
         this.student = student;
         this.reserve = reserve;
-    }
-
-    public List<InternshipPlan> getInternshipPlans() {
-        return internshipPlans;
-    }
-
-    public void setInternshipPlans(List<InternshipPlan> internshipPlans) {
-        this.internshipPlans = internshipPlans;
     }
 
     public Long getInternId() {

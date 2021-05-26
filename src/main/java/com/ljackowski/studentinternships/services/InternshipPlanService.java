@@ -18,10 +18,6 @@ public class InternshipPlanService {
         this.internshipPlanRepository = internshipPlanRepository;
     }
 
-    public List<InternshipPlan> getInternPlan(Intern intern){
-        return internshipPlanRepository.findAllByIntern(intern);
-    }
-
     public InternshipPlan getPlanEntryById(long entryId){
         return internshipPlanRepository.findById(entryId).get();
     }

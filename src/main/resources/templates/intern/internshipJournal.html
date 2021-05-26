@@ -12,31 +12,25 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a href="../documents/studentAgreementForm.html"><p class="link-text">Umowa o organizacje praktyk</p></a>
-        </div>
-        <div class="link">
-            <a href="../documents/studentDeclarationForm.html"><p class="link-text">Deklaracja planowanej
-                praktyki</p></a>
+            <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
         </div>
         <div class="link indicator">
-            <a href="../../static/pdfs/training/Dziennik_praktyk_2020.pdf"><p class="link-text">Dziennik praktyk</p></a>
+            <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/training/Ramowy_Program_Praktyk_zawodowych_informatyka_2021.pdf"><p class="link-text">
-                Ramowy
-                program praktyk</p></a>
+            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Regulamin praktyk</p></a>
+            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Program stażu</p></a>
         </div>
         <div class="link">
-            <a href="../../static/pdfs/Ankieta-pracy-zawaodowej.pdf"><p class="link-text">Ankieta</p></a>
+            <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
         </div>
     </div>
     <h1>
         Dziennik praktyk
     </h1>
-    <a th:href="@{/student/addEntry/{studentId}(studentId=${studentId})}" class="btn btn-add">Dodaj</a>
+    <a th:href="@{/intern/addEntry/{internId}(internId=${internId})}" class="btn btn-add">Dodaj</a>
     <div class="table">
         <table>
             <tr>
@@ -52,9 +46,8 @@
                 <td th:text="${entry.endingTime}" class="start-end-column"></td>
                 <td th:text="${entry.hours}" class="hours-column"></td>
                 <td th:text="${entry.description}" class="description-column"></td>
-                <td><a th:href="@{/student/{studentId}/editEntry/{entryId}(studentId=${studentId}, entryId=${entry.entryId})}"
-                       class="btn btn-edit">Edytuj</a></td>
-                <td><a th:href="@{/student/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
+                <td><a th:href="@{/intern/{internId}/editEntry/{entryId}(internId=${internId}, entryId=${entry.entryId})}" class="btn btn-edit">Edytuj</a></td>
+                <td><a th:href="@{/intern/{internId}/deleteEntry/(internId=${internId}, entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
                 </td>
             </tr>
         </table>

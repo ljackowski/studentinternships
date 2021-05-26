@@ -12,16 +12,19 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Program praktyk zawodowych</p></a>
+            <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
         </div>
         <div class="link indicator">
-            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik praktyk</p></a>
+            <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Regulamin praktyk</p></a>
+            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Program stażu</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
         </div>
     </div>
     <div class="form">
@@ -29,7 +32,7 @@
             <h1>Dodaj wpis do dziennka</h1>
         </div>
         <form action="#"
-              th:action="@{/student/addEntry/{studentId}(studentId=${journal.student.userId})}"
+              th:action="@{/intern/addEntry/{internId}(internId=${journal.student.userId})}"
               th:object="${journal}" method="post">
             <div class="row">
                 <div class="column">
@@ -37,7 +40,7 @@
                         <label for="company-name" class="form-txt">Dzień: </label>
                     </div>
                     <div>
-                        <input th:value="*{day}" th:field="*{day}" type="date" id="company-name"
+                        <input th:field="*{day}" type="date" id="company-name"
                                class="form-box">
                     </div>
                 </div>
@@ -82,7 +85,7 @@
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a class="btn btn-cancel" th:href="@{/student/journal/{studentId}(studentId=${journal.student.userId})}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/intern/journal/{internId}(internId=${journal.student.userId})}">Anuluj</a>
             </div>
         </form>
     </div>

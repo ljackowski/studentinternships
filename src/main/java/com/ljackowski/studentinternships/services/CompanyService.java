@@ -3,6 +3,7 @@ package com.ljackowski.studentinternships.services;
 import com.ljackowski.studentinternships.models.Company;
 import com.ljackowski.studentinternships.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class CompanyService {
         return companyRepository.findAll();
     }
 
-    public Company getCompanyById(Long companyId){
+    public Company getCompanyById(long companyId){
         return companyRepository.findById(companyId).get();
     }
 
@@ -39,5 +40,9 @@ public class CompanyService {
 
     public List<Company> getCompaniesInInternship(boolean partOfInternship, int freeSpaces){
         return companyRepository.findAllByPartOfInternshipAndFreeSpacesGreaterThan(partOfInternship, freeSpaces);
+    }
+
+    public List<Company> getCompaniesByFieldOfStudyInInternship(String fieldOfStudy, boolean partOfInternship){
+        return companyRepository.findAllByFieldOfStudyAndPartOfInternship(fieldOfStudy, partOfInternship);
     }
 }

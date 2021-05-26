@@ -11,7 +11,7 @@
 <body>
 <div class="container">
     <h1>
-        Witamy w panelu studenta!
+        Wypełnij dane związane z przedsiębiorstwem, w którym bedziesz odbywał praktykę, aby przejść danej!
     </h1>
     <div class="form">
         <div class="form-control">
@@ -245,12 +245,22 @@
                         </div>
                         <div class="button">
                             <button type="submit" class="btn btn-add">Dodaj</button>
-                            <a class="btn btn-cancel" th:href="@{/companies/list}">Anuluj</a>
+                            <a class="btn btn-cancel" th:href="@{/student/{studentId}(studentId=${studentId})}">Anuluj</a>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <table class="grade-list">
+            <tr>
+                <th>Przedmiot</th>
+                <th>Ocena</th>
+            </tr>
+            <tr th:each="grade : ${student.gradeList}">
+                <td th:text="${grade.subject.subjectName}"></td>
+                <td th:text="${grade.grade_number}"></td>
+            </tr>
+        </table>
     </div>
 </div>
 </body>

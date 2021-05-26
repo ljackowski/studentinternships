@@ -5,6 +5,9 @@ import com.itextpdf.html2pdf.HtmlConverter;
 import com.ljackowski.studentinternships.models.Intern;
 import com.ljackowski.studentinternships.models.InternshipBill;
 import com.ljackowski.studentinternships.models.Student;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.thymeleaf.TemplateEngine;
@@ -14,17 +17,22 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 
 public class PDFGeneration {
 
-    private final TemplateEngine templateEngine;
-    private final ServletContext servletContext;
-    private final ByteArrayOutputStream byteArrayOutputStream;
-    private final ConverterProperties converterProperties;
-    private final HttpServletRequest httpServletRequest;
-    private final HttpServletResponse httpServletResponse;
-
+    private TemplateEngine templateEngine;
+    private ServletContext servletContext;
+    private ByteArrayOutputStream byteArrayOutputStream;
+    private ConverterProperties converterProperties;
+    private HttpServletRequest httpServletRequest;
+    private HttpServletResponse httpServletResponse;
+    private HttpHeaders httpHeaders;
 
     public PDFGeneration(TemplateEngine templateEngine, ServletContext servletContext, ByteArrayOutputStream byteArrayOutputStream,
                          ConverterProperties converterProperties, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
@@ -36,11 +44,33 @@ public class PDFGeneration {
         this.httpServletResponse = httpServletResponse;
     }
 
+    public PDFGeneration(HttpHeaders httpHeaders) {
+        this.httpHeaders = httpHeaders;
+    }
+
+    public ByteArrayResource generateByteArray( Path path) throws IOException {
+        return new ByteArrayResource(Files.readAllBytes(path));
+    }
+
     public WebContext generateContext(Object object, String objectName) {
         WebContext webContext = new WebContext(httpServletRequest, httpServletResponse, servletContext);
         webContext.setVariable("date", LocalDate.now());
         webContext.setVariable(objectName, object);
         return webContext;
+    }
+
+    public ResponseEntity<?> generateStudentPDF(String url) throws IOException {
+        File file = new ClassPathResource("static/pdfs/training/" + url).getFile();
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + url);
+        ByteArrayResource resource = generateByteArray(Paths.get(file.getAbsolutePath()));
+        return ResponseEntity.ok().headers(httpHeaders).contentLength(file.length()).contentType(MediaType.APPLICATION_PDF).body(resource);
+    }
+
+    public ResponseEntity<?> generateInternPDF(String url) throws IOException {
+        File file = new ClassPathResource("static/pdfs/internship/" + url).getFile();
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "inline;filename=" + url);
+        ByteArrayResource resource = generateByteArray(Paths.get(file.getAbsolutePath()));
+        return ResponseEntity.ok().headers(httpHeaders).contentLength(file.length()).contentType(MediaType.APPLICATION_PDF).body(resource);
     }
 
     public ResponseEntity<?> generateStudentPDF(String url, Student student) {
@@ -59,6 +89,10 @@ public class PDFGeneration {
         HtmlConverter.convertToPdf(templateEngine.process(url, webContext), byteArrayOutputStream, converterProperties);
         return ResponseEntity.ok().contentType(MediaType.APPLICATION_PDF).body(byteArrayOutputStream.toByteArray());
     }
+
+
+
+
 
 //    public ResponseEntity<?> generatePDF(HttpServletRequest request, HttpServletResponse response, String url) throws IOException {
 //        WebContext context = new WebContext(request, response, servletContext);

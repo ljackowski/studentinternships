@@ -24,6 +24,12 @@ public class MyAuthenticationSuccessHandler implements AuthenticationSuccessHand
         } else if (roles.contains("ROLE_STUDENT")){
             response.sendRedirect("/student/" + getUserId());
         }
+        else if (roles.contains("ROLE_INTERN")){
+            response.sendRedirect("/intern/" + getUserId());
+        }
+        else if (roles.contains("ROLE_COORDINATOR")){
+            response.sendRedirect("/coordinator/" + getUserId());
+        }
     }
 
     public long getUserId() {

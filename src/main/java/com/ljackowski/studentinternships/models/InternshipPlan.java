@@ -12,10 +12,6 @@ public class InternshipPlan {
     private Long internshipPlanId;
 
     @ManyToOne
-    @JoinColumn(name = "intern_id")
-    private Intern intern;
-
-    @ManyToOne
     @JoinColumn(name = "company_id")
     private Company company;
 
@@ -25,8 +21,7 @@ public class InternshipPlan {
     public InternshipPlan() {
     }
 
-    public InternshipPlan(Intern intern, Company company, String description) {
-        this.intern = intern;
+    public InternshipPlan(Company company, String description) {
         this.company = company;
         this.description = description;
     }
@@ -37,14 +32,6 @@ public class InternshipPlan {
 
     public void setInternshipPlanId(Long internshipPlanId) {
         this.internshipPlanId = internshipPlanId;
-    }
-
-    public Intern getIntern() {
-        return intern;
-    }
-
-    public void setIntern(Intern intern) {
-        this.intern = intern;
     }
 
     public Company getCompany() {

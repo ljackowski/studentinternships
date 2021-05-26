@@ -1,5 +1,6 @@
 package com.ljackowski.studentinternships.services;
 
+import com.ljackowski.studentinternships.models.Coordinator;
 import com.ljackowski.studentinternships.models.Intern;
 import com.ljackowski.studentinternships.models.Student;
 import com.ljackowski.studentinternships.repositories.InternRepository;
@@ -44,4 +45,7 @@ public class InternService {
         return internRepository.findByStudent(student);
     }
 
+    public List<Intern> getInternsByCoordinator(Coordinator coordinator){
+        return internRepository.findAllByStudent_Coordinator(coordinator);
+    }
 }

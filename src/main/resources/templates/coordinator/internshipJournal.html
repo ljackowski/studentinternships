@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dziennik praktyk</title>
+    <link rel="stylesheet" href="../../static/css/listDesign.css">
+    <link rel="stylesheet" th:href="@{/css/listDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link ">
+            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj profil</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                    class="link-text">Stażyści</p></a>
+        </div>
+    </div>
+    <h1>
+        Dziennik praktyk:
+        <span th:text="${intern.student.firstName}"></span>
+        <span th:text="${intern.student.lastName}"></span>
+    </h1>
+    <div class="table">
+        <table>
+            <tr>
+                <th>Dzień</th>
+                <th colspan="2">Godziny pracy</th>
+                <th>Liczba godzin pracy</th>
+                <th>Wykonywane zadania</th>
+            </tr>
+            <tr th:each="entry : ${intern.student.journal}">
+                <td th:text="${entry.day}" class="day-column"></td>
+                <td th:text="${entry.startingTime}" class="start-end-column"></td>
+                <td th:text="${entry.endingTime}" class="start-end-column"></td>
+                <td th:text="${entry.hours}" class="hours-column"></td>
+                <td th:text="${entry.description}" class="description-column"></td>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>
