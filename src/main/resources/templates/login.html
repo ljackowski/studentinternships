@@ -9,20 +9,20 @@
 </head>
 <body>
 <div class="container">
-    <div class="login-box">
-        <div class="login-txt">Sign in</div>
-        <form th:action="@{/login}" method="post">
-            <div th:if="${param.error}">
-                Nieporawny email lub hasło!
-            </div>
-            <div th:if="${param.logut}">
-                Wylogowano pomyślnie!
-            </div>
-            <label class="email-txt" for="email">Email</label>
-            <input class="email-box" id="email" name="email" type="text">
-            <label class="password-txt" for="password">Hasło</label>
-            <input class="password-box" id="password" name="password" type="password">
-            <input type="submit" value="Login">
+    <div class="fluid_container">
+        <h1 class="login_text_header">Zaloguj się</h1>
+        <div th:if="${param.error}" class="login_error">
+            Nieporawny email lub hasło!
+        </div>
+        <div th:if="${param.logout}" class="logout">
+            Wylogowano pomyślnie!
+        </div>
+        <form th:action="@{/login}" method="post"  class="login_form">
+            <label class="login_text" for="email">Email</label>
+            <input class="login_box" id="email" name="email" type="text">
+            <label class="login_text" for="password">Hasło</label>
+            <input class="login_box" id="password" name="password" type="password">
+            <button type="submit" value="Login" class="login_button">Zaloguj</button>
         </form>
     </div>
 </div>

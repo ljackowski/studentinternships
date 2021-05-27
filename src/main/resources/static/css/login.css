@@ -4,155 +4,86 @@
     src: url("../fonts/Lato-Regular.ttf");
 }
 body{
-    display: flex;
     background: #2A323C;
     margin: 0;
     padding: 0;
 }
 
 .container{
-
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
+    font-family: Lato, serif;
+    color: #f3f3f3;
 }
 
-/* Group 1 */
-.login-box{
-    width: 658px;
-    height: 700px;
-    margin: 190px 631px 190px 631px;
-
+.fluid_container{
+    margin-top: 8%;
     background: #323C48;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 17px;
+    width: 19%;
 }
 
-.login-txt{
-    margin: 10% 23.71% 5% 23.71%;
-    padding: 0;
-
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 64px;
-    line-height: 77px;
+.login_text_header{
     text-align: center;
-
-    color: #92908D;
 }
 
-.email-txt{
-    margin: 5% 49.7% 0 16.41%;
-    padding: 0;
-
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-
-    color: #92908D;
-}
-
-.email-box{
-    width: 442px;
-    height: 53px;
-    margin: 1% 16.41% 5% 16.41%;
-    padding: 0;
-
-    color: #92908D;
-    font-size: 24px;
-    background: #3B4654;
-    border: 2px solid #445161;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
-
-.password-txt{
-    margin: 5% 49.7% 0 16.41%;
-
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-
-    color: #92908D;
-}
-
-.password-box{
-    width: 442px;
-    height: 53px;
-    margin: 1% 16.41% 1% 16.41%;
-
-    color: #92908D;
-    font-size: 24px;
-    background: #3B4654;
-    border: 2px solid #445161;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-}
-
-.remember-me-box{
-    width: 20px;
-    height: 20px;
-    margin: 1% 0 0 16.41%;
-    padding: 0;
-
-    background-color: #3B4654;
-    border: 2px solid #445161;
-    box-sizing: border-box;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 3px;
-
-}
-
-.remember-me-txt{
-    margin: 1% 46.66% 0 0;
-    padding: 0;
-
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-
-    color: #92908D;
-
-}
-
-.login-button{
-    width: 180px;
-    height: 60px;
-    margin: 10% 36.32% 10% 36.32%;
-    padding: 0;
-
+.login_error{
     text-align: center;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 28px;
-    color: #F4FBFC;
-    background: #04A2B3;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    padding: 1%;
+    font-size: 15px;
+    background: rgba(165, 52, 52, 0.55);
 }
 
-.forgot-password{
-    margin: 0 16.41% 0 55.78%;
-    padding: 0;
+.logout{
+    text-align: center;
+    padding: 1%;
+    font-size: 15px;
+    background: rgba(77, 141, 43, 0.55);
+}
 
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
+.login_form{
+    display: flex;
+    flex-direction: column;
+    margin: 15% auto;
+    text-align: center;
+}
 
-    color: #92908D;
+.login_text{
+    font-size: 19px;
+}
+
+.login_box{
+    background: #3B4654;
+    color: #f3f3f3;
+    text-align: center;
+    width: 75%;
+    margin: 3% auto;
+    font-size: 16px;
+    padding: 1%;
+
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    outline: none;
+}
+
+.login_button{
+    font-size: 16px;
+    margin: 14% auto 0 auto;
+    padding: 3% 10%;
+    cursor: pointer;
+
+    color: #f3f3f3;
+    background: #0e50bc;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    border-color: #0e50bc;
+}
+
+.login_button:hover, .login_button:focus{
+    background: #09409b;
 }

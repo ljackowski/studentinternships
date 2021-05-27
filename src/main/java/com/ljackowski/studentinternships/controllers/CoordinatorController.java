@@ -22,15 +22,13 @@ public class CoordinatorController {
     private final CoordinatorService coordinatorService;
     private final InternService internService;
     private final InternshipPlanService internshipPlanService;
-    private final StudentService studentService;
     public final CompanyService companyService;
 
     @Autowired
-    public CoordinatorController(CoordinatorService coordinatorService, InternService internService, InternshipPlanService internshipPlanService, StudentService studentService, CompanyService companyService) {
+    public CoordinatorController(CoordinatorService coordinatorService, InternService internService, InternshipPlanService internshipPlanService, CompanyService companyService) {
         this.coordinatorService = coordinatorService;
         this.internService = internService;
         this.internshipPlanService = internshipPlanService;
-        this.studentService = studentService;
         this.companyService = companyService;
     }
 

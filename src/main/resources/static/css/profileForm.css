@@ -4,7 +4,7 @@
 }
 
 body{
-    font-family: Lato;
+    font-family: Lato, serif;
     margin: 0;
     padding: 0;
     background: #2A323C;
@@ -12,30 +12,31 @@ body{
 }
 
 .container{
-    display: flex;
-    flex-direction: column;
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
 }
 
-/*Navigation*/
-
+/*region Navigation*/
 .navigation{
     width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
-    background: #3B4654;
+    background: #434c5a;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .link{
+    width: 100%;
     padding: 0;
     margin: 0 auto 0 auto;
     color: #A9A8A5;
     text-align: center;
+    word-break: break-word;
+    word-wrap: break-word;
+
 }
 
 .link-text {
@@ -54,144 +55,107 @@ a:hover{
 
 .indicator{
     border-bottom: 4px solid #dededd;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
+/*endregion*/
 
-/*Content*/
 
-h1{
-    text-align: center;
-    font-size: 33px;
-    padding: 0;
-    margin-bottom: 1%;
+/*region Profile tiles*/
+.container_fluid{
+    display: grid;
+    grid-template-columns: 33% 33% 34%;
+    align-items: center;
+    margin: 0 4%;
+    color: #92908d;
+    font-size: 18px;
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
 h2{
+    color: rgb(188, 105, 16);
     text-align: center;
+    margin: 3%;
 }
 
-/*Coordinator*/
+.tile1{
+    margin: 5% 10% 0 10%;
+    padding: 2% 10%;
 
-.form-coordinator{
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-    margin: 1% auto 3% auto;
-
-    background: #323C48;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-    font-size: 20px;
-}
-
-h1{
-    text-align: center;
-    font-size: 33px;
-    padding: 0;
-    margin-bottom: 1%;
-}
-
-table{
-    margin: 2% 3%;
-}
-
-
-tr {
-    text-align: center;
-    font-size: 12px;
-}
-
-th{
-    font-size: 16px;
-    padding-bottom: 1%;
-    border-bottom: 4px solid #445161;
-}
-
-td{
-    width: 5%;
-    word-break: break-all;
-    border-bottom: 1px solid #445161;
-    padding: 1% 0 1% 0;
-}
-
-/*Profile*/
-
-.form{
-    width: 80%;
-    margin: 1% auto 3% auto;
-
-    background: #323C48;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-    font-size: 20px;
-}
-
-.form-control{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    margin: 0 5% 0 5%;
-}
-
-.university{
-    margin: 5%;
-}
-
-.company{
-    margin: 5%;
-}
-
-.grades{
-    width: 100%;
-}
-
-.university span, .company span{
-    font-size: 22px;
-    color: #969692;
-    margin-left: 3%;
-}
-
-
-/*Form*/
-
-.single-row{
-    width: 100%;
-    text-align: center;
-    margin: 1% 0 1% 0;
-}
-
-.single-row .column{
-    margin: 0 auto 0 auto;
-    width: 50%;
-    text-align: center;
-}
-
-.row{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 1%;
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-.row p{
-    padding: 0;
-    margin: 1% 0 1% 0;
-}
-
-.form-box{
     background: #3B4654;
-    color: #92908d;
-    font-size: 18px;
-    width: 80%;
-    text-align: center;
-
     border: 2px solid #445161;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
-.form-box:focus{
-    outline: none;
+.tile2{
+    margin: 5% 10% 0 10%;
+    padding: 2% 10%;
+
+    background: #3B4654;
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
 }
+
+.tile3{
+    grid-column: span 3;
+    margin: 5% auto;
+    width: 30%;
+    background: #3B4654;
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+/*region Grades List*/
+.tile3 table {
+    width: 90%;
+    border-collapse: collapse;
+    margin: 0 auto 10% auto;
+}
+
+.tile3 .grade_col1{
+    width: 80%;
+}
+
+.tile3 td, .tile3 th{
+    text-align: center;
+    padding: 2% 0;
+    border-bottom: solid 1px #000000;
+}
+/*endregion*/
+
+.tile4{
+    background: #3B4654;
+    margin: 5% 10% 0 10%;
+    padding: 2% 10%;
+
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.tile5{
+    background: #3B4654;
+    margin: 5% 10% 0 10%;
+    padding: 2% 10%;
+
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.tile6{
+    background: #3B4654;
+    margin: 5% 10% 0 10%;
+    padding: 2% 10%;
+
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+/*endregion*/
 
 .btn{
     border: none;
@@ -230,14 +194,6 @@ td{
     background: #640a0a;
     outline: none;
     color: #F4FBFC;
-}
-
-table .btn{
-    border: none;
-    font-size: 14px;
-    border-radius: 15px;
-    padding: 12px 20px;
-    cursor: pointer;
 }
 
 .btn-edit{

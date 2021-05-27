@@ -3,10 +3,12 @@ package com.ljackowski.studentinternships.controllers;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
+import com.ljackowski.studentinternships.models.Grade;
 import com.ljackowski.studentinternships.models.Journal;
 import com.ljackowski.studentinternships.models.Student;
 import com.ljackowski.studentinternships.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,13 +40,14 @@ public class StudentController {
     private final RepresentativeService representativeService;
     private final GuardianService guardianService;
     private final ServletContext servletContext;
+    private final GradeService gradeService;
 
     @Autowired
     public StudentController(StudentService studentService, CoordinatorService coordinatorService,
                              TemplateEngine templateEngine, JournalService journalService,
                              AddressService addressService,
                              CompanyService companyService, RepresentativeService representativeService,
-                             GuardianService guardianService, ServletContext servletContext) {
+                             GuardianService guardianService, ServletContext servletContext, GradeService gradeService) {
         this.studentService = studentService;
         this.coordinatorService = coordinatorService;
         this.templateEngine = templateEngine;
@@ -54,6 +57,7 @@ public class StudentController {
         this.representativeService = representativeService;
         this.guardianService = guardianService;
         this.servletContext = servletContext;
+        this.gradeService = gradeService;
     }
 
     @GetMapping("/{studentId}")

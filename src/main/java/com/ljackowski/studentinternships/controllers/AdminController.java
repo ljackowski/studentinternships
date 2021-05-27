@@ -72,7 +72,7 @@ public class AdminController {
     @GetMapping("/deleteUser")
     public String deleteUser(@RequestParam(name = "userId") long userId) {
         userService.deleteUserById(userId);
-        return "redirect:/users/list";
+        return "redirect:/admin/usersList";
     }
 
     @GetMapping("/editUser/{userId}")
@@ -94,7 +94,7 @@ public class AdminController {
     @GetMapping("/student/{studentId}")
     public String getStudent(Model model, @PathVariable("studentId") long studentId) {
         model.addAttribute("student", studentService.getStudentById(studentId));
-        return "profiles/studentProfile";
+        return "admin/studentProfile";
     }
 
     @RequestMapping("/studentsList")
@@ -105,13 +105,13 @@ public class AdminController {
             studentService.updateStudent(student);
         }
         model.addAttribute("students", studentsList);
-        return "lists/studentsList";
+        return "admin/studentsList";
     }
 
     @GetMapping("/addStudent")
     public String addStudentForm(Model model) {
         model.addAttribute("newStudent", new Student());
-        return "forms/addStudentForm";
+        return "admin/addStudentForm";
     }
 
     @PostMapping("/addStudent")
@@ -141,7 +141,7 @@ public class AdminController {
     public String editStudentForm(@PathVariable(value = "userId") int userId, Model model) {
         Student student = studentService.getStudentById(userId);
         model.addAttribute("studentToEdit", student);
-        return "forms/editStudentForm";
+        return "admin/editStudentForm";
     }
 
     @PostMapping("/editStudent/{userId}")
@@ -184,17 +184,17 @@ public class AdminController {
         javaMailSender.send(mailMessage);
     }
 
-    @GetMapping("intern/{internId}")
-    public String getIntern(@PathVariable("internId") long internId, Model model){
-        model.addAttribute("intern", internService.getInternById(internId));
-        return "profiles/internProfile";
-    }
-
     @RequestMapping("/internsList")
     public String getAllInterns(Model model) {
         List<Intern> interns = internService.getAllInterns();
         model.addAttribute("interns", interns);
-        return "lists/internsList";
+        return "admin/internsList";
+    }
+
+    @GetMapping("intern/{internId}")
+    public String getIntern(@PathVariable("internId") long internId, Model model){
+        model.addAttribute("intern", internService.getInternById(internId));
+        return "admin/internProfile";
     }
 
     @GetMapping("/addInterns")
@@ -249,7 +249,7 @@ public class AdminController {
     @GetMapping("/internJournal/{internId}")
     public String getInternJournalByInternId(@PathVariable(name = "internId") long internId, Model model) {
         model.addAttribute("journal", internService.getInternById(internId).getStudent().getJournal());
-        return "lists/internshipJournal";
+        return "admin/internshipJournal";
     }
 
     @GetMapping("/addInternEntry/{internId}")
@@ -257,7 +257,7 @@ public class AdminController {
         Journal journal = new Journal();
         journal.setStudent(studentService.getStudentById(internService.getInternById(internId).getStudent().getUserId()));
         model.addAttribute("journal", journal);
-        return "forms/addNewEntryToInternshipJournalForm";
+        return "admin/addNewEntryToInternshipJournalForm";
     }
 
     @PostMapping("/addInternEntry/{internId}")
@@ -277,7 +277,7 @@ public class AdminController {
     @GetMapping("/editInternEntry/{entryId}")
     public String editInternEntryForm(@PathVariable("entryId") long entryId, Model model) {
         model.addAttribute("journal", journalService.getEntryById(entryId));
-        return "forms/editInternEntryForm";
+        return "admin/editInternEntryForm";
     }
 
     @PostMapping("/editInternEntry/{entryId}")
@@ -292,19 +292,19 @@ public class AdminController {
     @RequestMapping("/coordinatorsList")
     public String getAllCoordinators(Model model) {
         model.addAttribute("coordinators", coordinatorService.getCoordinators());
-        return "lists/coordinatorsList";
+        return "admin/coordinatorsList";
     }
 
     @RequestMapping("/coordinator/{coordinatorId}")
     public String getCoordinatorById(Model model, @PathVariable("coordinatorId") long userId){
         model.addAttribute("coordinator", coordinatorService.getCoordinatorById(userId));
-        return "profiles/coordinatorProfile";
+        return "admin/coordinatorProfile";
     }
 
     @GetMapping("/addCoordinator")
     public String addCoordinatorForm(Model model) {
         model.addAttribute("newCoordinator", new Coordinator());
-        return "forms/addCoordinatorForm";
+        return "admin/addCoordinatorForm";
     }
 
     @PostMapping("/addCoordinator")
@@ -327,7 +327,7 @@ public class AdminController {
     @GetMapping("/editCoordinator/{coordinatorId}")
     public String editCoordinatorForm(@PathVariable("coordinatorId") long userId, Model model) {
         model.addAttribute("coordinatorToEdit", coordinatorService.getCoordinatorById(userId));
-        return "forms/editCoordinatorForm";
+        return "admin/editCoordinatorForm";
     }
 
     @PostMapping("/editCoordinator/{coordinatorId}")
@@ -339,60 +339,60 @@ public class AdminController {
     }
     //endregion
 
-    //region CRUD Student Journal
-//    @GetMapping("/studentJournal/{studentId}")
-//    public String getTraineeJournalByStudentId(@PathVariable(name = "studentId") long userId, Model model) {
-//        model.addAttribute("journal", studentService.getStudentById(userId).getJournal());
-//        return "lists/traineeJournal";
-//    }
-//
-//    @GetMapping("/addStudentEntry/{studentId}")
-//    public String addEntryForm(Model model, @PathVariable(name = "studentId") long userId) {
-//        Journal journal = new Journal();
-//        journal.setStudent(studentService.getStudentById(userId));
-//        model.addAttribute("journal", journal);
-//        return "forms/addNewEntryToStudentJournalForm";
-//    }
-//
-//    @PostMapping("/addStudentEntry/{userId}")
-//    public String addEntry(@ModelAttribute Journal journal, @PathVariable(name = "userId") long userId) {
-//        journal.setStudent(studentService.getStudentById(userId));
-//        journalService.addEntry(journal);
-//        return "redirect:/admin/studentJournal/" + userId;
-//    }
-//
-//    @GetMapping("/deleteStudentEntry")
-//    public String deleteStudentEntryById(@RequestParam("entryId") long entryId) {
-//        long userId = journalService.getEntryById(entryId).getStudent().getUserId();
-//        journalService.deleteEntryById(entryId);
-//        return "redirect:/admin/studentJournal/" + userId;
-//    }
-//
-//    @GetMapping("/editStudentEntry/{entryId}")
-//    public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
-//        model.addAttribute("studentEntryToEdit", journalService.getEntryById(entryId));
-//        return "forms/editStudentEntryForm";
-//    }
-//
-//    @PostMapping("/editStudentEntry/{entryId}")
-//    public String editStudentEntry(@ModelAttribute Journal journal) {
-//        long userId = journalService.getEntryById(journal.getEntryId()).getStudent().getUserId();
-//        journalService.editEntry(journal);
-//        return "redirect:/admin/studentJournal/" + userId;
-//    }
+    //  region CRUD Student Journal
+    @GetMapping("/studentJournal/{studentId}")
+    public String getTraineeJournalByStudentId(@PathVariable(name = "studentId") long userId, Model model) {
+        model.addAttribute("journal", studentService.getStudentById(userId).getJournal());
+        return "admin/traineeJournal";
+    }
+
+    @GetMapping("/addStudentEntry/{studentId}")
+    public String addEntryForm(Model model, @PathVariable(name = "studentId") long userId) {
+        Journal journal = new Journal();
+        journal.setStudent(studentService.getStudentById(userId));
+        model.addAttribute("journal", journal);
+        return "admin/addNewEntryToStudentJournalForm";
+    }
+
+    @PostMapping("/addStudentEntry/{userId}")
+    public String addEntry(@ModelAttribute Journal journal, @PathVariable(name = "userId") long userId) {
+        journal.setStudent(studentService.getStudentById(userId));
+        journalService.addEntry(journal);
+        return "redirect:/admin/studentJournal/" + userId;
+    }
+
+    @GetMapping("/deleteStudentEntry")
+    public String deleteStudentEntryById(@RequestParam("entryId") long entryId) {
+        long userId = journalService.getEntryById(entryId).getStudent().getUserId();
+        journalService.deleteEntryById(entryId);
+        return "redirect:/admin/studentJournal/" + userId;
+    }
+
+    @GetMapping("/editStudentEntry/{entryId}")
+    public String editStudentEntryForm(@PathVariable("entryId") long entryId, Model model) {
+        model.addAttribute("studentEntryToEdit", journalService.getEntryById(entryId));
+        return "admin/editStudentEntryForm";
+    }
+
+    @PostMapping("/editStudentEntry/{entryId}")
+    public String editStudentEntry(@ModelAttribute Journal journal) {
+        long userId = journalService.getEntryById(journal.getEntryId()).getStudent().getUserId();
+        journalService.editEntry(journal);
+        return "redirect:/admin/studentJournal/" + userId;
+    }
     //endregion
 
     //region CRUD Subjects
     @RequestMapping("/subjectList")
     public String getAllSubjects(Model model) {
         model.addAttribute("subjects", subjectService.getAllSubjects());
-        return "lists/subjectsList";
+        return "admin/subjectsList";
     }
 
     @GetMapping("/addSubject")
     public String addSubjectForm(Model model) {
         model.addAttribute("newSubject", new Subject());
-        return "forms/addSubjectForm";
+        return "admin/addSubjectForm";
     }
 
     @PostMapping("/addSubject")
@@ -417,7 +417,7 @@ public class AdminController {
     public String editSubjectForm(@PathVariable("subjectId") long subjectId, Model model) {
         Subject subject = subjectService.getSubjectBuId(subjectId);
         model.addAttribute("subjectToEdit", subject);
-        return "forms/editSubjectForm";
+        return "admin/editSubjectForm";
     }
 
     @PostMapping("/editSubject/{subjectId}")
@@ -446,13 +446,12 @@ public class AdminController {
     @GetMapping("/deleteGrade")
     public String deleteGrade(@RequestParam("gradeId") long gradeId) {
         Student student = studentService.getStudentById(gradeService.getGradeById(gradeId).getStudent().getUserId());
-        Intern intern = internService.getInternByStudent(student);
         gradeService.deleteGradeById(gradeId);
         if (student.getRole().equals("ROLE_STUDENT")) {
             return "redirect:/admin/student/" + student.getUserId();
         }
         if (student.getRole().equals("ROLE_INTERN")) {
-            return "redirect:/interns/intern/" + intern.getInternId();
+            return "redirect:/admin/intern/" + internService.getInternByStudent(student).getInternId();
         }
         return "";
     }
@@ -461,13 +460,12 @@ public class AdminController {
     public String editStudentGradeForm(@PathVariable("gradeId") long gradeId, Model model) {
         Grade grade = gradeService.getGradeById(gradeId);
         model.addAttribute("gradeToEdit", grade);
-        return "forms/editGradeForm";
+        return "admin/editGradeForm";
     }
 
     @PostMapping("/editGrade/{gradeId}")
     public String editStudentGrade(@ModelAttribute Grade grade) {
         Student student = studentService.getStudentById(grade.getStudent().getUserId());
-        Intern intern = internService.getInternByStudent(student);
         Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
         double averageGrade = 0;
         if (student.getGradeList().size() != 0) {
@@ -487,7 +485,7 @@ public class AdminController {
             return "redirect:/admin/student/" + student.getUserId();
         }
         if (student.getRole().equals("ROLE_INTERN")) {
-            return "redirect:/interns/intern/" + intern.getInternId();
+            return "redirect:/admin/intern/" + internService.getInternByStudent(student).getInternId();
         }
         return "";
     }
@@ -501,7 +499,7 @@ public class AdminController {
             companyService.updateCompany(company);
         }
         model.addAttribute("companies", companies);
-        return "lists/companiesList";
+        return "admin/companiesList";
     }
 
     @RequestMapping("/company/{companyId}")
@@ -509,17 +507,17 @@ public class AdminController {
         Company company = companyService.getCompanyById(companyId);
         if (company.isPartOfInternship()) {
             model.addAttribute("company", company);
-            return "profiles/companyInternshipProfile";
+            return "admin/companyInternshipProfile";
         } else {
             model.addAttribute("company", company);
-            return "profiles/companyStudentProfile";
+            return "admin/companyStudentProfile";
         }
     }
 
     @GetMapping("/addCompanyToInternShip")
     public String addCompanyForm(Model model) {
         model.addAttribute("newCompany", new Company());
-        return "forms/addCompanyToInternshipForm";
+        return "admin/addCompanyToInternshipForm";
     }
 
     @PostMapping("/addCompanyToInternShip")
@@ -529,7 +527,7 @@ public class AdminController {
         addressService.addAddress(company.getAddress());
         guardianService.addGuardian(company.getGuardian());
         companyService.addCompany(company);
-        return "redirect:/admin/companies/list";
+        return "redirect:/admin/companiesList";
     }
 
     @GetMapping("/deleteCompany")
@@ -538,7 +536,7 @@ public class AdminController {
             student.setCompany(null);
         }
         companyService.deleteById(companyId);
-        return "redirect:/admin/companies/list";
+        return "redirect:/admin/companiesList";
     }
 
     @GetMapping("/editCompany/{companyId}")
@@ -554,7 +552,7 @@ public class AdminController {
         representativeService.updateRepresentative(company.getRepresentative());
         guardianService.updateGuardian(company.getGuardian());
         companyService.updateCompany(company);
-        return "redirect:/admin/companies/list";
+        return "redirect:/admin/companiesList";
     }
     //endregion
 
