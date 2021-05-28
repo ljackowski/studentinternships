@@ -12,30 +12,29 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link indicator">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <h1>
         Profil studenta: <span th:text="${student.userId}"></span>
     </h1>
-    <div class="form">
-        <div class="form-control">
-            <div class="university">
+        <div class="container_fluid">
+            <div class="tile1">
                 <h2>Dane studenta</h2>
                 <p>Imię: <span th:text="${student.firstName}"></span></p>
                 <p>Nazwisko: <span th:text="${student.lastName}"></span></p>
@@ -52,13 +51,15 @@
                 <p>Index: <span th:text="${student.studentIndex}"></span></p>
                 <p>Kierunek: <span th:text="${student.fieldOfStudy}"></span></p>
                 <p>Średnia ocen: <span th:text="${student.averageGrade}"></span></p>
+            </div>
+            <div class="tile2">
                 <h2>Dane Koordynatora:</h2>
-                <p>Koordynator: <span th:text="${student?.coordinator?.firstName}"></span> <span
-                        th:text="${student?.coordinator?.lastName}"></span></p>
+                <p>Imię: <span th:text="${student?.coordinator?.firstName}"></span></p>
+                <p>Nazwisko: <span th:text="${student?.coordinator?.lastName}"></span></p>
                 <p>Email: <span th:text="${student?.coordinator?.email}"></span></p>
                 <p>Numer telefonu: <span th:text="${student?.coordinator?.telephoneNumber}"></span></p>
             </div>
-            <div class="company">
+            <div class="tile4">
                 <h2>Przedsiębiorstwo zatrudniające</h2>
                 <p>Nazwa firmy: <span th:text="${student.company?.companyName}"></span></p>
                 <p>Adres:
@@ -71,33 +72,40 @@
                 </p>
                 <p>Rozpoczęcie praktyki: <span th:text="${student.company?.startingDate}"></span></p>
                 <p>Zakończenie praktyki: <span th:text="${student.company?.endingDate}"></span></p>
-                <p>Przedstawiciel firmy:<span th:text="${student.company?.representative?.firstName}"></span><span
-                        th:text="${student.company?.representative?.lastName}"></span></p>
+            </div>
+            <div class="tile5">
+                <h2>Przedstawiciel firmy:</h2>
+                <p>Imię:<span th:text="${student.company?.representative?.firstName}"></span></p>
+                <p>Nazwisko:<span th:text="${student.company?.representative?.lastName}"></span></p>
                 <p>Email:<span th:text="${student.company?.representative?.email}"></span></p>
                 <p>Numer telefonu:<span th:text="${student.company?.representative?.telephoneNumber}"></span></p>
                 <p>Stanowisko:<span th:text="${student.company?.representative?.position}"></span></p>
+            </div>
+            <div class="tile6">
                 <h2>Opiekun praktyki:</h2>
                 <p>Imię: <span th:text="${student.company?.guardian?.firstName}"></span></p>
                 <p>Nazwisko: <span th:text="${student.company?.guardian?.lastName}"></span></p>
                 <p>Numer telefonu: <span th:text="${student.company?.guardian?.telephoneNumber}"></span></p>
                 <p>Email: <span th:text="${student.company?.guardian?.email}"></span></p>
             </div>
+            <div class="tile3_company">
+                <h2>Lista ocen</h2>
+                <table>
+                    <tr>
+                        <th>Przedmiot</th>
+                        <th>Ocena</th>
+                        <th colspan="2">Akcja</th>
+                    </tr>
+                    <tr th:each="grade : ${student.gradeList}">
+                        <td th:text="${grade.subject.subjectName}"></td>
+                        <td th:text="${grade.grade_number}"></td>
+                        <td><a class="btn btn-edit" th:href="@{/grades/edit/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a>
+                        </td>
+                        <td><a class="btn btn-delete" th:href="@{/grades/delete/(gradeId=${grade.gradeId})}">Usuń</a></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <table>
-            <tr>
-                <th>Przedmiot</th>
-                <th>Ocena</th>
-                <th colspan="2">Akcja</th>
-            </tr>
-            <tr th:each="grade : ${student.gradeList}">
-                <td th:text="${grade.subject.subjectName}"></td>
-                <td th:text="${grade.grade_number}"></td>
-                <td><a class="btn btn-edit" th:href="@{/grades/edit/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a>
-                </td>
-                <td><a class="btn btn-delete" th:href="@{/grades/delete/(gradeId=${grade.gradeId})}">Usuń</a></td>
-            </tr>
-        </table>
     </div>
-</div>
 </body>
 </html>

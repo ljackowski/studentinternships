@@ -34,12 +34,12 @@
         </div>
     </div>
     <h1>
-        Profil koordynator: <span th:text="${company.companyId}"></span>
+        Profil przedsiębiorstwa: <span th:text="${company.companyId}"></span>
     </h1>
-    <div class="form-coordinator">
-        <div class="university">
+    <div class="container_fluid">
+        <div class="tile4">
             <h2>Przedsiębiorstwo zatrudniające</h2>
-            <p>Nazwa firmy: <span th:text="${company.companyName}">gggggggggggggg</span></p>
+            <p>Nazwa firmy: <span th:text="${company.companyName}"></span></p>
             <p>Adres:
                 <span th:text="${company.address.city}"></span>
                 <span th:text="${company.address.street}"></span>
@@ -49,36 +49,39 @@
                 <span th:text="${company.address.postOffice}"></span>
             </p>
             <p>Należy do stażu: <span th:text="${company.isPartOfInternship()}"></span></p>
-            <p>Przedstawiciel firmy:<span th:text="${company.representative.firstName}"></span><span
-                    th:text="${company.representative.lastName}"></span></p>
+        </div>
+        <div class="tile5">
+            <h2>Przedstawiciel firmy:</h2>
+            <p>Imię:<span th:text="${company.representative.firstName}"></span></p>
+            <p>Nazwisko:<span th:text="${company.representative.lastName}"></span></p>
             <p>Email:<span th:text="${company.representative.email}"></span></p>
             <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
             <p>Numer telefonu:<span th:text="${company.representative.position}"></span></p>
         </div>
-        <div class="students">
-            <h2>Student</h2>
-            <table>
-                <tr>
-                    <th>Imię</th>
-                    <th>Nazwisko</th>
-                    <th>E-mail</th>
-                    <th>Numer Telefonu</th>
-                    <th>Numer albumu</th>
-                    <th>Kierunek</th>
-                    <th>Stopień</th>
-                    <th>Średnia</th>
-                </tr>
-                <tr>
-                    <td th:text="${company?.student?.firstName}">s</td>
-                    <td th:text="${company?.student?.lastName}">s</td>
-                    <td th:text="${company?.student?.email}">s</td>
-                    <td th:text="${company?.student?.telephoneNumber}">s</td>
-                    <td th:text="${company?.student?.studentIndex}">s</td>
-                    <td th:text="${company?.student?.fieldOfStudy}">s</td>
-                    <td th:text="${company?.student?.degree}">s</td>
-                    <td th:text="${company?.student?.averageGrade}"></td>
-                </tr>
-            </table>
+        <div class="tile6">
+            <h2>Opiekun praktyki</h2>
+            <p>Imię: <span th:text="${company.guardian.firstName}"></span></p>
+            <p>Nazwisko: <span th:text="${company.guardian.lastName}"></span></p>
+            <p>Numer telefonu: <span th:text="${company.guardian.telephoneNumber}"></span></p>
+            <p>Email: <span th:text="${company.guardian.email}"></span></p>
+        </div>
+        <div class="tile1_company">
+            <h2>Dane studenta</h2>
+            <p>Imię: <span th:text="${company?.student?.firstName}"></span></p>
+            <p>Nazwisko: <span th:text="${company?.student?.lastName}"></span></p>
+            <p>Adres:
+                <span th:text="${company?.student?.address?.city}"></span>
+                <span th:text="${company?.student?.address?.street}"></span>
+                <span th:text="${company?.student?.address?.buildingNumber}"></span>
+                <span th:text="${company?.student?.address?.apartmentNumber}"></span>
+                <span th:text="${company?.student?.address?.zipCode}"></span>
+                <span th:text="${company?.student?.address?.postOffice}"></span>
+            </p>
+            <p>Email: <span th:text="${company?.student?.email}"></span></p>
+            <p>Numer telefonu: <span th:text="${company?.student?.telephoneNumber}"></span></p>
+            <p>Index: <span th:text="${company?.student?.studentIndex}"></span></p>
+            <p>Kierunek: <span th:text="${company?.student?.fieldOfStudy}"></span></p>
+            <p>Średnia ocen: <span th:text="${company?.student?.averageGrade}"></span></p>
         </div>
     </div>
 </div>

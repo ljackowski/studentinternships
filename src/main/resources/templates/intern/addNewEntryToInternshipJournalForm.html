@@ -18,10 +18,12 @@
             <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p></a>
+            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p>
+            </a>
         </div>
         <div class="link">
-            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Program stażu</p></a>
+            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p
+                    class="link-text">Program stażu</p></a>
         </div>
         <div class="link">
             <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
@@ -72,14 +74,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="single-row">
                 <div class="column">
                     <div>
                         <label for="telephone-number" class="form-txt">Opis: </label>
                     </div>
                     <div>
                         <textarea th:field="*{description}" type="text" name="telephone-number" id="telephone-number"
-                                  class="form-box"></textarea>
+                                  class="form-box-textarea"></textarea>
                     </div>
                 </div>
             </div>

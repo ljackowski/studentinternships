@@ -297,7 +297,12 @@ public class AdminController {
 
     @RequestMapping("/coordinator/{coordinatorId}")
     public String getCoordinatorById(Model model, @PathVariable("coordinatorId") long userId){
+        Coordinator coordinator = coordinatorService.getCoordinatorById(userId);
+        List<Student> studentList = coordinator.getStudents();
+        studentList.removeIf(student -> student.getRole().equals("ROLE_INTERN"));
         model.addAttribute("coordinator", coordinatorService.getCoordinatorById(userId));
+        model.addAttribute("studentList", studentList);
+        model.addAttribute("internList", internService.getInternsByCoordinator(coordinator));
         return "admin/coordinatorProfile";
     }
 
@@ -383,7 +388,7 @@ public class AdminController {
     //endregion
 
     //region CRUD Subjects
-    @RequestMapping("/subjectList")
+    @RequestMapping("/subjectsList")
     public String getAllSubjects(Model model) {
         model.addAttribute("subjects", subjectService.getAllSubjects());
         return "admin/subjectsList";

@@ -35,17 +35,17 @@
     </div>
     <div class="form">
         <div>
-            <h1>Dodaj ocene</h1>
+            <h1>Dodaj wpis</h1>
         </div>
         <form action="#" th:action="@{/coordinator/{coordinatorId}/addEntry/{companyId}(coordinatorId=${coordinatorId},companyId=${entry.company.companyId})}" th:object="${entry}" method="post">
             <div class="single-row">
                 <div class="column">
                     <div>
-                        <label for="grade_number" class="form-txt">Ocena: </label>
+                        <label for="grade_number" class="form-txt">Wpis: </label>
                     </div>
                     <div>
-                        <input th:field="*{description}" type="text" name="grade_number" id="grade_number"
-                               class="form-box">
+                        <textarea th:field="*{description}" type="text" name="grade_number" id="grade_number"
+                                  class="form-box-textarea"></textarea>
                     </div>
                 </div>
             </div>

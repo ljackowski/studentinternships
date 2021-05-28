@@ -3,7 +3,7 @@
     src: url("../fonts/Lato-Regular.ttf");
 }
 
-body{
+body {
     font-family: Lato, serif;
     margin: 0;
     padding: 0;
@@ -11,15 +11,20 @@ body{
     color: #92908D;
 }
 
-.container{
+.container {
     width: 100%;
     height: 100%;
     padding: 0;
     margin: 0;
 }
 
+h1 {
+    text-align: center;
+    color: rgba(179, 11, 11, 0.78);
+}
+
 /*region Navigation*/
-.navigation{
+.navigation {
     width: 100%;
     margin: 0;
     padding: 0;
@@ -28,7 +33,7 @@ body{
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.link{
+.link {
     width: 100%;
     padding: 0;
     margin: 0 auto 0 auto;
@@ -44,24 +49,24 @@ body{
     font-size: 20px;
 }
 
-a{
+a {
     text-decoration: none;
     color: #A9A8A5;
 }
 
-a:hover{
+a:hover {
     color: #c1c0bc;
 }
 
-.indicator{
+.indicator {
     border-bottom: 4px solid #dededd;
     box-shadow: 0 4px 0 rgba(0, 0, 0, 0.25);
 }
+
 /*endregion*/
 
-
 /*region Profile tiles*/
-.container_fluid{
+.container_fluid {
     display: grid;
     grid-template-columns: 33% 33% 34%;
     align-items: center;
@@ -72,40 +77,37 @@ a:hover{
     word-break: break-word;
 }
 
-h2{
+h2 {
     color: rgb(188, 105, 16);
     text-align: center;
     margin: 3%;
 }
 
-.tile1{
+.tile1 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
 
-    background: #3B4654;
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
 
-.tile2{
+.tile2 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
 
-    background: #3B4654;
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
 
-.tile3{
+.tile3 {
     grid-column: span 3;
     margin: 5% auto;
     width: 30%;
-    background: #3B4654;
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
 
 /*region Grades List*/
@@ -113,109 +115,297 @@ h2{
     width: 90%;
     border-collapse: collapse;
     margin: 0 auto 10% auto;
+    background: #323C48;;
 }
 
-.tile3 .grade_col1{
+.tile3 .grade_col1 {
     width: 80%;
 }
 
-.tile3 td, .tile3 th{
+.tile3 td, .tile3 th {
     text-align: center;
     padding: 2% 0;
     border-bottom: solid 1px #000000;
 }
+
 /*endregion*/
 
-.tile4{
-    background: #3B4654;
+.tile4 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
 
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
 
-.tile5{
-    background: #3B4654;
+.tile5 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
 
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
 
-.tile6{
-    background: #3B4654;
+.tile6 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
 
-    border: 2px solid #445161;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
+
 /*endregion*/
 
-.btn{
+/*region Student form profile*/
+.company {
+    margin: 2% auto;
+    grid-column: span 3;
+}
+
+.form_control {
+    padding: 3%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+}
+
+.form_company, .form_representative_guardian {
+    padding: 3% 7%;
+}
+
+.form_box {
+    background: #3B4654;
+    color: #f3f3f3;
+    text-align: center;
+    margin: 1% auto 3% auto;
+    font-size: 16px;
+
+    border: 2px solid #445161;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    outline: none;
+}
+
+.btn {
     border: none;
-    font-size: 20px;
+    font-size: 16px;
     border-radius: 15px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 12px 27px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 10px 25px;
     cursor: pointer;
     margin: 0 2% 0 2%;
 }
 
-.button{
+.button {
     justify-content: center;
     text-align: center;
-    margin: 5% 0 5% 0;
+    margin: 5% 50%;
     width: 100%;
 }
 
-.btn-add{
+.btn-add {
     color: #F4FBFC;
-    background: #04A2B3;
+    background: #0a922c;
 }
 
-.btn-add:focus, .btn-add:hover{
-    background: #038d9b;
+.btn-add:focus, .btn-add:hover {
+    background: #0d6b23;
     outline: none;
     color: #F4FBFC;
 }
 
-.btn-cancel{
+.btn-cancel {
     background: #7e0f0f;
     color: #F4FBFC;
 }
 
-.btn-cancel:focus, .btn-cancel:hover{
+.btn-cancel:focus, .btn-cancel:hover {
     background: #640a0a;
     outline: none;
     color: #F4FBFC;
 }
 
-.btn-edit{
+.btn-edit {
     color: #F4FBFC;
     background: #04A2B3;
 }
 
-.btn-edit:focus, .btn-edit:hover{
+.btn-edit:focus, .btn-edit:hover {
     background: #038d9b;
     outline: none;
 }
 
-.btn-delete{
+.btn-delete {
     background: #7e0f0f;
     color: #F4FBFC;
 }
 
-.btn-delete:focus, .btn-delete:hover{
+.btn-delete:focus, .btn-delete:hover {
     background: #640a0a;
     outline: none;
 }
 
-.grade-list{
-    margin: 0% 20% 3% 20%;
+/*endregion*/
+
+/*region inter*/
+.form_intern_control {
+    padding: 3%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
 }
+
+.form_intern_control .button {
+    margin: 2% auto;
+}
+
+.journal {
+    color: sienna;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    margin: 4% 0;
+}
+
+.journal:hover {
+    color: #e97d48;
+}
+/*endregion*/
+
+/*region intership plan*/
+.tile3_company{
+    grid-column: span 3;
+    margin: 5% auto;
+    width: 60%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    padding: 0 3% 3% 3%;
+}
+
+.tile3_company table{
+    width: 100%;
+    padding: 5% 5% 10% 5%;
+    border-collapse: collapse;
+    margin-bottom: 3%;
+}
+
+.tile3_company th{
+    border-bottom: solid 1px #000000;
+    font-size: 19px;
+}
+
+.tile3_company th, .tile3_company td{
+    padding-bottom: 3%;
+}
+
+.tile3_company .description{
+    width: 70%;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+.tile3_company td{
+    text-align: center;
+    padding: 2% 0;
+    border-bottom: solid 1px #000000;
+    font-size: 15px;
+}
+
+.tile3_company .btn{
+    border: none;
+    font-size: 16px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 5% 14%;
+    cursor: pointer;
+    margin: 0 2% 0 2%;
+}
+
+.button .btn-add{
+    border: none;
+    font-size: 16px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 1% 1%;
+    cursor: pointer;
+}
+
+.tile3_company .button{
+    padding: 0;
+    margin: 0 0 4% 0;
+}
+/*endregion*/
+
+/*region coordinator*/
+.coordinator_lists{
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.students, .interns{
+    margin: 5% 6% 0 6%;
+    padding: 2% 10% 4% 10%;
+
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+}
+
+.coordinator_lists table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.coordinator_lists th, .coordinator_lists td{
+    padding: 2% 0;
+    text-align: center;
+    border-bottom: solid 1px black;
+}
+/*endregion*/
+
+.interns{
+    grid-column: span 3;
+    margin: 3% auto;
+    width: 50%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    padding: 0 4% 4% 4%;
+}
+
+.interns table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.interns td, .interns th{
+    width: 33%;
+    text-align: center;
+    padding: 2% 0;
+    border-bottom: solid 1px black;
+}
+
+.interns td{
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+.tile1_company{
+    grid-column: span 3;
+    width: 20%;
+    margin: 5% auto;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    padding: 2% 3% 3% 3%;
+}
+
+
+

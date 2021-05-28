@@ -19,19 +19,16 @@
         </div>
         <div class="link">
             <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Studenci</p></a>
+                    class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
             <a th:href="@{/coordinator/{coordinatorId}/companiesList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Studenci</p></a>
+                    class="link-text">Przedsiębiorstwa</p></a>
         </div>
-
     </div>
-    <h1>
-        Profil koordynatora: <span th:text="${coordinator.userId}"></span>
-    </h1>
-    <div class="form-coordinator">
-        <div class="university">
+    <div class="container_fluid">
+        <div></div>
+        <div class="tile2">
             <h2>Dane koordynatora</h2>
             <p>Imię: <span th:text="${coordinator.firstName}"></span></p>
             <p>Nazwisko: <span th:text="${coordinator.lastName}"></span></p>
