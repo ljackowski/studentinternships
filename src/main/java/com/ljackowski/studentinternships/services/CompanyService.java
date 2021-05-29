@@ -45,4 +45,8 @@ public class CompanyService {
     public List<Company> getCompaniesByFieldOfStudyInInternship(String fieldOfStudy, boolean partOfInternship){
         return companyRepository.findAllByFieldOfStudyAndPartOfInternship(fieldOfStudy, partOfInternship);
     }
+
+    public List<Company> getFreeCompaniesInInternshipByFieldOfStudy(String fieldOfStudy, boolean partOfInternship, int freeSpaces){
+        return companyRepository.findAllByFieldOfStudyAndPartOfInternshipAndFreeSpacesGreaterThan(fieldOfStudy, partOfInternship, freeSpaces);
+    }
 }

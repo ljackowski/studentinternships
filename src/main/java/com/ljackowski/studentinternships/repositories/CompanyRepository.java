@@ -10,4 +10,5 @@ import java.util.List;
 public interface CompanyRepository extends JpaRepository<Company, Long> {
     List<Company> findAllByPartOfInternshipAndFreeSpacesGreaterThan(boolean partOfInternship, int freeSpaces);
     List<Company> findAllByFieldOfStudyAndPartOfInternship(String fieldOfStudy, boolean partOfInternship);
+    List<Company> findAllByFieldOfStudyAndPartOfInternshipAndFreeSpacesGreaterThan(String fieldOfStudy, boolean partOfInternship, int freeSpaces);
 }

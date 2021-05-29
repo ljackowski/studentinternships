@@ -65,6 +65,7 @@ public class AdminController {
 
     @PostMapping("/addUser")
     public String addUser(@ModelAttribute User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.addUser(user);
         return "redirect:/admin/usersList";
     }
@@ -84,6 +85,7 @@ public class AdminController {
 
     @PostMapping("/editUser/{userId}")
     public String updateUser(@ModelAttribute User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.updateUser(user);
         return "redirect:/admin/usersList";
     }
@@ -204,7 +206,7 @@ public class AdminController {
             int i = 1;
             List<Student> studentsQualified = studentService.getFirst20StudentsByAvgGrade();
             for (Student student : studentsQualified) {
-                student.setRole("INTERN");
+                student.setRole("ROLE_INTERN");
                 if (i <= 15) {
                     internService.addIntern(new Intern(student, null, false));
                 } else {
@@ -222,15 +224,18 @@ public class AdminController {
 
     @GetMapping("/deleteIntern")
     public String deleteInternById(@RequestParam("internId") long internId) {
-        Intern intern = internService.getInternById(internId);
-        if (!intern.isReserve()) {
+        Intern internToDelete = internService.getInternById(internId);
+        if (!internToDelete.isReserve()){
             List<Intern> interns = internService.getAllInterns();
-            Intern intern1 = internService.getInternById(interns.get(interns.indexOf(intern) + 1).getInternId());
-            intern1.setReserve(false);
-            SendInternshipNotification(intern1);
-            internService.updateIntern(intern1);
+            for (Intern intern : interns){
+                if (intern.isReserve()){
+                    intern.setReserve(false);
+                    break;
+                }
+            }
         }
-        internService.deleteInternById(internId);
+        internToDelete.getStudent().setRole("ROLE_STUDENT");
+        internService.deleteIntern(internId);
         return "redirect:/admin/internsList";
     }
 
@@ -238,11 +243,36 @@ public class AdminController {
     public String deleteAllInterns() {
         List<Intern> interns = internService.getAllInterns();
         for (Intern intern : interns) {
-            intern.getStudent().setRole("STUDENT");
+            intern.getStudent().setRole("ROLE_STUDENT");
         }
         internService.deleteAll();
         return "redirect:/admin/internsList";
     }
+
+    @GetMapping("/editIntern/{internId}")
+    public String editInternForm(@PathVariable("internId") long internId, Model model){
+        Intern intern = studentService.getStudentById(internId).getIntern();
+        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(intern.getStudent().getFieldOfStudy(), true, 0);
+        model.addAttribute("internToEdit", intern);
+        model.addAttribute("companies", companies);
+        return "admin/editInternForm";
+    }
+
+    @PostMapping("/editIntern/{internId}")
+    public String editIntern(@ModelAttribute Intern intern){
+        Intern internBeforeUpdate = internService.getInternById(intern.getInternId());
+        if (!internBeforeUpdate.isReserve()){
+            List<Intern> interns = internService.getAllInterns();
+            Intern intern1 = internService.getInternById(interns.get(interns.indexOf(intern) + 1).getInternId());
+            intern1.setReserve(false);
+            SendInternshipNotification(intern1);
+            internService.updateIntern(intern1);
+        }
+        internService.updateIntern(intern);
+        return "redirect:/admin/internsList";
+    }
+
+
     //endregion
 
     //region CRUD Intern Journal
@@ -409,13 +439,13 @@ public class AdminController {
             student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
             studentService.updateStudent(student);
         }
-        return "redirect:/admin/subjectList";
+        return "redirect:/admin/subjectsList";
     }
 
     @GetMapping("/deleteSubject")
     public String deleteSubject(@RequestParam("subjectId") long subjectId) {
         subjectService.deleteSubjectById(subjectId);
-        return "redirect:/admin/subjectList";
+        return "redirect:/admin/subjectsList";
     }
 
     @GetMapping("/editSubject/{subjectId}")
@@ -548,7 +578,7 @@ public class AdminController {
     public String editCompanyForm(@PathVariable("companyId") long companyId, Model model) {
         Company company = companyService.getCompanyById(companyId);
         model.addAttribute("companyToEdit", company);
-        return "forms/editCompanyForm";
+        return "admin/editCompanyForm";
     }
 
     @PostMapping("/editCompany/{companyId}")

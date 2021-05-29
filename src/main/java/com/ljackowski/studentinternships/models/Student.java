@@ -26,7 +26,7 @@ public class Student extends User {
     @Column(name = "degree")
     private String degree;
 
-    @Column(name = "average_grade")
+    @Column(name = "average_grade", columnDefinition = "Numeric(3,2)")
     private double averageGrade;
 
     @ManyToOne

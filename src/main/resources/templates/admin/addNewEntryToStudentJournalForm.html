@@ -12,16 +12,22 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Program praktyk zawodowych</p></a>
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link indicator">
-            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik praktyk</p></a>
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p class="link-text">Regulamin praktyk</p></a>
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <div class="form">
@@ -69,14 +75,14 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="single-row">
                 <div class="column">
                     <div>
                         <label for="telephone-number" class="form-txt">Opis: </label>
                     </div>
                     <div>
                         <textarea th:field="*{description}" type="text" name="telephone-number" id="telephone-number"
-                                  class="form-box"></textarea>
+                                  class="form-box-textarea"></textarea>
                     </div>
                 </div>
             </div>

@@ -12,25 +12,22 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link indicator">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <div class="form">
@@ -38,19 +35,35 @@
             <h1>Edytuj przedsiębiorstwo</h1>
         </div>
         <form action="#" th:action="@{/admin/editCompany/${companyId}}" th:object="${companyToEdit}" method="post">
-            <h2>Dane przedsiębiorstwa</h2>
-            <div>
-                <p th:text="'Id: ' + ${companyId}" class="id"></p>
-            </div>
-            <input th:field="*{companyId}" type="hidden">
+            <input type="hidden" th:field="*{companyId}">
             <input type="hidden" th:field="*{address.addressId}">
             <input type="hidden" th:field="*{representative.representativeId}">
+            <input type="hidden" th:field="*{guardian.guardianId}">
+            <h2>Dane przedsiębiorstwa</h2>
             <div class="single-row">
                 <div>
                     <label for="company-name" class="form-txt">Nazwa przedsiębiorstwa: </label>
                 </div>
                 <div>
                     <input th:field="*{companyName}" type="text" id="company-name" class="form-box">
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="starting-date" class="form-txt">Data rozpoczęcia: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{startingDate}" type="date" id="starting-date" class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="ending-date" class="form-txt">Data zakończenia: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{endingDate}" type="date" id="ending-date" class="form-box">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -155,6 +168,61 @@
                     </div>
                     <div>
                         <input th:field="*{representative.position}" type="text" id="position"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <h2>Dane opiekuna</h2>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="guardian-first-name" class="form-txt">Imię: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{guardian.firstName}" type="text"
+                               id="guardian-first-name"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="guardian-last-name" class="form-txt">Nazwisko: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{guardian.lastName}" type="text"
+                               id="guardian-last-name"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <label for="guardian-email" class="form-txt">Email: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{guardian.email}" type="text" id="guardian-email"
+                               class="form-box">
+                    </div>
+                </div>
+                <div class="column">
+                    <div>
+                        <label for="guardian-telephone-number" class="form-txt">Numer telefonu: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{guardian.telephoneNumber}" type="text"
+                               id="guardian-telephone-number"
+                               class="form-box">
+                    </div>
+                </div>
+            </div>
+            <div class="single-row">
+                <div class="column">
+                    <div>
+                        <label for="guardian-position" class="form-txt">Stanowisko: </label>
+                    </div>
+                    <div>
+                        <input th:field="*{guardian.position}" type="text" id="guardian-position"
                                class="form-box">
                     </div>
                 </div>

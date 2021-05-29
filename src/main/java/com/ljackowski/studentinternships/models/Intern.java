@@ -12,7 +12,7 @@ public class Intern{
     @Column(name = "intern_id")
     private Long internId;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
     @JoinColumn(name = "student_id")
     private Student student;
 

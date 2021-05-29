@@ -99,9 +99,9 @@
                     <tr th:each="grade : ${student.gradeList}">
                         <td th:text="${grade.subject.subjectName}"></td>
                         <td th:text="${grade.grade_number}"></td>
-                        <td><a class="btn btn-edit" th:href="@{/grades/edit/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a>
+                        <td><a class="btn btn-edit" th:href="@{/admin/editGrade/{gradeId}(gradeId=${grade.gradeId})}">Edytuj</a>
                         </td>
-                        <td><a class="btn btn-delete" th:href="@{/grades/delete/(gradeId=${grade.gradeId})}">Usuń</a></td>
+                        <td><a class="btn btn-delete" th:href="@{/admin/deleteGrade/(gradeId=${grade.gradeId})}">Usuń</a></td>
                     </tr>
                 </table>
             </div>

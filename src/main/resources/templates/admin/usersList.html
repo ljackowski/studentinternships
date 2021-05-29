@@ -12,22 +12,22 @@
 <div class="container">
     <div class="navigation">
         <div class="link indicator">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <h1>
@@ -49,13 +49,15 @@
                 <td th:text="${user.password}"></td>
                 <td th:text="${user.role}"></td>
                 <td th:switch="${user.role}">
-                    <span th:case="'STUDENT'"><a th:href="@{/admin/editStudent/{studentId}(studentId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
-                    <span th:case="'COORDINATOR'"><a th:href="@{/admin/editCoordinator/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'ROLE_STUDENT'"><a th:href="@{/admin/editStudent/{studentId}(studentId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'ROLE_COORDINATOR'"><a th:href="@{/admin/editCoordinator/{userId}(userId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
+                    <span th:case="'ROLE_INTERN'"><a th:href="@{/admin/editIntern/{internId}(internId=${user.userId})}" class="btn btn-edit">Edytuj</a></span>
                     <span th:case="*"><a th:href="@{/admin/editUser/{userId}(userId=${user.userId})}"class="btn btn-edit">Edytuj</a></span>
                 </td>
                 <td th:switch="${user.role}">
                     <span th:case="'ROLE_STUDENT'"><a th:href="@{/admin/deleteStudent/(studentId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
                     <span th:case="'ROLE_COORDINATOR'"><a th:href="@{/admin/deleteCoordinator/(userId=${user.userId})}"class="btn btn-delete">Usuń</a></span>
+                    <span th:case="'ROLE_INTERN'"><a th:href="@{/admin/deleteIntern/{internId}(internId=${user.userId})}" class="btn btn-delete">Usuń</a></span>
                     <span th:case="*"><a th:href="@{/admin/deleteUser/(userId=${user.userId})}"class="btn btn-delete">Usuń</a></span>
                 </td>
             </tr>

@@ -12,25 +12,22 @@
 <div class="container">
     <div class="navigation">
         <div class="link">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
         </div>
         <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
         </div>
         <div class="link indicator">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <div class="form">
@@ -231,6 +228,17 @@
                         <div>
                             <input th:field="*{guardian.telephoneNumber}" type="text"
                                    id="guardian-telephone-number"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="single-row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-position" class="form-txt">Stanowisko: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{guardian.position}" type="text" id="guardian-position"
                                    class="form-box">
                         </div>
                     </div>
