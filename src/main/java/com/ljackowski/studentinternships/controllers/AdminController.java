@@ -53,7 +53,7 @@ public class AdminController {
     //region CRUD User
     @RequestMapping("/usersList")
     public String usersList(Model model) {
-        model.addAttribute("users",userService.getUsers());
+        model.addAttribute("users", userService.getUsers());
         return "admin/usersList";
     }
 
@@ -102,6 +102,7 @@ public class AdminController {
     @RequestMapping("/studentsList")
     public String getAllStudents(Model model) {
         List<Student> studentsList = studentService.getStudents();
+        studentsList.removeIf(student -> student.getRole().equals("ROLE_INTERN"));
         for (Student student : studentsList) {
             student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
             studentService.updateStudent(student);
@@ -194,7 +195,7 @@ public class AdminController {
     }
 
     @GetMapping("intern/{internId}")
-    public String getIntern(@PathVariable("internId") long internId, Model model){
+    public String getIntern(@PathVariable("internId") long internId, Model model) {
         model.addAttribute("intern", internService.getInternById(internId));
         return "admin/internProfile";
     }
@@ -225,10 +226,10 @@ public class AdminController {
     @GetMapping("/deleteIntern")
     public String deleteInternById(@RequestParam("internId") long internId) {
         Intern internToDelete = internService.getInternById(internId);
-        if (!internToDelete.isReserve()){
+        if (!internToDelete.isReserve()) {
             List<Intern> interns = internService.getAllInterns();
-            for (Intern intern : interns){
-                if (intern.isReserve()){
+            for (Intern intern : interns) {
+                if (intern.isReserve()) {
                     intern.setReserve(false);
                     break;
                 }
@@ -250,7 +251,7 @@ public class AdminController {
     }
 
     @GetMapping("/editIntern/{internId}")
-    public String editInternForm(@PathVariable("internId") long internId, Model model){
+    public String editInternForm(@PathVariable("internId") long internId, Model model) {
         Intern intern = studentService.getStudentById(internId).getIntern();
         List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(intern.getStudent().getFieldOfStudy(), true, 0);
         model.addAttribute("internToEdit", intern);
@@ -259,9 +260,9 @@ public class AdminController {
     }
 
     @PostMapping("/editIntern/{internId}")
-    public String editIntern(@ModelAttribute Intern intern){
+    public String editIntern(@ModelAttribute Intern intern) {
         Intern internBeforeUpdate = internService.getInternById(intern.getInternId());
-        if (!internBeforeUpdate.isReserve()){
+        if (!internBeforeUpdate.isReserve()) {
             List<Intern> interns = internService.getAllInterns();
             Intern intern1 = internService.getInternById(interns.get(interns.indexOf(intern) + 1).getInternId());
             intern1.setReserve(false);
@@ -326,7 +327,7 @@ public class AdminController {
     }
 
     @RequestMapping("/coordinator/{coordinatorId}")
-    public String getCoordinatorById(Model model, @PathVariable("coordinatorId") long userId){
+    public String getCoordinatorById(Model model, @PathVariable("coordinatorId") long userId) {
         Coordinator coordinator = coordinatorService.getCoordinatorById(userId);
         List<Student> studentList = coordinator.getStudents();
         studentList.removeIf(student -> student.getRole().equals("ROLE_INTERN"));
@@ -346,6 +347,7 @@ public class AdminController {
     public String addCoordinator(@ModelAttribute Coordinator coordinator) {
         coordinator.setRole("ROLE_COORDINATOR");
         coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
+        coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword()));
         coordinatorService.addCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
     }
@@ -366,8 +368,8 @@ public class AdminController {
     }
 
     @PostMapping("/editCoordinator/{coordinatorId}")
-    public String editCoordinator(@ModelAttribute Coordinator coordinator) {
-        coordinator.setRole("coordinator".toUpperCase());
+    public String editCoordinator(@ModelAttribute Coordinator coordinator, @PathVariable("coordinatorId") long userId) {
+        coordinator.setRole("ROLE_COORDINATOR".toUpperCase());
         coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
         coordinatorService.updateCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
