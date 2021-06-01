@@ -33,7 +33,7 @@
     <h1>
         Profil przedsiębiorstwa: <span th:text="${company.companyId}"></span>
     </h1>
-    <div class="container_fluid">
+    <div class="container-fluid">
         <div class="tile4">
             <h2>Przedsiębiorstwo zatrudniające</h2>
             <p>Nazwa firmy: <span th:text="${company.companyName}"></span></p>
@@ -45,15 +45,22 @@
                 <span th:text="${company.address.zipCode}"></span>
                 <span th:text="${company.address.postOffice}"></span>
             </p>
-            <p>Należy do stażu: <span th:text="${company.isPartOfInternship()}"></span></p>
+            <p>Rozpoczęcie praktyki: <span th:text="${company.startingDate}"></span></p>
+            <p>Zakończenie praktyki: <span th:text="${company.endingDate}"></span></p>
+            <p>Należy do stażu:
+                <span th:if="${company.partOfInternship}">Tak</span>
+                <span th:if="${company.partOfInternship == false}">Nie</span>
+                <span th:unless="${company.partOfInternship == null}"></span>
+            </p>
         </div>
+        <div></div>
         <div class="tile5">
             <h2>Przedstawiciel firmy:</h2>
             <p>Imię:<span th:text="${company.representative.firstName}"></span></p>
             <p>Nazwisko:<span th:text="${company.representative.lastName}"></span></p>
             <p>Email:<span th:text="${company.representative.email}"></span></p>
             <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
-            <p>Numer telefonu:<span th:text="${company.representative.position}"></span></p>
+            <p>Stanowisko:<span th:text="${company.representative.position}"></span></p>
         </div>
         <div></div>
         <div class="guardian-list">
@@ -67,6 +74,7 @@
                     <th>Nazwisko</th>
                     <th>Numer telefonu</th>
                     <th>E-mail</th>
+                    <th>Stanowisko</th>
                     <th colspan="2">Akcja</th>
                 </tr>
                 <tr th:each="guardian : ${company.guardianList}">
@@ -74,12 +82,13 @@
                     <td th:text="${guardian?.lastName}"></td>
                     <td th:text="${guardian?.telephoneNumber}"></td>
                     <td th:text="${guardian?.email}"></td>
+                    <td th:text="${guardian?.position}"></td>
                     <td><a th:href="@{/admin/deleteGuardian(guardianId=${guardian.guardianId})}" class="guardian-btn btn-delete">Usuń</a></td>
                     <td><a th:href="@{/admin/editGuardian/{guardianId}(guardianId=${guardian.guardianId})}" class="guardian-btn btn-edit">Edytuj</a></td>
                 </tr>
             </table>
         </div>
-        <div class="internsList">
+        <div class="intern-list">
             <h2>Stażyści</h2>
             <table>
                 <tr>

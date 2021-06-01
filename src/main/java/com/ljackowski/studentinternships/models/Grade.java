@@ -11,8 +11,8 @@ public class Grade {
     @Column(name = "grade_id")
     private Long gradeId;
 
-    @Column(name = "grade")
-    private double grade_number;
+    @Column(name = "grade", columnDefinition = "Numeric(3,2)")
+    private double gradeNumber;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
@@ -26,10 +26,15 @@ public class Grade {
     public Grade() {
     }
 
-    public Grade(Student student, Subject subject, double grade_number) {
+    public Grade(Student student, Subject subject) {
         this.student = student;
         this.subject = subject;
-        this.grade_number = grade_number;
+    }
+
+    public Grade(Student student, Subject subject, double gradeNumber) {
+        this.student = student;
+        this.subject = subject;
+        this.gradeNumber = gradeNumber;
     }
 
     public Long getGradeId() {
@@ -56,11 +61,11 @@ public class Grade {
         this.subject = subject;
     }
 
-    public double getGrade_number() {
-        return grade_number;
+    public double getGradeNumber() {
+        return gradeNumber;
     }
 
-    public void setGrade_number(double grade) {
-        this.grade_number = grade;
+    public void setGradeNumber(double grade) {
+        this.gradeNumber = grade;
     }
 }

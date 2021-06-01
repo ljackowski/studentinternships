@@ -65,7 +65,7 @@ a:hover {
 /*endregion*/
 
 /*region Profile tiles*/
-.container_fluid {
+.container-fluid {
     display: grid;
     grid-template-columns: 33% 33% 34%;
     align-items: center;
@@ -109,26 +109,6 @@ h2 {
     border-radius: 17px;
 }
 
-/*region Grades List*/
-.tile3 table {
-    width: 90%;
-    border-collapse: collapse;
-    margin: 0 auto 10% auto;
-    background: #323C48;;
-}
-
-.tile3 .grade_col1 {
-    width: 80%;
-}
-
-.tile3 td, .tile3 th {
-    text-align: center;
-    padding: 2% 0;
-    border-bottom: solid 1px #000000;
-}
-
-/*endregion*/
-
 .tile4 {
     margin: 5% 10% 0 10%;
     padding: 2% 10%;
@@ -156,6 +136,52 @@ h2 {
     border-radius: 17px;
 }
 
+/*endregion*/
+
+/*region Student/Intern/Company Profile*/
+.grades{
+    grid-column: span 3;
+    margin: 5% auto;
+    width: 60%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    padding: 0 3% 3% 3%;
+}
+
+.grades table {
+    width: 100%;
+    padding: 5% 5% 10% 5%;
+    border-collapse: collapse;
+    margin-bottom: 3%;
+}
+
+.grades td{
+    font-size: 13px;
+}
+
+.grades td, .grades th {
+    text-align: center;
+    padding: 2% 1%;
+    border-bottom: solid 1px #000000;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.grades .subject{
+    width: 50%;
+}
+
+.grades .btn{
+    border: none;
+    font-size: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+
 .guardian-list{
     background: #323C48;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
@@ -171,13 +197,15 @@ h2 {
     border-collapse: collapse;
 }
 
+.guardian-list td{
+    font-size: 13px;
+}
+
 .guardian-list td, .guardian-list th{
+    width: 10%;
     text-align: center;
     padding: 2% 0;
     border-bottom: solid 1px black;
-}
-
-.guardian-list td{
     word-break: break-word;
     word-wrap: break-word;
 }
@@ -193,8 +221,64 @@ h2 {
     font-size: 13px;
     border-radius: 15px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    padding: 7px 19px;
+    padding: 5% 16%;
     cursor: pointer;
+}
+
+.intern-list{
+    grid-column: span 3;
+    margin: 3% auto;
+    width: 50%;
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    padding: 0 4% 4% 4%;
+}
+
+.intern-list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.intern-list td, .intern-list th{
+    width: 33%;
+    text-align: center;
+    padding: 2% 0;
+    border-bottom: solid 1px black;
+}
+
+.intern-list td{
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+/*endregion*/
+
+/*region Coordinator Profile*/
+.coordinator-lists{
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.students, .interns{
+    margin: 5% 6% 0 6%;
+    padding: 2% 10% 4% 10%;
+
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+}
+
+.coordinator-lists table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.coordinator-lists th, .coordinator-lists td{
+    padding: 2% 0;
+    text-align: center;
+    border-bottom: solid 1px black;
 }
 
 /*endregion*/
@@ -382,60 +466,6 @@ h2 {
 }
 /*endregion*/
 
-/*region coordinator*/
-.coordinator_lists{
-    grid-column: span 3;
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-.students, .interns{
-    margin: 5% 6% 0 6%;
-    padding: 2% 10% 4% 10%;
-
-    background: #323C48;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-}
-
-.coordinator_lists table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.coordinator_lists th, .coordinator_lists td{
-    padding: 2% 0;
-    text-align: center;
-    border-bottom: solid 1px black;
-}
-/*endregion*/
-
-.internsList{
-    grid-column: span 3;
-    margin: 3% auto;
-    width: 50%;
-    background: #323C48;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 17px;
-    padding: 0 4% 4% 4%;
-}
-
-.internsList table{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.internsList td, .internsList th{
-    width: 33%;
-    text-align: center;
-    padding: 2% 0;
-    border-bottom: solid 1px black;
-}
-
-.internsList td{
-    word-break: break-word;
-    word-wrap: break-word;
-}
 
 .tile1_company{
     grid-column: span 3;

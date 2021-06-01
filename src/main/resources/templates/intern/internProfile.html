@@ -29,7 +29,7 @@
             <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
         </div>
     </div>
-    <div class="container_fluid">
+    <div class="container-fluid">
         <div class="tile1">
             <h2>Dane studenta</h2>
             <p>Imię: <span th:text="${intern.student.firstName}"></span></p>
@@ -94,7 +94,7 @@
                 </tr>
                 <tr th:each="grade : ${intern.student.gradeList}">
                     <td th:text="${grade.subject.subjectName}"></td>
-                    <td th:text="${grade.grade_number}"></td>
+                    <td th:text="${grade.gradeNumber}"></td>
                 </tr>
             </table>
         </div>

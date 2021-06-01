@@ -16,11 +16,9 @@ public class Subject {
     private Long subjectId;
 
     @Column(name = "subject_name")
-    @NotEmpty
     private String subjectName;
 
     @Column(name = "field_of_study")
-    @NotEmpty
     private String fieldOfStudy;
 
     @OneToMany(mappedBy = "subject", cascade = CascadeType.ALL)
@@ -29,7 +27,7 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(Long subjectId, @NotEmpty String subjectName, @NotEmpty String fieldOfStudy) {
+    public Subject(Long subjectId, String subjectName, String fieldOfStudy) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;
         this.fieldOfStudy = fieldOfStudy;

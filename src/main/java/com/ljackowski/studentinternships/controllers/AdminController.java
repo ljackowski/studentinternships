@@ -96,7 +96,6 @@ public class AdminController {
     @GetMapping("/student/{studentId}")
     public String getStudent(Model model, @PathVariable("studentId") long studentId) {
         Student student = studentService.getStudentById(studentId);
-        student.setCompany(companyService.getCompanyById(733));
         model.addAttribute("student", student);
         return "admin/studentProfile";
     }
@@ -121,38 +120,36 @@ public class AdminController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
-        student.setRole("ROLE_STUDENT".toUpperCase());
+        student.setRole("role_student".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         student.setPassword(passwordEncoder.encode(student.getPassword()));
-        String email = student.getEmail();
         addressService.addAddress(student.getAddress());
-        studentService.addStudent(student);
-        Student studentAfterCreation = studentService.getStudentByEmail(email);
-        List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(studentAfterCreation.getFieldOfStudy());
+        List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
         for (Subject subject : studentsSubjectList) {
-            studentAfterCreation.addGrade(gradeService.addGrade(new Grade(studentAfterCreation, subject, 0)));
+            student.addGrade(gradeService.addGrade(new Grade(student, subject)));
         }
+        studentService.addStudent(student);
         return "redirect:/admin/studentsList";
     }
 
     @GetMapping("/deleteStudent")
-    public String deleteStudentById(@RequestParam("userId") long userId) {
-        studentService.deleteStudentById(userId);
+    public String deleteStudentById(@RequestParam("studentId") long studentId) {
+        studentService.deleteStudentById(studentId);
         return "redirect:/admin/studentsList";
     }
 
-    @GetMapping("/editStudent/{userId}")
-    public String editStudentForm(@PathVariable(value = "userId") int userId, Model model) {
-        Student student = studentService.getStudentById(userId);
+    @GetMapping("/editStudent/{studentId}")
+    public String editStudentForm(@PathVariable(value = "studentId") int studentId, Model model) {
+        Student student = studentService.getStudentById(studentId);
         model.addAttribute("studentToEdit", student);
         return "admin/editStudentForm";
     }
 
-    @PostMapping("/editStudent/{userId}")
-    public String editStudent(@ModelAttribute Student student) {
+    @PostMapping("/editStudent/{studentId}")
+    public String editStudent(@PathVariable(value = "studentId") int studentId, @ModelAttribute Student student) {
         Student student1 = studentService.getStudentById(student.getUserId());
-        student.setRole("object".toUpperCase());
+        student.setRole("role_student".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         student.setCompany(student1.getCompany());
@@ -163,7 +160,7 @@ public class AdminController {
             }
             List<Subject> studentsSubjectList = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
             for (Subject subject : studentsSubjectList) {
-                student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
+                student.addGrade(gradeService.addGrade(new Grade(student, subject)));
             }
         }
         addressService.updateAddress(student.getAddress());
@@ -210,6 +207,7 @@ public class AdminController {
             List<Student> studentsQualified = studentService.getFirst20StudentsByAvgGrade();
             for (Student student : studentsQualified) {
                 student.setRole("ROLE_INTERN");
+                student.setCompany(null);
                 if (i <= 15) {
                     internService.addIntern(new Intern(student, null, false));
                 } else {
@@ -440,7 +438,7 @@ public class AdminController {
         subjectService.addSubject(subject);
         List<Student> studentsList = studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy());
         for (Student student : studentsList) {
-            student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
+            student.addGrade(gradeService.addGrade(new Grade(student, subject)));
             studentService.updateStudent(student);
         }
         return "redirect:/admin/subjectsList";
@@ -469,10 +467,10 @@ public class AdminController {
                 for (Grade grade : gradeList) {
                     gradeService.deleteGradeById(grade.getGradeId());
                 }
-                student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
+                student.addGrade(gradeService.addGrade(new Grade(student, subject)));
                 studentService.updateStudent(student);
             } else {
-                student.addGrade(gradeService.addGrade(new Grade(student, subject, 0)));
+                student.addGrade(gradeService.addGrade(new Grade(student, subject)));
                 studentService.updateStudent(student);
             }
         }
@@ -505,20 +503,21 @@ public class AdminController {
     @PostMapping("/editGrade/{gradeId}")
     public String editStudentGrade(@ModelAttribute Grade grade) {
         Student student = studentService.getStudentById(grade.getStudent().getUserId());
-        Subject subject = subjectService.getSubjectBuId(grade.getSubject().getSubjectId());
+        List<Grade> grades = student.getGradeList();
+        grades.set(grades.indexOf(gradeService.getGradeById(grade.getGradeId())), grade);
+        grades.removeIf(grade1 -> grade1.getGradeNumber() == 0);
         double averageGrade = 0;
-        if (student.getGradeList().size() != 0) {
-            for (Grade grade1 : student.getGradeList()) {
+        if (grades.size() != 0) {
+            for (Grade grade1 : grades) {
                 if (grade1.getGradeId().equals(grade.getGradeId())) {
-                    grade1.setGrade_number(grade.getGrade_number());
+                    grade1.setGradeNumber(grade.getGradeNumber());
                 }
-                averageGrade += grade1.getGrade_number();
+                averageGrade += grade1.getGradeNumber();
             }
             averageGrade /= student.getGradeList().size();
         }
         student.setAverageGrade(averageGrade);
         studentService.updateStudent(student);
-        subjectService.updateSubject(subject);
         gradeService.updateGrade(grade);
         if (student.getRole().equals("ROLE_STUDENT")) {
             return "redirect:/admin/student/" + student.getUserId();

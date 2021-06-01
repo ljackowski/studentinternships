@@ -35,7 +35,7 @@
                     class="link-text">Regulamin praktyk</p></a>
         </div>
     </div>
-    <div class="container_fluid">
+    <div class="container-fluid">
         <div class="tile1">
             <h2>Dane studenta</h2>
             <p>Imię: <span th:text="${student.firstName}"></span></p>
@@ -100,7 +100,7 @@
                 </tr>
                 <tr th:each="grade : ${student.gradeList}">
                     <td th:text="${grade.subject.subjectName}">ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</td>
-                    <td th:text="${grade.grade_number}"></td>
+                    <td th:text="${grade.gradeNumber}"></td>
                 </tr>
             </table>
         </div>

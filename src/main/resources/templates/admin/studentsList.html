@@ -45,7 +45,6 @@
                 <th>Kierunek</th>
                 <th>Stopień</th>
                 <th>Średnia ocen</th>
-                <th colspan="2">Koordynator</th>
                 <th colspan="3">Akcja</th>
             </tr>
             <tr th:each="student : ${students}">
@@ -56,9 +55,10 @@
                 <td th:text="${student.studentIndex}"></td>
                 <td th:text="${student.fieldOfStudy}"></td>
                 <td th:text="${student.degree}"></td>
-                <td th:text="${student.averageGrade}"></td>
-                <td th:text="${student?.coordinator?.firstName}"></td>
-                <td th:text="${student?.coordinator?.lastName}"></td>
+                <td>
+                    <span th:if="${student.averageGrade > 2}"><span th:text="${student.averageGrade}"></span></span>
+                    <span th:unless="${student.averageGrade > 2}"></span>
+                </td>
                 <td><a class="btn btn-profile"
                        th:href="@{/admin/student/{studentId}(studentId=${student.userId})}">Profil</a></td>
                 <td><a class="btn btn-edit"
