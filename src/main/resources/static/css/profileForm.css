@@ -156,6 +156,47 @@ h2 {
     border-radius: 17px;
 }
 
+.guardian-list{
+    background: #323C48;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 17px;
+    grid-column: span 3;
+    width: 50%;
+    margin: 3% auto;
+    padding: 0 4% 4% 4%;
+}
+
+.guardian-list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.guardian-list td, .guardian-list th{
+    text-align: center;
+    padding: 2% 0;
+    border-bottom: solid 1px black;
+}
+
+.guardian-list td{
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
+.guardian-button{
+    width: 100%;
+    text-align: center;
+    margin: 1% 0;
+}
+
+.guardian-btn{
+    border: none;
+    font-size: 13px;
+    border-radius: 15px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 7px 19px;
+    cursor: pointer;
+}
+
 /*endregion*/
 
 /*region Student form profile*/

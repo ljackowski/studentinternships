@@ -40,7 +40,7 @@
         <div>
             <h1>Dodaj wpis do dziennka</h1>
         </div>
-        <form action="#" th:action="@{/student/{studentId}/editEntry/{entryId}(studentId=${studentId}, entryId=${entryId})}" th:object="${entryToEdit}" method="post">
+        <form action="#" th:action="@{/admin/editStudentEntry/{entryId}(entryId=${entryId})}" th:object="${studentEntryToEdit}" method="post">
             <input th:field="*{student.userId}" type="hidden">
             <input th:field="*{entryId}" type="hidden">
             <div class="row">
@@ -81,20 +81,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="single-row">
                 <div class="column">
                     <div>
                         <label for="telephone-number" class="form-txt">Opis: </label>
                     </div>
                     <div>
                         <textarea th:field="*{description}" type="text" name="telephone-number" id="telephone-number"
-                                  class="form-box"></textarea>
+                                  class="form-box-textarea"></textarea>
                     </div>
                 </div>
             </div>
             <div class="button">
                 <button type="submit" class="btn btn-add">Dodaj</button>
-                <a class="btn btn-cancel" th:href="@{/representatives/list}">Anuluj</a>
+                <a class="btn btn-cancel" th:href="@{/admin/studentJournal/{studentId}(studentId=${studentEntryToEdit.student.userId})}">Anuluj</a>
             </div>
         </form>
     </div>

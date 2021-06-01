@@ -52,6 +52,11 @@
             <p>Kierunek: <span th:text="${intern.student.fieldOfStudy}"></span>, stopień: <span
                     th:text="${intern.student.degree}">Stopień: </span></p>
             <p>Średnia ocen: <span th:text="${intern.student.averageGrade}"></span></p>
+            <a th:href="@{/admin/internJournal/{internId}( internId=${intern.internId})}">
+                <div class="journal">
+                    Dziennik stażu
+                </div>
+            </a>
         </div>
         <div class="tile2">
             <h2>Dane Koordynatora:</h2>

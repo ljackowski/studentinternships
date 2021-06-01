@@ -26,7 +26,8 @@ public class Guardian {
     @Column(name = "email")
     private String email;
 
-    @OneToOne(mappedBy = "guardian")
+    @ManyToOne()
+    @JoinColumn(name = "company_id")
     private Company company;
 
     public Guardian() {

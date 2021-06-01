@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj przedsiębiorstwo</title>
+    <link rel="stylesheet" href="../../static/css/formDesign.css">
+    <link rel="stylesheet" th:href="@{/css/formDesign.css}">
+</head>
+<body>
+<div class="container">
+    <div class="navigation">
+        <div class="link">
+            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
+        </div>
+        <div class="link">
+            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
+        </div>
+        <div class="link indicator">
+            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
+        </div>
+    </div>
+    <div class="form">
+        <div class="form-container">
+            <div>
+                <h1>Dodaj opiekuna</h1>
+            </div>
+            <form action="#" th:action="@{/admin/{companyId}/addGuardianToCompany(companyId=${companyId})}" th:object="${newGuardian}" method="post">
+                <input type="hidden" th:field="*{company}">
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-first-name" class="form-txt">Imię: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{firstName}" type="text"
+                                   id="guardian-first-name"
+                                   class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="guardian-last-name" class="form-txt">Nazwisko: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{lastName}" type="text"
+                                   id="guardian-last-name"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-email" class="form-txt">Email: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{email}" type="text" id="guardian-email"
+                                   class="form-box">
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div>
+                            <label for="guardian-telephone-number" class="form-txt">Numer telefonu: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{telephoneNumber}" type="text"
+                                   id="guardian-telephone-number"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="single-row">
+                    <div class="column">
+                        <div>
+                            <label for="guardian-position" class="form-txt">Stanowisko: </label>
+                        </div>
+                        <div>
+                            <input th:field="*{position}" type="text" id="guardian-position"
+                                   class="form-box">
+                        </div>
+                    </div>
+                </div>
+                <div class="button">
+                    <button type="submit" class="btn btn-add">Dodaj</button>
+                    <a th:href="@{/admin/company/{companyId}(companyId=${companyId})}" class="btn btn-cancel">Anuluj</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

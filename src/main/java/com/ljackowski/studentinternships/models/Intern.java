@@ -12,13 +12,9 @@ public class Intern{
     @Column(name = "intern_id")
     private Long internId;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH})
+    @OneToOne()
     @JoinColumn(name = "student_id")
     private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;
 
     @Column(name = "reserve")
     private boolean reserve;
@@ -27,7 +23,6 @@ public class Intern{
     }
 
     public Intern(Student student, Company company ,boolean reserve) {
-        this.company = company;
         this.student = student;
         this.reserve = reserve;
     }
@@ -46,14 +41,6 @@ public class Intern{
 
     public void setStudent(Student student) {
         this.student = student;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     public boolean isReserve() {

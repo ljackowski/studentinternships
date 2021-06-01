@@ -95,7 +95,9 @@ public class AdminController {
 
     @GetMapping("/student/{studentId}")
     public String getStudent(Model model, @PathVariable("studentId") long studentId) {
-        model.addAttribute("student", studentService.getStudentById(studentId));
+        Student student = studentService.getStudentById(studentId);
+        student.setCompany(companyService.getCompanyById(733));
+        model.addAttribute("student", student);
         return "admin/studentProfile";
     }
 
@@ -295,14 +297,14 @@ public class AdminController {
     public String addInternEntry(@ModelAttribute Journal journal, @PathVariable(name = "internId") long internId) {
         journal.setStudent(studentService.getStudentById(internService.getInternById(internId).getStudent().getUserId()));
         journalService.addEntry(journal);
-        return "redirect:/interns/internJournal/" + internId;
+        return "redirect:/admin/internJournal/" + internId;
     }
 
     @GetMapping("/deleteInternEntry")
     public String deleteInternEntryById(@RequestParam("entryId") long entryId) {
         long internId = journalService.getEntryById(entryId).getStudent().getIntern().getInternId();
         journalService.deleteEntryById(entryId);
-        return "redirect:/interns/internJournal/" + internId;
+        return "redirect:/admin/internJournal/" + internId;
     }
 
     @GetMapping("/editInternEntry/{entryId}")
@@ -315,7 +317,7 @@ public class AdminController {
     public String editInternEntry(@ModelAttribute Journal journal) {
         journal.setStudent(journalService.getEntryById(journal.getEntryId()).getStudent());
         journalService.editEntry(journal);
-        return "redirect:/interns/internJournal/" + journal.getStudent().getIntern().getInternId();
+        return "redirect:/admin/internJournal/" + journal.getStudent().getIntern().getInternId();
     }
     //endregion
 
@@ -543,29 +545,62 @@ public class AdminController {
     public String getCompanyById(Model model, @PathVariable("companyId") long companyId) {
         Company company = companyService.getCompanyById(companyId);
         if (company.isPartOfInternship()) {
-            model.addAttribute("company", company);
-            return "admin/companyInternshipProfile";
+            company.getStudentList().removeIf(student -> student.getRole().equals("ROLE_STUDENT"));
         } else {
-            model.addAttribute("company", company);
-            return "admin/companyStudentProfile";
+            company.getStudentList().removeIf(student -> student.getRole().equals("ROLE_INTERN"));
         }
+        model.addAttribute("company", company);
+        return "admin/companyProfile";
     }
 
-    @GetMapping("/addCompanyToInternShip")
+    @GetMapping("/addCompany")
     public String addCompanyForm(Model model) {
         model.addAttribute("newCompany", new Company());
-        return "admin/addCompanyToInternshipForm";
+        return "admin/addCompanyForm";
     }
 
-    @PostMapping("/addCompanyToInternShip")
+    @PostMapping("/addCompany")
     public String addCompanyToInternShip(@ModelAttribute Company company) {
-        company.setPartOfInternship(true);
+        company.setFieldOfStudy(company.getFieldOfStudy().toUpperCase());
         representativeService.addRepresentative(company.getRepresentative());
         addressService.addAddress(company.getAddress());
-        guardianService.addGuardian(company.getGuardian());
         companyService.addCompany(company);
         return "redirect:/admin/companiesList";
     }
+
+    @GetMapping("/{companyId}/addGuardianToCompany")
+    public String addGuardianToCompanyForm(@PathVariable("companyId") long companyId, Model model) {
+        Guardian guardian = new Guardian();
+        guardian.setCompany(companyService.getCompanyById(companyId));
+        model.addAttribute("newGuardian", guardian);
+        return "admin/addGuardianToCompany";
+    }
+
+    @PostMapping("/{companyId}/addGuardianToCompany")
+    public String addGuardianToCompany(@PathVariable("companyId") long companyId, @ModelAttribute Guardian guardian) {
+        guardianService.addGuardian(guardian);
+        return "redirect:/admin/company/" + companyId;
+    }
+
+    @GetMapping("/deleteGuardian")
+    public String deleteCompanyGuardian(@RequestParam("guardianId") long guardianId) {
+        long companyId = guardianService.getGuardianById(guardianId).getCompany().getCompanyId();
+        guardianService.deleteGuardianById(guardianId);
+        return "redirect:/admin/company/" + companyId;
+    }
+
+    @GetMapping("/editGuardian/{guardianId}")
+    public String editGuardianForm( @PathVariable("guardianId") long guardianId, Model model) {
+        model.addAttribute("guardianToEdit", guardianService.getGuardianById(guardianId));
+        return "admin/editGuardianForm";
+    }
+
+    @PostMapping("/editGuardian/{guardianId}")
+    public String editGuardian(@PathVariable("guardianId") long guardianId,@ModelAttribute Guardian guardian){
+        guardianService.updateGuardian(guardian);
+        return "redirect:/admin/company/" + guardian.getCompany().getCompanyId();
+    }
+
 
     @GetMapping("/deleteCompany")
     public String deleteCompanyById(@RequestParam("companyId") long companyId) {
@@ -587,7 +622,6 @@ public class AdminController {
     public String editCompany(@ModelAttribute Company company) {
         addressService.updateAddress(company.getAddress());
         representativeService.updateRepresentative(company.getRepresentative());
-        guardianService.updateGuardian(company.getGuardian());
         companyService.updateCompany(company);
         return "redirect:/admin/companiesList";
     }

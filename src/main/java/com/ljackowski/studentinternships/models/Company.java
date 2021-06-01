@@ -25,6 +25,9 @@ public class Company{
     @Column(name = "free_spaces")
     private int freeSpaces;
 
+    @Column(name = "field_of_study")
+    private String fieldOfStudy;
+
     @Column(name = "starting_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate startingDate;
@@ -32,11 +35,6 @@ public class Company{
     @Column(name = "ending_date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate endingDate;
-
-    private String fieldOfStudy;
-
-    @OneToMany(mappedBy = "company")
-    private List<Intern> internList;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
@@ -46,12 +44,11 @@ public class Company{
     @JoinColumn(name = "representative_id")
     private Representative representative;
 
-    @OneToOne(mappedBy = "company")
-    private Student student;
+    @OneToMany(mappedBy = "company")
+    private List<Student> studentList;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "guardian_id")
-    private Guardian guardian;
+    @OneToMany(mappedBy = "company")
+    private List<Guardian> guardianList;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<InternshipPlan> internshipPlan;
@@ -67,8 +64,28 @@ public class Company{
         this.endingDate = endingDate;
         this.address = address;
         this.representative = representative;
-        this.guardian = guardian;
+        addGuardianToList(guardian);
         this.fieldOfStudy = fieldOfStudy;
+    }
+
+    public List<Guardian> getGuardianList() {
+        return guardianList;
+    }
+
+    public void setGuardianList(List<Guardian> guardianList) {
+        this.guardianList = guardianList;
+    }
+
+    public void addGuardianToList(Guardian guardian){
+        this.guardianList.add(guardian);
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public void setStudentList(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     public LocalDate getStartingDate() {
@@ -85,22 +102,6 @@ public class Company{
 
     public void setEndingDate(LocalDate endingDate) {
         this.endingDate = endingDate;
-    }
-
-    public Guardian getGuardian() {
-        return guardian;
-    }
-
-    public void setGuardian(Guardian guardian) {
-        this.guardian = guardian;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     public String getCompanyName() {
@@ -133,14 +134,6 @@ public class Company{
 
     public void setFreeSpaces(int freeSpaces) {
         this.freeSpaces = freeSpaces;
-    }
-
-    public List<Intern> getInternList() {
-        return internList;
-    }
-
-    public void setInternList(List<Intern> internList) {
-        this.internList = internList;
     }
 
     public Address getAddress() {

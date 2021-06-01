@@ -41,7 +41,6 @@ public class MyUserDetails implements UserDetails {
         this.password = internUser.getStudent().getPassword();
         this.authorityList = Arrays.stream(internUser.getStudent().getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList());
         this.userId = internUser.getStudent().getUserId();
-        this.company = internUser.getCompany();
     }
 
     public MyUserDetails(Coordinator coordinatorUser) {

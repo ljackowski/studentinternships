@@ -34,7 +34,7 @@
         <div>
             <h1>Dodaj wpis do dziennka</h1>
         </div>
-        <form action="#" th:action="@{/interns/editEntry/{entryId}(entryId=${journal.entryId})}" th:object="${journal}" method="post">
+        <form action="#" th:action="@{/admin/editInternEntry/{entryId}(entryId=${journal.entryId})}" th:object="${journal}" method="post">
             <div class="row">
                 <div class="column">
                     <div>
@@ -85,7 +85,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn btn-add">Dodaj</button>
+                <button type="submit" class="btn btn-add">Edytuj</button>
                 <a class="btn btn-cancel" th:href="@{/interns/internJournal/{internId}(internId=${journal.student.intern.internId})}">Anuluj</a>
             </div>
         </form>

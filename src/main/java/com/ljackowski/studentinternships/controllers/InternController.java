@@ -59,7 +59,7 @@ public class InternController {
     public String internProfileForm(Model model, @PathVariable(name = "internId") long internId) {
         Intern intern = internService.getInternByStudent(studentService.getStudentById(internId));
         List<Company> companies = companyService.getCompaniesInInternship(true, 0);
-        if (intern.getCompany() == null) {
+        if (intern.getStudent().getCompany() == null) {
             model.addAttribute("companies", companies);
             model.addAttribute("intern", intern);
             return "intern/internProfileBeforeChoosingCompany";
@@ -72,14 +72,14 @@ public class InternController {
     @PostMapping("/{internId}")
     @PreAuthorize("authentication.principal.userId == #internId")
     public String internProfile(@ModelAttribute Intern intern, @PathVariable(name = "internId") long internId) {
-        Company company = companyService.getCompanyById(intern.getCompany().getCompanyId());
+        Company company = companyService.getCompanyById(intern.getStudent().getCompany().getCompanyId());
         company.setFreeSpaces(company.getFreeSpaces() - 1);
         companyService.updateCompany(company);
         Authentication authentication = new UsernamePasswordAuthenticationToken(intern, intern.getStudent().getPassword(),
                 Arrays.stream(intern.getStudent().getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
         internService.updateIntern(intern);
-        return "redirect:/interns/intern/" + intern.getInternId();
+        return "redirect:/intern/" + intern.getStudent().getUserId();
     }
 
 //    Internship Journal

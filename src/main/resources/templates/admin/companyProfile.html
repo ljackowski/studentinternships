@@ -55,30 +55,44 @@
             <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
             <p>Numer telefonu:<span th:text="${company.representative.position}"></span></p>
         </div>
-        <div class="tile6">
-            <h2>Opiekun praktyki</h2>
-            <p>Imię: <span th:text="${company.guardian.firstName}"></span></p>
-            <p>Nazwisko: <span th:text="${company.guardian.lastName}"></span></p>
-            <p>Numer telefonu: <span th:text="${company.guardian.telephoneNumber}"></span></p>
-            <p>Email: <span th:text="${company.guardian.email}"></span></p>
+        <div></div>
+        <div class="guardian-list">
+            <h2>Opiekunowie:</h2>
+            <div class="guardian-button">
+                <a th:href="@{/admin/{companyId}/addGuardianToCompany(companyId=${companyId})}" class="btn btn-add">Dodaj opiekuna</a>
+            </div>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Numer telefonu</th>
+                    <th>E-mail</th>
+                    <th colspan="2">Akcja</th>
+                </tr>
+                <tr th:each="guardian : ${company.guardianList}">
+                    <td th:text="${guardian?.firstName}"></td>
+                    <td th:text="${guardian?.lastName}"></td>
+                    <td th:text="${guardian?.telephoneNumber}"></td>
+                    <td th:text="${guardian?.email}"></td>
+                    <td><a th:href="@{/admin/deleteGuardian(guardianId=${guardian.guardianId})}" class="guardian-btn btn-delete">Usuń</a></td>
+                    <td><a th:href="@{/admin/editGuardian/{guardianId}(guardianId=${guardian.guardianId})}" class="guardian-btn btn-edit">Edytuj</a></td>
+                </tr>
+            </table>
         </div>
-        <div class="tile1_company">
-            <h2>Dane studenta</h2>
-            <p>Imię: <span th:text="${company?.student?.firstName}"></span></p>
-            <p>Nazwisko: <span th:text="${company?.student?.lastName}"></span></p>
-            <p>Adres:
-                <span th:text="${company?.student?.address?.city}"></span>
-                <span th:text="${company?.student?.address?.street}"></span>
-                <span th:text="${company?.student?.address?.buildingNumber}"></span>
-                <span th:text="${company?.student?.address?.apartmentNumber}"></span>
-                <span th:text="${company?.student?.address?.zipCode}"></span>
-                <span th:text="${company?.student?.address?.postOffice}"></span>
-            </p>
-            <p>Email: <span th:text="${company?.student?.email}"></span></p>
-            <p>Numer telefonu: <span th:text="${company?.student?.telephoneNumber}"></span></p>
-            <p>Index: <span th:text="${company?.student?.studentIndex}"></span></p>
-            <p>Kierunek: <span th:text="${company?.student?.fieldOfStudy}"></span></p>
-            <p>Średnia ocen: <span th:text="${company?.student?.averageGrade}"></span></p>
+        <div class="internsList">
+            <h2>Stażyści</h2>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>E-mail</th>
+                </tr>
+                <tr th:each="student : ${company.studentList}">
+                    <td th:text="${student?.firstName}"></td>
+                    <td th:text="${student?.lastName}"></td>
+                    <td th:text="${student?.email}"></td>
+                </tr>
+            </table>
         </div>
     </div>
 </div>

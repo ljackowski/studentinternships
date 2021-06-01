@@ -36,7 +36,7 @@ public class Student extends User {
     @JoinColumn(name = "address_id")
     private Address address;
 
-    @OneToOne
+    @ManyToOne()
     @JoinColumn(name = "company_id")
     private Company company;
 

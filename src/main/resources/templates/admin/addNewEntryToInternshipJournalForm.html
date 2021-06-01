@@ -35,7 +35,7 @@
             <h1>Dodaj wpis do dziennka</h1>
         </div>
         <form action="#"
-              th:action="@{/interns/addEntry/{internId}(internId=${journal.student.intern.internId})}"
+              th:action="@{/admin/addInternEntry/{internId}(internId=${journal.student.intern.internId})}"
               th:object="${journal}" method="post">
             <div class="row">
                 <div class="column">
