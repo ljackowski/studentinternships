@@ -27,10 +27,9 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(Long subjectId, String subjectName, String fieldOfStudy) {
-        this.subjectId = subjectId;
+    public Subject(String subjectName, String fieldOfStudy) {
         this.subjectName = subjectName;
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
     }
 
     public Long getSubjectId() {
@@ -54,7 +53,7 @@ public class Subject {
     }
 
     public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
     }
 
     public List<Grade> getGradeList() {

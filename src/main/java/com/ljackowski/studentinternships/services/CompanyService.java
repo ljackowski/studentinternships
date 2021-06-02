@@ -42,11 +42,11 @@ public class CompanyService {
         return companyRepository.findAllByPartOfInternshipAndFreeSpacesGreaterThan(partOfInternship, freeSpaces);
     }
 
-    public List<Company> getCompaniesByFieldOfStudyInInternship(String fieldOfStudy, boolean partOfInternship){
+    public List<Company> getCompaniesInInternshipByFieldOfStudy(String fieldOfStudy, boolean partOfInternship){
         return companyRepository.findAllByFieldOfStudyAndPartOfInternship(fieldOfStudy, partOfInternship);
     }
 
-    public List<Company> getFreeCompaniesInInternshipByFieldOfStudy(String fieldOfStudy, boolean partOfInternship, int freeSpaces){
-        return companyRepository.findAllByFieldOfStudyAndPartOfInternshipAndFreeSpacesGreaterThan(fieldOfStudy, partOfInternship, freeSpaces);
+    public List<Company> getFreeCompaniesInInternshipByFieldOfStudy(String fieldOfStudy, boolean partOfInternship){
+        return companyRepository.findAllByFieldOfStudyAndPartOfInternshipAndFreeSpacesGreaterThan(fieldOfStudy, partOfInternship, 0);
     }
 }

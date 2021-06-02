@@ -1,4 +1,4 @@
-package com.ljackowski.studentinternships.documentsgeneration;
+package com.ljackowski.studentinternships.files;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.html2pdf.HtmlConverter;

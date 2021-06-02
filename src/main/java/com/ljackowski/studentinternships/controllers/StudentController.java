@@ -2,20 +2,14 @@ package com.ljackowski.studentinternships.controllers;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
-import com.ljackowski.studentinternships.models.Grade;
+import com.ljackowski.studentinternships.files.PDFGeneration;
 import com.ljackowski.studentinternships.models.Journal;
 import com.ljackowski.studentinternships.models.Student;
 import com.ljackowski.studentinternships.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +19,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/student")

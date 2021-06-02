@@ -1,7 +1,6 @@
 package com.ljackowski.studentinternships.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -35,7 +34,7 @@ public class User{
     public User(String email, String password, String role) {
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.role = role.toUpperCase();
     }
 
     public Long getUserId() {
@@ -67,16 +66,7 @@ public class User{
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = role.toUpperCase();
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                '}';
-    }
 }

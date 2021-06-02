@@ -2,7 +2,7 @@ package com.ljackowski.studentinternships.controllers;
 
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
-import com.ljackowski.studentinternships.documentsgeneration.PDFGeneration;
+import com.ljackowski.studentinternships.files.PDFGeneration;
 import com.ljackowski.studentinternships.models.Company;
 import com.ljackowski.studentinternships.models.Intern;
 import com.ljackowski.studentinternships.models.InternshipBill;

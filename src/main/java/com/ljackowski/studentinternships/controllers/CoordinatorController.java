@@ -3,11 +3,9 @@ package com.ljackowski.studentinternships.controllers;
 import com.ljackowski.studentinternships.models.Company;
 import com.ljackowski.studentinternships.models.Intern;
 import com.ljackowski.studentinternships.models.Student;
-import com.ljackowski.studentinternships.repositories.CompanyRepository;
 import com.ljackowski.studentinternships.services.*;
 import com.ljackowski.studentinternships.models.InternshipPlan;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +66,7 @@ public class CoordinatorController {
     @GetMapping("/{coordinatorId}/companiesList")
     @PreAuthorize("authentication.principal.userId == #coordinatorId")
     public String getCompanies(@PathVariable("coordinatorId") long coordinatorId, Model model) {
-        model.addAttribute("companies", companyService.getCompaniesByFieldOfStudyInInternship(coordinatorService.getCoordinatorById(coordinatorId).getFieldOfStudy(), true));
+        model.addAttribute("companies", companyService.getCompaniesInInternshipByFieldOfStudy(coordinatorService.getCoordinatorById(coordinatorId).getFieldOfStudy(), true));
         return "coordinator/internshipCompanies";
     }
 

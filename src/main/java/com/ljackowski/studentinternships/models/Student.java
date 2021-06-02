@@ -57,8 +57,8 @@ public class Student extends User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.telephoneNumber = telephoneNumber;
-        this.fieldOfStudy = fieldOfStudy;
-        this.degree = degree;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
+        this.degree = degree.toUpperCase();
         this.averageGrade = averageGrade;
         this.address = address;
     }
@@ -147,7 +147,7 @@ public class Student extends User {
     }
 
     public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
     }
 
     public String getDegree() {
@@ -155,7 +155,7 @@ public class Student extends User {
     }
 
     public void setDegree(String degree) {
-        this.degree = degree;
+        this.degree = degree.toUpperCase();
     }
 
     public double getAverageGrade() {
@@ -173,4 +173,5 @@ public class Student extends User {
     public void setIntern(Intern intern) {
         this.intern = intern;
     }
+
 }

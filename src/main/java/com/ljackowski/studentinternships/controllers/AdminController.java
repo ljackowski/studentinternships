@@ -1,7 +1,12 @@
 package com.ljackowski.studentinternships.controllers;
 
+import com.ljackowski.studentinternships.files.FileUploadCSV;
 import com.ljackowski.studentinternships.models.*;
 import com.ljackowski.studentinternships.services.*;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,8 +14,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/admin")
@@ -142,6 +156,7 @@ public class AdminController {
     @GetMapping("/editStudent/{studentId}")
     public String editStudentForm(@PathVariable(value = "studentId") int studentId, Model model) {
         Student student = studentService.getStudentById(studentId);
+        model.addAttribute("companies", companyService.getFreeCompaniesInInternshipByFieldOfStudy(student.getFieldOfStudy(), false));
         model.addAttribute("studentToEdit", student);
         return "admin/editStudentForm";
     }
@@ -152,7 +167,6 @@ public class AdminController {
         student.setRole("role_student".toUpperCase());
         student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-        student.setCompany(student1.getCompany());
         if (!student.getFieldOfStudy().equals(student1.getFieldOfStudy())) {
             List<Grade> gradeList = gradeService.getStudentsGrades(student.getUserId());
             for (Grade grade : gradeList) {
@@ -165,6 +179,20 @@ public class AdminController {
         }
         addressService.updateAddress(student.getAddress());
         studentService.updateStudent(student);
+        return "redirect:/admin/studentsList";
+    }
+
+    @RequestMapping("/addStudentsFromFile")
+    public String addStudentsFromFileForm(Model model) {
+        return "admin/uploadStudentsForm";
+    }
+
+    @RequestMapping("/uploadStudents")
+    public String addStudentsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+            FileUploadCSV fileUploadCSV = new FileUploadCSV(passwordEncoder);
+            fileUploadCSV.addStudentsFromFile(file, coordinatorService, studentService, subjectService);
+        }
         return "redirect:/admin/studentsList";
     }
     //endregion
@@ -253,7 +281,7 @@ public class AdminController {
     @GetMapping("/editIntern/{internId}")
     public String editInternForm(@PathVariable("internId") long internId, Model model) {
         Intern intern = studentService.getStudentById(internId).getIntern();
-        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(intern.getStudent().getFieldOfStudy(), true, 0);
+        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(intern.getStudent().getFieldOfStudy(), true);
         model.addAttribute("internToEdit", intern);
         model.addAttribute("companies", companies);
         return "admin/editInternForm";
@@ -345,8 +373,8 @@ public class AdminController {
 
     @PostMapping("/addCoordinator")
     public String addCoordinator(@ModelAttribute Coordinator coordinator) {
-        coordinator.setRole("ROLE_COORDINATOR");
-        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
+        coordinator.setRole("role_coordinator");
+        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy());
         coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword()));
         coordinatorService.addCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
@@ -374,6 +402,22 @@ public class AdminController {
         coordinatorService.updateCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
     }
+
+    @RequestMapping("/addCoordinatorsFromFile")
+    public String addCoordinatorsFromFileForm(Model model) {
+        return "admin/uploadCoordinatorsForm";
+    }
+
+    @RequestMapping("/uploadCoordinators")
+    public String addCoordinatorsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+            FileUploadCSV fileUploadCSV = new FileUploadCSV(passwordEncoder);
+            fileUploadCSV.addCoordinatorsFromFile(file, studentService, coordinatorService);
+        }
+        return "redirect:/admin/coordinatorsList";
+    }
+
+
     //endregion
 
     //  region CRUD Student Journal
@@ -434,7 +478,7 @@ public class AdminController {
 
     @PostMapping("/addSubject")
     public String addSubject(@ModelAttribute Subject subject) {
-        subject.setFieldOfStudy(subject.getFieldOfStudy().toUpperCase());
+        subject.setFieldOfStudy(subject.getFieldOfStudy());
         subjectService.addSubject(subject);
         List<Student> studentsList = studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy());
         for (Student student : studentsList) {
@@ -589,13 +633,13 @@ public class AdminController {
     }
 
     @GetMapping("/editGuardian/{guardianId}")
-    public String editGuardianForm( @PathVariable("guardianId") long guardianId, Model model) {
+    public String editGuardianForm(@PathVariable("guardianId") long guardianId, Model model) {
         model.addAttribute("guardianToEdit", guardianService.getGuardianById(guardianId));
         return "admin/editGuardianForm";
     }
 
     @PostMapping("/editGuardian/{guardianId}")
-    public String editGuardian(@PathVariable("guardianId") long guardianId,@ModelAttribute Guardian guardian){
+    public String editGuardian(@PathVariable("guardianId") long guardianId, @ModelAttribute Guardian guardian) {
         guardianService.updateGuardian(guardian);
         return "redirect:/admin/company/" + guardian.getCompany().getCompanyId();
     }

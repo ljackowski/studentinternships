@@ -31,12 +31,6 @@ public class Grade {
         this.subject = subject;
     }
 
-    public Grade(Student student, Subject subject, double gradeNumber) {
-        this.student = student;
-        this.subject = subject;
-        this.gradeNumber = gradeNumber;
-    }
-
     public Long getGradeId() {
         return gradeId;
     }
@@ -68,4 +62,5 @@ public class Grade {
     public void setGradeNumber(double grade) {
         this.gradeNumber = grade;
     }
+
 }

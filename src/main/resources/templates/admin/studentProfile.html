@@ -82,8 +82,9 @@
             <p>Rozpoczęcie praktyki: <span th:text="${student.company?.startingDate}"></span></p>
             <p>Zakończenie praktyki: <span th:text="${student.company?.endingDate}"></span></p>
             <p>Należy do stażu:
-                <span th:if="${student.company?.partOfInternship}">Tak</span>
-                <span th:unless="${student.company?.partOfInternship == false}">Nie</span>
+                <span th:if="${student.company?.partOfInternship} == true">Tak</span>
+                <span th:if="${student.company?.partOfInternship == false}">Nie</span>
+                <span th:unless="${student.company?.partOfInternship}"></span>
             </p>
         </div>
         <div></div>

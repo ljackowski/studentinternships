@@ -104,4 +104,5 @@ public class Address {
     public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
     }
+
 }

@@ -53,7 +53,7 @@
                 <td><a class="btn btn-profile" th:href="@{/admin/coordinator/{coordinatorId}(coordinatorId=${coordinator.userId})}">Profil</a></td>
                 <td><a th:href="@{/admin/editCoordinator/{coordinatorId}(coordinatorId=${coordinator.userId})}" class="btn btn-edit">Edytuj</a>
                 </td>
-                <td><a th:href="@{/coordinators/delete/(coordinatorId=${coordinator.userId})}" class="btn btn-delete">Usuń</a>
+                <td><a th:href="@{/admin/deleteCoordinator/(coordinatorId=${coordinator.userId})}" class="btn btn-delete">Usuń</a>
                 </td>
             </tr>
         </table>
