@@ -134,8 +134,6 @@ public class AdminController {
 
     @PostMapping("/addStudent")
     public String addStudent(@ModelAttribute Student student) {
-        student.setRole("role_student".toUpperCase());
-        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         student.setPassword(passwordEncoder.encode(student.getPassword()));
         addressService.addAddress(student.getAddress());
@@ -164,8 +162,6 @@ public class AdminController {
     @PostMapping("/editStudent/{studentId}")
     public String editStudent(@PathVariable(value = "studentId") int studentId, @ModelAttribute Student student) {
         Student student1 = studentService.getStudentById(student.getUserId());
-        student.setRole("role_student".toUpperCase());
-        student.setFieldOfStudy(student.getFieldOfStudy().toUpperCase());
         student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
         if (!student.getFieldOfStudy().equals(student1.getFieldOfStudy())) {
             List<Grade> gradeList = gradeService.getStudentsGrades(student.getUserId());
@@ -373,8 +369,6 @@ public class AdminController {
 
     @PostMapping("/addCoordinator")
     public String addCoordinator(@ModelAttribute Coordinator coordinator) {
-        coordinator.setRole("role_coordinator");
-        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy());
         coordinator.setPassword(passwordEncoder.encode(coordinator.getPassword()));
         coordinatorService.addCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
@@ -397,8 +391,6 @@ public class AdminController {
 
     @PostMapping("/editCoordinator/{coordinatorId}")
     public String editCoordinator(@ModelAttribute Coordinator coordinator, @PathVariable("coordinatorId") long userId) {
-        coordinator.setRole("ROLE_COORDINATOR".toUpperCase());
-        coordinator.setFieldOfStudy(coordinator.getFieldOfStudy().toUpperCase());
         coordinatorService.updateCoordinator(coordinator);
         return "redirect:/admin/coordinatorsList";
     }
@@ -503,7 +495,6 @@ public class AdminController {
 
     @PostMapping("/editSubject/{subjectId}")
     public String editSubject(@ModelAttribute Subject subject) {
-        subject.setFieldOfStudy(subject.getFieldOfStudy().toUpperCase());
         List<Student> studentList = studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy());
         for (Student student : studentList) {
             if (!student.getFieldOfStudy().equals(subject.getFieldOfStudy())) {
@@ -604,7 +595,6 @@ public class AdminController {
 
     @PostMapping("/addCompany")
     public String addCompanyToInternShip(@ModelAttribute Company company) {
-        company.setFieldOfStudy(company.getFieldOfStudy().toUpperCase());
         representativeService.addRepresentative(company.getRepresentative());
         addressService.addAddress(company.getAddress());
         companyService.addCompany(company);

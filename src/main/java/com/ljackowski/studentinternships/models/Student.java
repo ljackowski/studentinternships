@@ -49,10 +49,10 @@ public class Student extends User {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Journal> journal;
 
-    public Student(String email, String password, String role, int studentIndex,
+    public Student(String email, String password, int studentIndex,
                    String firstName, String lastName, String telephoneNumber,
                    String fieldOfStudy, String degree, double averageGrade, Address address) {
-        super(email, password, role);
+        super(email, password, "ROLE_STUDENT");
         this.studentIndex = studentIndex;
         this.firstName = firstName;
         this.lastName = lastName;

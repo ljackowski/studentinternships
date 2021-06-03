@@ -28,12 +28,12 @@ public class Coordinator extends User {
     public Coordinator() {
     }
 
-    public Coordinator(String email, String password, String role, String firstName,
+    public Coordinator(String email, String password, String firstName,
                        String lastName, String fieldOfStudy, String telephoneNumber, String position) {
-        super(email, password, role);
+        super(email, password, "ROLE_COORDINATOR");
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
         this.telephoneNumber = telephoneNumber;
         this.position = position;
     }
@@ -75,7 +75,7 @@ public class Coordinator extends User {
     }
 
     public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
     }
 
     public String getTelephoneNumber() {

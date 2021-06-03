@@ -47,7 +47,7 @@ public class Company{
     @OneToMany(mappedBy = "company")
     private List<Student> studentList;
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Guardian> guardianList;
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
@@ -56,7 +56,7 @@ public class Company{
     public Company() {
     }
 
-    public Company(String companyName, boolean PartOfInternship, int freeSpaces, LocalDate startingDate, LocalDate endingDate, Address address, Representative representative, Guardian guardian, String fieldOfStudy) {
+    public Company(String companyName, boolean PartOfInternship, int freeSpaces, LocalDate startingDate, LocalDate endingDate, Address address, Representative representative, String fieldOfStudy) {
         this.companyName = companyName;
         this.partOfInternship = PartOfInternship;
         this.freeSpaces = freeSpaces;
@@ -64,7 +64,6 @@ public class Company{
         this.endingDate = endingDate;
         this.address = address;
         this.representative = representative;
-        addGuardianToList(guardian);
         this.fieldOfStudy = fieldOfStudy;
     }
 
@@ -166,5 +165,9 @@ public class Company{
 
     public void setInternshipPlan(List<InternshipPlan> internshipPlan) {
         this.internshipPlan = internshipPlan;
+    }
+
+    public void addGuardian(Guardian guardian){
+        this.guardianList.add(guardian);
     }
 }

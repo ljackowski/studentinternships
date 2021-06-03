@@ -1,6 +1,7 @@
 package com.ljackowski.studentinternships.files;
 
 import com.ljackowski.studentinternships.models.*;
+import com.ljackowski.studentinternships.services.CompanyService;
 import com.ljackowski.studentinternships.services.CoordinatorService;
 import com.ljackowski.studentinternships.services.StudentService;
 import com.ljackowski.studentinternships.services.SubjectService;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
+import java.util.Random;
 
 public class FileUploadCSV {
 
@@ -29,22 +31,43 @@ public class FileUploadCSV {
     public CSVParser createParser(Reader reader) throws IOException {
         return new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
     }
-
-    public void addStudentsFromFile(MultipartFile file, CoordinatorService coordinatorService, StudentService studentService, SubjectService subjectService) throws IOException {
+    public void addCoordinatorsFromFile(MultipartFile file, StudentService studentService, CoordinatorService coordinatorService) throws IOException {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         csvParser = createParser(reader);
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         for (CSVRecord csvRecord : csvRecords) {
+            Coordinator coordinator = new Coordinator(
+                    csvRecord.get("EMAIL"),
+                    passwordEncoder.encode(csvRecord.get("PASSWORD")),
+                    csvRecord.get("FIRST_NAME"),
+                    csvRecord.get("LAST_NAME"),
+                    csvRecord.get("FIELD_OF_STUDY"),
+                    csvRecord.get("TELEPHONE_NUMBER"),
+                    csvRecord.get("POSITION")
+            );
+            for (Student student: studentService.getAllStudentsByFieldOfStudy(coordinator.getFieldOfStudy())){
+                student.setCoordinator(coordinator);
+            }
+            coordinatorService.addCoordinator(coordinator);
+        }
+    }
+
+    public void addStudentsFromFile(MultipartFile file, CoordinatorService coordinatorService, StudentService studentService, SubjectService subjectService) throws IOException {
+        reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        csvParser = createParser(reader);
+        Random random = new Random();
+        Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+        double averageGrade = 0;
+        for (CSVRecord csvRecord : csvRecords) {
             Student student = new Student(
                     csvRecord.get("EMAIL"),
                     passwordEncoder.encode(csvRecord.get("PASSWORD")),
-                    csvRecord.get("ROLE").toUpperCase(),
                     Integer.parseInt(csvRecord.get("STUDENT_INDEX")),
                     csvRecord.get("FIRST_NAME"),
                     csvRecord.get("LAST_NAME"),
                     csvRecord.get("TELEPHONE_NUMBER"),
-                    csvRecord.get("FIELD_OF_STUDY").toUpperCase(),
-                    csvRecord.get("DEGREE").toUpperCase(),
+                    csvRecord.get("FIELD_OF_STUDY"),
+                    csvRecord.get("DEGREE"),
                     0,
                     new Address(
                             csvRecord.get("CITY"),
@@ -58,33 +81,18 @@ public class FileUploadCSV {
             student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
             List<Subject> subjects = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
             for (Subject subject : subjects) {
-                student.addGrade(new Grade(student, subject));
+                student.addGrade(new Grade(student, subject, random.ints(2,4).findFirst().getAsInt() + 0.5));
             }
+            for (Grade grade : student.getGradeList()){
+                averageGrade += grade.getGradeNumber();
+            }
+            averageGrade /= student.getGradeList().size();
+            student.setAverageGrade(averageGrade);
             studentService.addStudent(student);
         }
     }
 
-    public void addCoordinatorsFromFile(MultipartFile file, StudentService studentService, CoordinatorService coordinatorService) throws IOException {
-        reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
-        csvParser = createParser(reader);
-        Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-        for (CSVRecord csvRecord : csvRecords) {
-            Coordinator coordinator = new Coordinator(
-                    csvRecord.get("EMAIL"),
-                    passwordEncoder.encode(csvRecord.get("PASSWORD")),
-                    csvRecord.get("ROLE").toUpperCase(),
-                    csvRecord.get("FIRST_NAME"),
-                    csvRecord.get("LAST_NAME"),
-                    csvRecord.get("FIELD_OF_STUDY").toUpperCase(),
-                    csvRecord.get("TELEPHONE_NUMBER"),
-                    csvRecord.get("POSITION")
-            );
-            for (Student student: studentService.getAllStudentsByFieldOfStudy(coordinator.getFieldOfStudy())){
-                student.setCoordinator(coordinator);
-            }
-            coordinatorService.addCoordinator(coordinator);
-        }
-    }
+
 
     public void addSubjectsFromFile(MultipartFile file, SubjectService subjectService, StudentService studentService) throws IOException {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
@@ -98,6 +106,14 @@ public class FileUploadCSV {
             for (Student student : studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy())){
                 student.addGrade(new Grade(student,subject));
             }
+        }
+    }
+
+    public void addCompaniesFromFile(MultipartFile file, CompanyService companyService) throws IOException {
+        reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
+        csvParser = createParser(reader);
+        Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+        for (CSVRecord csvRecord : csvRecords){;
         }
     }
 }

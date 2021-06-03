@@ -187,7 +187,11 @@ h2{
     color: #F4FBFC;
 }
 
-
+.file-upload{
+    width: 100%;
+    text-align: center;
+    margin: 5% 0;
+}
 
 
 

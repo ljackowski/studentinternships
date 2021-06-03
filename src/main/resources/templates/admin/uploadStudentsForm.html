@@ -4,7 +4,7 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Edytuj opiekuna</title>
+    <title>Dodaj studentów</title>
     <link rel="stylesheet" href="../../static/css/formDesign.css">
     <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
@@ -14,7 +14,7 @@
         <div class="link">
             <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
         </div>
-        <div class="link">
+        <div class="link indicator">
             <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
         </div>
         <div class="link">
@@ -26,22 +26,21 @@
         <div class="link">
             <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
         </div>
-        <div class="link indicator">
+        <div class="link">
             <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
         </div>
     </div>
     <div class="form">
         <div class="form-container">
             <div>
-                <h1>Edytuj opiekuna</h1>
+                <h1>Dodaj studentów z pliku</h1>
             </div>
             <form th:action="@{/admin/uploadStudents}" enctype="multipart/form-data" method="post">
-                <div>
-                    <label>Wybierz plik</label>
-                    <input type="file" name="file">
+                <div class="file-upload">
+                    <input type="file">
                 </div>
                 <div class="button">
-                    <button type="submit" class="btn btn-add">Prześlij</button>
+                    <button type="submit" class="btn btn-add">Dodaj</button>
                     <a th:href="@{/admin/studentsList}" class="btn btn-cancel">Anuluj</a>
                 </div>
             </form>
