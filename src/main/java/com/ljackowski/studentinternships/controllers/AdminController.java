@@ -512,6 +512,20 @@ public class AdminController {
         subjectService.updateSubject(subject);
         return "redirect:/admin/subjectList";
     }
+
+    @RequestMapping("/addSubjectsFromFile")
+    public String addSubjectsFromFileForm(Model model) {
+        return "admin/uploadSubjectsForm";
+    }
+
+    @RequestMapping("/uploadSubjects")
+    public String addSubjectsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+            FileUploadCSV fileUploadCSV = new FileUploadCSV();
+            fileUploadCSV.addSubjectsFromFile(file, subjectService, studentService);
+        }
+        return "redirect:/admin/subjectsList";
+    }
     //endregion
 
     //region CRUD Grades
@@ -658,6 +672,21 @@ public class AdminController {
         companyService.updateCompany(company);
         return "redirect:/admin/companiesList";
     }
+
+    @RequestMapping("/addCompaniesFromFile")
+    public String addCompaniesFromFileForm(Model model) {
+        return "admin/uploadCompaniesForm";
+    }
+
+    @RequestMapping("/uploadCompanies")
+    public String addCompaniesFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+            FileUploadCSV fileUploadCSV = new FileUploadCSV();
+            fileUploadCSV.addCompaniesFromFile(file, companyService);
+        }
+        return "redirect:/admin/companiesList";
+    }
+
     //endregion
 
 }

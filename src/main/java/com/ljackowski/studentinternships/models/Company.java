@@ -64,7 +64,17 @@ public class Company{
         this.endingDate = endingDate;
         this.address = address;
         this.representative = representative;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
+    }
+
+    public Company(String companyName, boolean partOfInternship, int freeSpaces, String fieldOfStudy, LocalDate startingDate, LocalDate endingDate, Address address) {
+        this.companyName = companyName;
+        this.partOfInternship = partOfInternship;
+        this.freeSpaces = freeSpaces;
         this.fieldOfStudy = fieldOfStudy;
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+        this.address = address;
     }
 
     public List<Guardian> getGuardianList() {
@@ -156,7 +166,7 @@ public class Company{
     }
 
     public void setFieldOfStudy(String fieldOfStudy) {
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
     }
 
     public List<InternshipPlan> getInternshipPlan() {

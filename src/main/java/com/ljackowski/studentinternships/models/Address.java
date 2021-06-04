@@ -49,6 +49,22 @@ public class Address {
         this.apartmentNumber = apartmentNumber;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
     public Long getAddressId() {
         return addressId;
     }

@@ -15,14 +15,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 public class FileUploadCSV {
 
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     private Reader reader;
     private CSVParser csvParser;
+
+    public FileUploadCSV() {
+    }
 
     public FileUploadCSV(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
@@ -92,28 +98,72 @@ public class FileUploadCSV {
         }
     }
 
-
-
     public void addSubjectsFromFile(MultipartFile file, SubjectService subjectService, StudentService studentService) throws IOException {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         csvParser = createParser(reader);
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+        Random random = new Random();
         for (CSVRecord csvRecord : csvRecords){
             Subject subject = new Subject(
                     csvRecord.get("SUBJECT_NAME"),
                     csvRecord.get("FIELD_OF_STUDY")
             );
             for (Student student : studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy())){
-                student.addGrade(new Grade(student,subject));
+                student.addGrade(new Grade(student,subject, random.ints(2,4).findFirst().getAsInt() + 0.5));
             }
+            subjectService.addSubject(subject);
         }
     }
 
     public void addCompaniesFromFile(MultipartFile file, CompanyService companyService) throws IOException {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         csvParser = createParser(reader);
+        List<String> RepresentativeAsString;
+        List<String> GuardiansAsString;
+        List<String> GuardianAsString;
+        ArrayList<Guardian> guardians = new ArrayList<>();
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-        for (CSVRecord csvRecord : csvRecords){;
+        for (CSVRecord csvRecord : csvRecords){
+            Company company = new Company(
+                    csvRecord.get("COMPANY_NAME"),
+                    Boolean.parseBoolean(csvRecord.get("PART_OF_INTERNSHIP")),
+                    Integer.parseInt(csvRecord.get("FREE_SPACES")),
+                    csvRecord.get("FIELD_OF_STUDY"),
+                    LocalDate.parse(csvRecord.get("STARTING_DATE")),
+                    LocalDate.parse(csvRecord.get("ENDING_DATE")),
+                    new Address(
+                            csvRecord.get("CITY"),
+                            csvRecord.get("STREET"),
+                            csvRecord.get("BUILDING_NUMBER"),
+                            csvRecord.get("ZIP_CODE"),
+                            csvRecord.get("POST_OFFICE"),
+                            csvRecord.get("APARTMENT_NUMBER")
+                    )
+            );
+            RepresentativeAsString = Arrays.asList(csvRecord.get("REPRESENTATIVE").split(","));
+            Representative representative = new Representative(
+                    RepresentativeAsString.get(0),
+                    RepresentativeAsString.get(1),
+                    RepresentativeAsString.get(2),
+                    RepresentativeAsString.get(3),
+                    RepresentativeAsString.get(4)
+            );
+            company.setRepresentative(representative);
+            GuardiansAsString = Arrays.asList(csvRecord.get("GUARDIANS").split(";"));
+            for (String s: GuardiansAsString){
+                GuardianAsString = Arrays.asList(s.split(","));
+                Guardian guardian = new Guardian(
+                        GuardianAsString.get(0),
+                        GuardianAsString.get(1),
+                        GuardianAsString.get(2),
+                        GuardianAsString.get(3),
+                        GuardianAsString.get(4)
+                );
+                guardian.setCompany(company);
+                guardians.add(guardian);
+            }
+            company.setGuardianList(guardians);
+            companyService.addCompany(company);
         }
     }
 }
