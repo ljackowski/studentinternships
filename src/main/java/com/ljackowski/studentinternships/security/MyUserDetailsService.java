@@ -17,7 +17,8 @@ public class MyUserDetailsService implements UserDetailsService {
     private final CoordinatorService coordinatorService;
 
     @Autowired
-    public MyUserDetailsService(UserService userService, StudentService studentService, InternService internService, CoordinatorService coordinatorService, CompanyService companyService) {
+    public MyUserDetailsService(UserService userService, StudentService studentService,
+                                InternService internService, CoordinatorService coordinatorService) {
         this.userService = userService;
         this.studentService = studentService;
         this.internService = internService;
@@ -27,15 +28,17 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.getUserByEmail(email);
-        if (user.getRole().equals("ROLE_STUDENT")) {
-            return new MyUserDetails(studentService.getStudentByEmail(email));
-        } else if (user.getRole().equals("ROLE_INTERN")) {
-            return new MyUserDetails(internService.getInternByStudent(studentService.getStudentByEmail(email)));
-        }else if (user.getRole().equals("ROLE_COORDINATOR")) {
-            return new MyUserDetails(coordinatorService.getCoordinatorByEmail(email));
-        } else {
-            return new MyUserDetails(userService.getUserByEmail(email));
+        switch (user.getRole()) {
+            case "ROLE_STUDENT":
+                return new MyUserDetails(studentService.getStudentByEmail(email));
+            case "ROLE_INTERN":
+                return new MyUserDetails(internService.getInternByStudent(studentService.getStudentByEmail(email)));
+            case "ROLE_COORDINATOR":
+                return new MyUserDetails(coordinatorService.getCoordinatorByEmail(email));
+            default:
+                return new MyUserDetails(user);
         }
-
     }
 }
+
+

@@ -48,8 +48,11 @@ public class CoordinatorController {
     }
 
     @GetMapping("/{coordinatorId}/student/{studentId}")
-    @PreAuthorize("authentication.principal.userId == #coordinatorId and authentication.principal.fieldOfStudy == #student.fieldOfStudy and #student.role == 'ROLE_STUDENT'")
-    public String getCoordinatorsStudent(@PathVariable("coordinatorId") long coordinatorId, Model model, @PathVariable("studentId") Student student) {
+    @PreAuthorize("authentication.principal.userId == #coordinatorId " +
+            "and authentication.principal.fieldOfStudy == #student.fieldOfStudy " +
+            "and #student.role == 'ROLE_STUDENT'")
+    public String getCoordinatorsStudent(@PathVariable("coordinatorId") long coordinatorId, Model model,
+                                         @PathVariable("studentId") Student student) {
         model.addAttribute("student", student);
         return "coordinator/studentProfile";
     }
