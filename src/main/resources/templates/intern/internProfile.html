@@ -11,22 +11,29 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link indicator">
-            <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
+        <div class="application-navigation">
+            <div class="link indicator">
+                <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p>
+                </a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p
+                        class="link-text">Program stażu</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
             </a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p
-                    class="link-text">Program stażu</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
         </div>
     </div>
     <div class="container-fluid">
@@ -58,34 +65,45 @@
         </div>
         <div class="tile4">
             <h2>Przedsiębiorstwo zatrudniające</h2>
-            <p>Nazwa firmy: <span th:text="${intern.company.companyName}"></span></p>
+            <p>Nazwa firmy: <span th:text="${intern.student.company?.companyName}"></span></p>
             <p>Adres:
-                <span th:text="${intern.company.address.city}"></span>
-                <span th:text="${intern.company.address.street}"></span>
-                <span th:text="${intern.company.address.buildingNumber}"></span>
-                <span th:text="${intern.company.address?.apartmentNumber}"></span>
-                <span th:text="${intern.company.address.zipCode}"></span>
-                <span th:text="${intern.company.address.postOffice}"></span>
+                <span th:text="${intern.student.company?.address?.city}"></span>
+                <span th:text="${intern.student.company?.address?.street}"></span>
+                <span th:text="${intern.student.company?.address?.buildingNumber}"></span>
+                <span th:text="${intern.student.company?.address?.apartmentNumber}"></span>
+                <span th:text="${intern.student.company?.address?.zipCode}"></span>
+                <span th:text="${intern.student.company?.address?.postOffice}"></span>
             </p>
-            <p>Rozpoczęcie praktyki: <span th:text="${intern.company.startingDate}"></span></p>
-            <p>Zakończenie praktyki: <span th:text="${intern.company.endingDate}"></span></p>
+            <p>Rozpoczęcie praktyki: <span th:text="${intern.student.company.startingDate}"></span></p>
+            <p>Zakończenie praktyki: <span th:text="${intern.student.company.endingDate}"></span></p>
         </div>
+        <div></div>
         <div class="tile5">
             <h2>Przedstawiciel firmy:</h2>
-            <p>Imię:<span th:text="${intern.company.representative.firstName}"></span></p>
-            <p>Nazwisko:<span th:text="${intern.company.representative.lastName}"></span</p>
-            <p>Email:<span th:text="${intern.company.representative.email}"></span></p>
-            <p>Numer telefonu:<span th:text="${intern.company.representative.telephoneNumber}"></span></p>
-            <p>Stanowisko:<span th:text="${intern.company.representative.position}"></span></p>
+            <p>Imię:<span th:text="${intern.student.company?.representative?.firstName}"></span></p>
+            <p>Nazwisko:<span th:text="${intern.student.company?.representative?.lastName}"></span</p>
+            <p>Email:<span th:text="${intern.student.company?.representative?.email}"></span></p>
+            <p>Numer telefonu:<span th:text="${intern.student.company?.representative?.telephoneNumber}"></span></p>
+            <p>Stanowisko:<span th:text="${intern.student.company?.representative?.position}"></span></p>
         </div>
-        <div class="tile6">
-            <h2>Opiekun stażu:</h2>
-            <p>Imię: <span th:text="${intern.company.guardian.firstName}"></span></p>
-            <p>Nazwisko: <span th:text="${intern.company.guardian.lastName}"></span></p>
-            <p>Numer telefonu: <span th:text="${intern.company.guardian.telephoneNumber}"></span></p>
-            <p>Email: <span th:text="${intern.company.guardian.email}"></span></p>
+        <div class="guardian-list">
+            <h2>Opiekunowie:</h2>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Numer telefonu</th>
+                    <th>E-mail</th>
+                </tr>
+                <tr th:each="guardian : ${intern.student?.company?.guardianList}">
+                    <td th:text="${guardian?.firstName}"></td>
+                    <td th:text="${guardian?.lastName}"></td>
+                    <td th:text="${guardian?.telephoneNumber}"></td>
+                    <td th:text="${guardian?.email}"></td>
+                </tr>
+            </table>
         </div>
-        <div class="tile3">
+        <div class="grades">
             <h2>Lista ocen</h2>
             <table>
                 <tr>
@@ -93,7 +111,9 @@
                     <th class="grade_col2"><p>Ocena</p></th>
                 </tr>
                 <tr th:each="grade : ${intern.student.gradeList}">
-                    <td th:text="${grade.subject.subjectName}"></td>
+                    <td th:text="${grade.subject.subjectName}">
+
+                    </td>
                     <td th:text="${grade.gradeNumber}"></td>
                 </tr>
             </table>

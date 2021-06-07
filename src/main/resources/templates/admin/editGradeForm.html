@@ -11,23 +11,30 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
+        <div class="application-navigation">
+            <div class="link ">
+                <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
+            </div>
+            <div class="link ">
+                <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
+            </div>
+            <div class="link ">
+                <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
+            </div>
+            <div class="link ">
+                <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
+            </div>
+            <div class="link ">
+                <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
-        </div>
-        <div class="link indicator">
-            <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <div class="form">
@@ -50,7 +57,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn btn-add">Dodaj</button>
+                <button type="submit" class="btn btn-add">Edytuj</button>
                 <span th:switch="${gradeToEdit.student.role}">
                     <span th:case="'ROLE_STUDENT'"><a class="btn btn-cancel" th:href="@{/admin/student/{studentId}(studentId=${gradeToEdit.student.userId})}">Anuluj</a></span>
                     <span th:case="'ROLE_INTERN'"><a class="btn btn-cancel" th:href="@{/admin/intern/{internId}(internId=${gradeToEdit.student?.intern?.internId})}">Anuluj</a></span>

@@ -4,26 +4,39 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dziennik praktyk</title>
+    <title>Dziennik stażu</title>
     <link rel="stylesheet" href="../../static/css/listDesign.css">
     <link rel="stylesheet" th:href="@{/css/listDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link ">
-            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj profil</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
+                    profil</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Studenci</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Stażyści</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/companiesList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Przedsiębiorstwa</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p class="link-text">Studenci</p></a>
-        </div>
-        <div class="link indicator">
-            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Stażyści</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <h1>
-        Dziennik praktyk:
+        Dziennik stażu:
         <span th:text="${intern.student.firstName}"></span>
         <span th:text="${intern.student.lastName}"></span>
     </h1>

@@ -4,34 +4,41 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj wpis do dziennka</title>
+    <title>Edytuj wpis dziennka</title>
     <link rel="stylesheet" href="../../static/css/formDesign.css">
     <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/intern/{internId}(internId=${internId})}"><p class="link-text">Mój profil</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p>
+                </a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p
+                        class="link-text">Program stażu</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
+            </div>
         </div>
-        <div class="link indicator">
-            <a th:href="@{/intern/journal/{internId}(internId=${internId})}"><p class="link-text">Dziennik stażu</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/internshipBill/{internId}(internId=${internId})}"><p class="link-text">Rachunek</p>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
             </a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/internshipProgram/{internId}(internId=${internId})}" target="_blank"><p
-                    class="link-text">Program stażu</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/intern/declaration/{internId}(internId=${internId})}" target="_blank"><p class="link-text">Dekralaracja</p></a>
         </div>
     </div>
     <div class="form">
         <div>
-            <h1>Dodaj wpis do dziennka</h1>
+            <h1>Edytuj wpis dziennka</h1>
         </div>
         <form action="#" th:action="@{/intern/{internId}/editEntry/{entryId}(internId=${internId},entryId=${journal.entryId})}" th:object="${journal}" method="post">
             <div class="row">
@@ -84,7 +91,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn btn-add">Dodaj</button>
+                <button type="submit" class="btn btn-add">Edytuj</button>
                 <a class="btn btn-cancel" th:href="@{/intern/journal/{internId}(internId=${journal.student.userId})}">Anuluj</a>
             </div>
         </form>

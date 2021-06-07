@@ -11,21 +11,28 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
-                profil</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
+                    profil</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Studenci</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Stażyści</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/coordinator/{coordinatorId}/companiesList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Przedsiębiorstwa</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Studenci</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Stażyści</p></a>
-        </div>
-        <div class="link indicator">
-            <a th:href="@{/coordinator/{coordinatorId}/companiesList(coordinatorId=${coordinatorId})}"><p
-                    class="link-text">Przedsiębiorstwa</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
         <div class="container-fluid">
@@ -42,6 +49,7 @@
                     </p>
                     <p>Rozpoczęcie praktyki: <span th:text="${company.startingDate}"></span></p>
             </div>
+            <div></div>
             <div class="tile5">
                 <h2>Przedstawiciel firmy:</h2>
                 <p>Imię:<span th:text="${company.representative.firstName}"></span></p>
@@ -50,12 +58,26 @@
                 <p>Numer telefonu:<span th:text="${company.representative.telephoneNumber}"></span></p>
                 <p>Stanowisko:<span th:text="${company.representative.position}"></span></p>
             </div>
-            <div class="tile6">
-                <h2>Opiekun praktyki:</h2>
-                <p>Imię: <span th:text="${company.guardian.firstName}"></span></p>
-                <p>Nazwisko: <span th:text="${company.guardian.lastName}"></span></p>
-                <p>Numer telefonu: <span th:text="${company.guardian.telephoneNumber}"></span></p>
-                <p>Email: <span th:text="${company.guardian.email}"></span></p>
+            <div class="guardian-list">
+                <h2>Opiekunowie:</h2>
+                <div class="guardian-button">
+                </div>
+                <table>
+                    <tr>
+                        <th>Imię</th>
+                        <th>Nazwisko</th>
+                        <th>Numer telefonu</th>
+                        <th>E-mail</th>
+                        <th>Stanowisko</th>
+                    </tr>
+                    <tr th:each="guardian : ${company.guardianList}">
+                        <td th:text="${guardian?.firstName}"></td>
+                        <td th:text="${guardian?.lastName}"></td>
+                        <td th:text="${guardian?.telephoneNumber}"></td>
+                        <td th:text="${guardian?.email}"></td>
+                        <td th:text="${guardian?.position}"></td>
+                    </tr>
+                </table>
             </div>
             <div class="tile3_company">
                 <h2>Plan stażu</h2>

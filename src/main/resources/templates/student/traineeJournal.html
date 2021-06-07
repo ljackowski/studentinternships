@@ -11,28 +11,35 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
+                    praktyk</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Deklaracja praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Umowa organizacji praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Program praktyk zawodowych</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Regulamin praktyk</p></a>
+            </div>
         </div>
-        <div class="link indicator">
-            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
-                praktyk</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Deklaracja praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Umowa organizacji praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Program praktyk zawodowych</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Regulamin praktyk</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <h1>
@@ -59,7 +66,7 @@
                 <td th:text="${entry.description}" class="description-column"></td>
                 <td><a th:href="@{/student/{studentId}/editEntry/{entryId}(studentId=${studentId}, entryId=${entry.entryId})}"
                        class="btn btn-edit">Edytuj</a></td>
-                <td><a th:href="@{/student/deleteEntry/(entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
+                <td><a th:href="@{/student/{studentId}/deleteEntry/(studentId=${studentId},entryId=${entry.entryId})}" class="btn btn-delete">Usuń</a>
                 </td>
             </tr>
         </table>

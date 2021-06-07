@@ -4,40 +4,47 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj wpis do dziennka</title>
+    <title>Edytuj wpis dziennka</title>
     <link rel="stylesheet" href="../../static/css/formDesign.css">
     <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
+                    praktyk</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Deklaracja praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Umowa organizacji praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Program praktyk zawodowych</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Regulamin praktyk</p></a>
+            </div>
         </div>
-        <div class="link indicator">
-            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
-                praktyk</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Deklaracja praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Umowa organizacji praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Program praktyk zawodowych</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Regulamin praktyk</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <div class="form">
         <div>
-            <h1>Dodaj wpis do dziennka</h1>
+            <h1>Edytuj wpis dziennka</h1>
         </div>
         <form action="#" th:action="@{/student/{studentId}/editEntry/{entryId}(studentId=${studentId}, entryId=${entryId})}" th:object="${entryToEdit}" method="post">
             <input th:field="*{student.userId}" type="hidden">

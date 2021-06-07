@@ -11,26 +11,28 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        <div class="application-navigation">
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}(coordinatorId=${coordinatorId})}"><p class="link-text">Moj
+                    profil</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/studentsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Studenci</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/coordinator/{coordinatorId}/internsList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Stażyści</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/coordinator/{coordinatorId}/companiesList(coordinatorId=${coordinatorId})}"><p
+                        class="link-text">Przedsiębiorstwa</p></a>
+            </div>
         </div>
-        <div class="link indicator">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <div class="form">

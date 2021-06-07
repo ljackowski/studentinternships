@@ -11,28 +11,35 @@
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link indicator">
-            <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+        <div class="application-navigation">
+            <div class="link indicator">
+                <a th:href="@{/student/{studentId}(studentId=${studentId})}"><p class="link-text">Mój profil</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
+                    praktyk</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Deklaracja praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Umowa organizacji praktyki</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Program praktyk zawodowych</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
+                        class="link-text">Regulamin praktyk</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/student/journal/{studentId}(studentId=${studentId})}"><p class="link-text">Dziennik
-                praktyk</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingDeclaration/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Deklaracja praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingAgreement/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Umowa organizacji praktyki</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingProgram/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Program praktyk zawodowych</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/student/trainingRules/{studentId}(studentId=${studentId})}" target="_blank"><p
-                    class="link-text">Regulamin praktyk</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <div class="container-fluid">
@@ -61,7 +68,6 @@
             <p>Email: <span th:text="${student?.coordinator?.email}"></span></p>
             <p>Numer telefonu: <span th:text="${student?.coordinator?.telephoneNumber}"></span></p>
         </div>
-        <div></div>
         <div class="tile4">
             <h2>Przedsiębiorstwo zatrudniające</h2>
             <p>Nazwa firmy: <span th:text="${student.company?.companyName}"></span></p>
@@ -76,6 +82,7 @@
             <p>Rozpoczęcie praktyki: <span th:text="${student.company?.startingDate}"></span></p>
             <p>Zakończenie praktyki: <span th:text="${student.company?.endingDate}"></span></p>
         </div>
+        <div></div>
         <div class="tile5">
             <h2>Przedstawiciel firmy</h2>
             <p>Imię:<span th:text="${student.company?.representative?.firstName}"></span></p>
@@ -84,14 +91,24 @@
             <p>Numer telefonu:<span th:text="${student.company?.representative?.telephoneNumber}"></span></p>
             <p>Stanowisko:<span th:text="${student.company?.representative?.position}"></span></p>
         </div>
-        <div class="tile6">
-            <h2>Opiekun praktyki</h2>
-            <p>Imię: <span th:text="${student.company?.guardian?.firstName}"></span></p>
-            <p>Nazwisko: <span th:text="${student.company?.guardian?.lastName}"></span></p>
-            <p>Numer telefonu: <span th:text="${student.company?.guardian?.telephoneNumber}"></span></p>
-            <p>Email: <span th:text="${student.company?.guardian?.email}"></span></p>
+        <div class="guardian-list">
+            <h2>Opiekunowie:</h2>
+            <table>
+                <tr>
+                    <th>Imię</th>
+                    <th>Nazwisko</th>
+                    <th>Numer telefonu</th>
+                    <th>E-mail</th>
+                </tr>
+                <tr th:each="guardian : ${student?.company?.guardianList}">
+                    <td th:text="${guardian?.firstName}"></td>
+                    <td th:text="${guardian?.lastName}"></td>
+                    <td th:text="${guardian?.telephoneNumber}"></td>
+                    <td th:text="${guardian?.email}"></td>
+                </tr>
+            </table>
         </div>
-        <div class="tile3">
+        <div class="grades">
             <h2>Lista ocen</h2>
             <table>
                 <tr>
@@ -99,7 +116,9 @@
                     <th class="grade_col2"><p>Ocena</p></th>
                 </tr>
                 <tr th:each="grade : ${student.gradeList}">
-                    <td th:text="${grade.subject.subjectName}">ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</td>
+                    <td th:text="${grade.subject.subjectName}">
+
+                    </td>
                     <td th:text="${grade.gradeNumber}"></td>
                 </tr>
             </table>

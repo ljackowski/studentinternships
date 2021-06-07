@@ -4,41 +4,42 @@
 >
 <head>
     <meta charset="UTF-8">
-    <title>Dodaj wpis do dziennka</title>
+    <title>Edytuj wpis dziennka</title>
     <link rel="stylesheet" href="../../static/css/formDesign.css">
     <link rel="stylesheet" th:href="@{/css/formDesign.css}">
 </head>
 <body>
 <div class="container">
     <div class="navigation">
-        <div class="link">
-            <a th:href="@{/users/list}"><p class="link-text">Użytkownicy</p></a>
+        <div class="application-navigation">
+            <div class="link ">
+                <a th:href="@{/admin/usersList}"><p class="link-text">Użytkownicy</p></a>
+            </div>
+            <div class="link indicator">
+                <a th:href="@{/admin/studentsList}"><p class="link-text">Studenci</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/admin/internsList}"><p class="link-text">Stażyści</p></a>
+            </div>
+            <div class="link ">
+                <a th:href="@{/admin/subjectsList}"><p class="link-text">Przedmioty</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/admin/coordinatorsList}"><p class="link-text">Koordynatorzy</p></a>
+            </div>
+            <div class="link">
+                <a th:href="@{/admin/companiesList}"><p class="link-text">Przedsiębiorstwa</p></a>
+            </div>
         </div>
-        <div class="link">
-            <a th:href="@{/addresses/list}"><p class="link-text">Adresy</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/students/list}"><p class="link-text">Studenci</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/interns/list}"><p class="link-text">Stażyści</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Przedmioty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/subjects/list}"><p class="link-text">Dziekanaty</p></a>
-        </div>
-        <div class="link">
-            <a th:href="@{/coordinators/list}"><p class="link-text">Koordynatorzy</p></a>
-        </div>
-        <div class="link indicator">
-            <a th:href="@{/companies/list}"><p class="link-text">Przedsiębiorstwa</p></a>
+        <div class="navigation-logout">
+            <a th:href="@{/logout}">
+                Wyloguj
+            </a>
         </div>
     </div>
     <div class="form">
         <div>
-            <h1>Dodaj wpis do dziennka</h1>
+            <h1>Edytuj wpis dziennka</h1>
         </div>
         <form action="#" th:action="@{/admin/editStudentEntry/{entryId}(entryId=${entryId})}" th:object="${studentEntryToEdit}" method="post">
             <input th:field="*{student.userId}" type="hidden">
@@ -93,7 +94,7 @@
                 </div>
             </div>
             <div class="button">
-                <button type="submit" class="btn btn-add">Dodaj</button>
+                <button type="submit" class="btn btn-add">Edytuj</button>
                 <a class="btn btn-cancel" th:href="@{/admin/studentJournal/{studentId}(studentId=${studentEntryToEdit.student.userId})}">Anuluj</a>
             </div>
         </form>
