@@ -61,7 +61,6 @@ public class FileUploadCSV {
     public void addStudentsFromFile(MultipartFile file, CoordinatorService coordinatorService, StudentService studentService, SubjectService subjectService) throws IOException {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         csvParser = createParser(reader);
-        Random random = new Random();
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         double averageGrade = 0;
         for (CSVRecord csvRecord : csvRecords) {
@@ -87,7 +86,7 @@ public class FileUploadCSV {
             student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
             List<Subject> subjects = subjectService.getAllSubjectsByFieldOfStudy(student.getFieldOfStudy());
             for (Subject subject : subjects) {
-                student.addGrade(new Grade(student, subject, random.ints(2,4).findFirst().getAsInt() + 0.5));
+                student.addGrade(new Grade(student, subject, 0));
             }
             for (Grade grade : student.getGradeList()){
                 averageGrade += grade.getGradeNumber();
@@ -102,14 +101,13 @@ public class FileUploadCSV {
         reader = new BufferedReader(new InputStreamReader(file.getInputStream()));
         csvParser = createParser(reader);
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-        Random random = new Random();
         for (CSVRecord csvRecord : csvRecords){
             Subject subject = new Subject(
                     csvRecord.get("SUBJECT_NAME"),
                     csvRecord.get("FIELD_OF_STUDY")
             );
             for (Student student : studentService.getAllStudentsByFieldOfStudy(subject.getFieldOfStudy())){
-                student.addGrade(new Grade(student,subject, random.ints(2,4).findFirst().getAsInt() + 0.5));
+                student.addGrade(new Grade(student,subject, 0));
             }
             subjectService.addSubject(subject);
         }
