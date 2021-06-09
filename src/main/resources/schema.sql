@@ -261,3 +261,4 @@ create table if not exists internship_plan
         check ( description <> '' )
 );
 
+insert into users(user_id,email,password,role) values(1, 'admin', '$2y$12$3XeuDsPWJOWAnzCpGaOfCu6wUYHoHW/0OdfKhI8Jv8qnEaCsEPlMy', 'ROLE_ADMIN');
