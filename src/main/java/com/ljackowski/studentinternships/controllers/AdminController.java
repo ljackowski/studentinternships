@@ -239,10 +239,10 @@ public class AdminController {
                 }
                 i++;
             }
-//            List<Intern> interns = internService.getAllInterns();
-//            for (Intern intern : interns) {
-//                SendInternshipNotification(intern);
-//            }
+            List<Intern> interns = internService.getAllInterns();
+            for (Intern intern : interns) {
+                SendInternshipNotification(intern);
+            }
         }
         return "redirect:/admin/internsList";
     }
