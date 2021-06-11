@@ -197,13 +197,12 @@ public class AdminController {
     public void SendInternshipNotification(Intern intern) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(intern.getStudent().getEmail());
-        mailMessage.setFrom("pexy3475@gmail.com");
+        mailMessage.setFrom("studentinternship7@gmail.com");
         mailMessage.setSubject("Informacja o stażu");
         if (!intern.isReserve()) {
-            mailMessage.setText("Gratulujemy dostał się pan na staż na listę główną, proszę zalogować się do SOPiS przy pomocy tego emaila: "
+            mailMessage.setText("Gratulujemy dostał się Pan/Pani na staż, na listę główną, proszę zalogować się do SOPiS przy pomocy tego emaila: "
                     + intern.getStudent().getEmail()
-                    + "\n oraz tego hasła: "
-                    + intern.getStudent().getPassword());
+                    + "oraz hasła, którego użawa Pan/Pani do systemu ocenowego");
         } else {
             mailMessage.setText("Gratulujemy dostał się pan na staż na listę rezerwową. Poinformujemy Pana/Panią jeśli miejsce na liście głównej się zwolni");
         }
@@ -255,6 +254,7 @@ public class AdminController {
             for (Intern intern : interns) {
                 if (intern.isReserve()) {
                     intern.setReserve(false);
+                    SendInternshipNotification(intern);
                     break;
                 }
             }
