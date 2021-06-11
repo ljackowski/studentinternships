@@ -250,6 +250,8 @@ public class AdminController {
     public String deleteInternById(@RequestParam("internId") long internId) {
         Intern internToDelete = internService.getInternById(internId);
         if (!internToDelete.isReserve()) {
+            Company company = companyService.getCompanyById(internToDelete.getStudent().getCompany().getCompanyId());
+            company.setFreeSpaces(company.getFreeSpaces() + 1);
             List<Intern> interns = internService.getAllInterns();
             for (Intern intern : interns) {
                 if (intern.isReserve()) {
