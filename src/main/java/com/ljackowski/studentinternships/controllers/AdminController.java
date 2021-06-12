@@ -111,6 +111,28 @@ public class AdminController {
     public String getStudent(Model model, @PathVariable("studentId") long studentId) {
         Student student = studentService.getStudentById(studentId);
         model.addAttribute("student", student);
+        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(student.getFieldOfStudy(),false);
+        model.addAttribute("companies", companies);
+        return "admin/studentProfile";
+    }
+
+    @PostMapping("/student/{studentId}")
+    public String setCompanyForStudent(@ModelAttribute Student student){
+        Student studentBeforeUpdate = studentService.getStudentById(student.getUserId());
+        student.setUserId(studentBeforeUpdate.getUserId());
+        student.setPassword(studentBeforeUpdate.getPassword());
+        student.setEmail(studentBeforeUpdate.getEmail());
+        student.setRole(studentBeforeUpdate.getRole());
+        student.setFirstName(studentBeforeUpdate.getFirstName());
+        student.setLastName(studentBeforeUpdate.getLastName());
+        student.setTelephoneNumber(studentBeforeUpdate.getTelephoneNumber());
+        student.setStudentIndex(studentBeforeUpdate.getStudentIndex());
+        student.setFieldOfStudy(studentBeforeUpdate.getFieldOfStudy());
+        student.setDegree(studentBeforeUpdate.getDegree());
+        student.setAverageGrade(studentBeforeUpdate.getAverageGrade());
+        student.setAddress(studentBeforeUpdate.getAddress());
+        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
+        studentService.updateStudent(student);
         return "admin/studentProfile";
     }
 
@@ -173,6 +195,11 @@ public class AdminController {
                 student.addGrade(gradeService.addGrade(new Grade(student, subject)));
             }
         }
+        if (student1.getCompany() != student.getCompany()) {
+            Company company = companyService.getCompanyById(student1.getCompany().getCompanyId());
+            company.setFreeSpaces(company.getFreeSpaces() + 1);
+            companyService.updateCompany(company);
+        }
         addressService.updateAddress(student.getAddress());
         studentService.updateStudent(student);
         return "redirect:/admin/studentsList";
@@ -185,12 +212,13 @@ public class AdminController {
 
     @RequestMapping("/uploadStudents")
     public String addStudentsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
-        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")) {
             FileUploadCSV fileUploadCSV = new FileUploadCSV(passwordEncoder);
             fileUploadCSV.addStudentsFromFile(file, coordinatorService, studentService, subjectService);
         }
         return "redirect:/admin/studentsList";
     }
+
     //endregion
 
     //region CRUD Intern
@@ -404,7 +432,7 @@ public class AdminController {
 
     @RequestMapping("/uploadCoordinators")
     public String addCoordinatorsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
-        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")) {
             FileUploadCSV fileUploadCSV = new FileUploadCSV(passwordEncoder);
             fileUploadCSV.addCoordinatorsFromFile(file, studentService, coordinatorService);
         }
@@ -522,7 +550,7 @@ public class AdminController {
 
     @RequestMapping("/uploadSubjects")
     public String addSubjectsFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
-        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")) {
             FileUploadCSV fileUploadCSV = new FileUploadCSV();
             fileUploadCSV.addSubjectsFromFile(file, subjectService, studentService);
         }
@@ -682,7 +710,7 @@ public class AdminController {
 
     @RequestMapping("/uploadCompanies")
     public String addCompaniesFromFile(Model model, @RequestParam("file") MultipartFile file) throws Exception {
-        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")){
+        if (Objects.equals(FilenameUtils.getExtension(file.getOriginalFilename()), "csv")) {
             FileUploadCSV fileUploadCSV = new FileUploadCSV();
             fileUploadCSV.addCompaniesFromFile(file, companyService);
         }

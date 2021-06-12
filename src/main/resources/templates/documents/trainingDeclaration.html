@@ -36,22 +36,22 @@
         <tr>
             <td><p>Termin odbywania praktyk</p></td>
             <td class="information-table-content">
-            <p class="starting-date">od: <span th:text="${student.company.startingDate}"></span></p>
-            <p class="ending-date">do: <span th:text="${student.company.endingDate}"></span></p></td>
+            <p class="starting-date">od: <span th:text="${student?.company?.startingDate}"></span></p>
+            <p class="ending-date">do: <span th:text="${student?.company?.endingDate}"></span></p></td>
         </tr>
         <tr>
             <td><p>Nazwa organizatora praktyki</p></td>
-            <td class="information-table-content"><span th:text="${student.company.companyName}"></span></td>
+            <td class="information-table-content"><span th:text="${student?.company?.companyName}"></span></td>
         </tr>
         <tr>
             <td><p>Adres organizatora praktyki</p></td>
             <td class="information-table-content">
-                <span th:text="${student.company.address.city}"></span>
-                ,<span th:text="${student.company.address.street}"></span>
-                ,<span th:text="${student.company.address.buildingNumber}"></span>
-                /<span th:text="${student.company.address.apartmentNumber}"></span>
-                ,<span th:text="${student.company.address.zipCode}"></span>
-                ,<span th:text="${student.company.address.postOffice}"></span>.
+                <span th:text="${student?.company?.address?.city}"></span>
+                ,<span th:text="${student?.company?.address?.street}"></span>
+                ,<span th:text="${student?.company?.address?.buildingNumber}"></span> <span th:if="${student?.company?.address?.apartmentNumber != null}">/</span>
+                <span th:text="${student?.company?.address?.apartmentNumber}"></span>
+                ,<span th:text="${student?.company?.address?.zipCode}"></span>
+                ,<span th:text="${student?.company?.address?.postOffice}"></span>.
             </td>
         </tr>
     </table>

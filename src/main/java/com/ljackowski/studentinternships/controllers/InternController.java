@@ -3,10 +3,7 @@ package com.ljackowski.studentinternships.controllers;
 import com.itextpdf.html2pdf.ConverterProperties;
 import com.itextpdf.io.source.ByteArrayOutputStream;
 import com.ljackowski.studentinternships.files.PDFGeneration;
-import com.ljackowski.studentinternships.models.Company;
-import com.ljackowski.studentinternships.models.Intern;
-import com.ljackowski.studentinternships.models.InternshipBill;
-import com.ljackowski.studentinternships.models.Journal;
+import com.ljackowski.studentinternships.models.*;
 import com.ljackowski.studentinternships.services.CompanyService;
 import com.ljackowski.studentinternships.services.InternService;
 import com.ljackowski.studentinternships.services.JournalService;
@@ -58,7 +55,7 @@ public class InternController {
     @PreAuthorize("authentication.principal.userId == #internId")
     public String internProfileForm(Model model, @PathVariable(name = "internId") long internId) {
         Intern intern = internService.getInternByStudent(studentService.getStudentById(internId));
-        List<Company> companies = companyService.getCompaniesInInternship(true, 0);
+        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(intern.getStudent().getFieldOfStudy(), true);
         if (intern.getStudent().getCompany() == null) {
             model.addAttribute("companies", companies);
             model.addAttribute("intern", intern);
@@ -72,13 +69,15 @@ public class InternController {
     @PostMapping("/{internId}")
     @PreAuthorize("authentication.principal.userId == #internId")
     public String internProfile(@ModelAttribute Intern intern, @PathVariable(name = "internId") long internId) {
+        Student student = studentService.getStudentById(internId);
         Company company = companyService.getCompanyById(intern.getStudent().getCompany().getCompanyId());
         company.setFreeSpaces(company.getFreeSpaces() - 1);
         companyService.updateCompany(company);
-        Authentication authentication = new UsernamePasswordAuthenticationToken(intern, intern.getStudent().getPassword(),
-                Arrays.stream(intern.getStudent().getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(intern.getStudent(), student.getPassword(),
+                Arrays.stream(student.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        internService.updateIntern(intern);
+        student.setCompany(intern.getStudent().getCompany());
+        studentService.updateStudent(student);
         return "redirect:/intern/" + intern.getStudent().getUserId();
     }
 
@@ -146,7 +145,7 @@ public class InternController {
         model.addAttribute("bill", new InternshipBill());
         return "intern/internshipBillForm";
     }
-
+//
     @PostMapping("/internshipBill/{internId}")
     @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public ResponseEntity<?> generateInternshipBill(@PathVariable("internId") long internId, @ModelAttribute InternshipBill internshipBill, HttpServletRequest request, HttpServletResponse response) {

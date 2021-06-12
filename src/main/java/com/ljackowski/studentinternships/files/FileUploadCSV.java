@@ -122,7 +122,9 @@ public class FileUploadCSV {
         List<String> RepresentativeAsString;
         List<String> GuardiansAsString;
         List<String> GuardianAsString;
+        List<String> InternshipPlanAsString;
         ArrayList<Guardian> guardians = new ArrayList<>();
+        ArrayList<InternshipPlan> internshipPlan = new ArrayList<>();
         Iterable<CSVRecord> csvRecords = csvParser.getRecords();
         for (CSVRecord csvRecord : csvRecords){
             Company company = new Company(
@@ -162,6 +164,17 @@ public class FileUploadCSV {
                 );
                 guardian.setCompany(company);
                 guardians.add(guardian);
+            }
+            if (!csvRecord.get("INTERNSHIPPLAN").equals("")){
+                InternshipPlanAsString = Arrays.asList(csvRecord.get("INTERNSHIPPLAN").split(";"));
+                for (String description : InternshipPlanAsString){
+                    InternshipPlan entry = new InternshipPlan(
+                            company,
+                            description
+                    );
+                    internshipPlan.add(entry);
+                }
+                company.setInternshipPlan(internshipPlan);
             }
             company.setGuardianList(guardians);
             companyService.addCompany(company);

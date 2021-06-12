@@ -71,7 +71,7 @@ public class Company{
         this.companyName = companyName;
         this.partOfInternship = partOfInternship;
         this.freeSpaces = freeSpaces;
-        this.fieldOfStudy = fieldOfStudy;
+        this.fieldOfStudy = fieldOfStudy.toUpperCase();
         this.startingDate = startingDate;
         this.endingDate = endingDate;
         this.address = address;

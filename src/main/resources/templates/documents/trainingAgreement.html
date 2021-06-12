@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Umowa_Praktyka_2020</title>
     <link rel="stylesheet" th:href="@{/css/trainingAgreement.css}">
-<!--    <link rel="stylesheet" href="../../static/css/trainingAgreement.css">-->
+    <!--    <link rel="stylesheet" href="../../static/css/trainingAgreement.css">-->
 </head>
 <body>
 <div class="container">
@@ -16,21 +16,21 @@
     <p class="inline">
     <p class="bold">Uniwersytetem w Białymstoku</p>, ul. Świerkowa 20 B, 15-328 Białystok, Instytutem Informatyki z
     siedzibą w Białymstoku, ul Ciołkowskiego 1M, 15-245 Białystok zwanym dalej <p class="bold">"Uczelnią"</p>, a
-    <p th:text="${student.company.companyName}"></p>
+    <p th:text="${student?.company?.companyName}"></p>
     <p>(pełna nazwa instytucji przyjmującej studenta na praktykę)</p>
     <p>z siedzibą:
-        <span th:text="${student.company.address.city}"></span>
-        <span th:text="${student.company.address.street}"></span>
-        <span th:text="${student.company.address.buildingNumber}"></span>
-        <span th:text="${student.company.address?.apartmentNumber}"></span>
-        <span th:text="${student.company.address.zipCode}"></span>
-        <span th:text="${student.company.address.postOffice}"></span>
+        <span th:text="${student?.company?.address?.city}"></span>
+        <span th:text="${student?.company?.address?.street}"></span>
+        <span th:text="${student?.company?.address?.buildingNumber}"></span>
+        <span th:text="${student?.company?.address?.apartmentNumber}"></span>
+        <span th:text="${student?.company?.address?.zipCode}"></span>
+        <span th:text="${student?.company?.address?.postOffice}"></span>
     </p>
     <p>(adres instytucji przyjmującej studenta na praktykę)</p>
     <p>reprezentowanym przez:
-        <span th:text="${student.company.representative.position}"></span>
-        <span th:text="${student.company.representative.firstName}"></span>
-        <span th:text="${student.company.representative.lastName}"></span>
+        <span th:text="${student?.company?.representative?.position}"></span>
+        <span th:text="${student?.company?.representative?.firstName}"></span>
+        <span th:text="${student?.company?.representative?.lastName}"></span>
     </p>
     <p>(stanowisko, imię i nazwisko osoby reprezentującej instytucję)</p>
     <p>zwanym w dalszej części umowy ,,Organizatorem praktyki”.</p>
@@ -45,9 +45,9 @@
     <p>do odbycia nieodpłatnej praktyki zawodowej przewidzianej programem studiów w terminie </p>
     <p>
         od:
-        <span th:text="${student.company.startingDate}"></span>
+        <span th:text="${student?.company?.startingDate}"></span>
         do:
-        <span th:text="${student.company.endingDate}"></span>
+        <span th:text="${student?.company?.endingDate}"></span>
     </p>
     <p>(termin odbywania praktyk)</p>
     <p class="paragraph">§ 2</p>
@@ -60,21 +60,23 @@
         <li>sprawuje nadzór nad właściwym wykonywaniem przez studenta czynności zgodnych z programem praktyki.</li>
     </ol>
     <p class="paragraph">§ 3</p>
-    <p>W celu zapewnienia realizacji powyższych zadań Organizator praktyki wyznacza z grona swoich pracowników opiekuna
+    <p>W celu zapewnienia realizacji powyższych zadań Organizator praktyki wyznacza z grona swoich pracowników opiekunów
         praktyk</p>
     <p>
-        <span th:text="${student.company.guardian.firstName}"></span>
-        <span th:text="${student.company.guardian.lastName}"></span>,
-        <span th:text="${student.company.guardian.telephoneNumber}"></span>,
-        <span th:text="${student.company.guardian.email}"></span>.
+        <span th:each="guardian : ${student?.company?.guardianList}">
+            <span th:text="${guardian?.firstName}"></span>,
+            <span th:text="${guardian?.lastName}"></span>,
+            <span th:text="${guardian?.telephoneNumber}"></span>,
+            <span th:text="${guardian?.email}"></span>;
+        </span>
     </p>
     <p>(imię i nazwisko, dane kontaktowe: tel., e-mail)</p>
     <p>Uczelnia z grona nauczycieli akademickich wyznacza opiekuna praktyki </p>
     <p>
-        <span th:text="${student.coordinator.firstName}"></span>
-        <span th:text="${student.coordinator.lastName}"></span>,
-        <span th:text="${student.coordinator.telephoneNumber}"></span>,
-        <span th:text="${student.coordinator.email}"></span>.
+        <span th:text="${student?.coordinator?.firstName}"></span>
+        <span th:text="${student?.coordinator?.lastName}"></span>,
+        <span th:text="${student?.coordinator?.telephoneNumber}"></span>,
+        <span th:text="${student?.coordinator?.email}"></span>.
     </p>
     <p>(imię i nazwisko, dane kontaktowe: tel., e-mail)</p>
     <p class="paragraph">§ 4</p>

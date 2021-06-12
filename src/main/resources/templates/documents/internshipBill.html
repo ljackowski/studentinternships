@@ -46,8 +46,8 @@
     </div>
     <p class="confirmation">
         Oświadczam, że w okresie:
-        <span th:text="${intern.company.startingDate}"></span> -
-        <span th:text="${intern.company.endingDate}"></span>
+        <span th:text="${intern.student?.company?.startingDate}"></span> -
+        <span th:text="${intern.student?.company?.endingDate}"></span>
         wykonałem/am:
         <span th:text="${internshipBill.hoursSum}"></span> godzin.</p>
     <div class="signatures">

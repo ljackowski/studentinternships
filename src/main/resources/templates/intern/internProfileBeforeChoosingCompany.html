@@ -33,7 +33,8 @@
             <div class="company" th:if="${intern.reserve == false}">
                 <div class="form_intern_control">
                     <h2>Wybierz przedsiębiorstwo, w którym chcesz odbywać staż:</h2>
-                    <form th:action="@{/intern/{internId}(internId=${intern.internId})}" th:object="${intern}" method="post">
+                    <form th:action="@{/intern/{internId}(internId=${intern.student.userId})}" th:object="${intern}" method="post">
+                        <input type="hidden" th:field="*{internId}">
                         <input type="hidden" th:field="*{student.userId}">
                         <div th:each="company1 : ${companies}">
                             <input type="radio" th:field="*{student.company.companyId}" th:value="${company1.companyId}">

@@ -65,34 +65,6 @@ public class StudentController {
         }
     }
 
-//    @PostMapping("/{studentId}")
-//    @PreAuthorize("authentication.principal.userId == #studentId")
-//    public String studentProfile(@ModelAttribute Student student, @PathVariable(name = "studentId") long studentId) {
-//        Student studentBeforeUpdate = studentService.getStudentById(studentId);
-//        student.setUserId(studentBeforeUpdate.getUserId());
-//        student.setPassword(studentBeforeUpdate.getPassword());
-//        student.setEmail(studentBeforeUpdate.getEmail());
-//        student.setRole(studentBeforeUpdate.getRole());
-//        student.setFirstName(studentBeforeUpdate.getFirstName());
-//        student.setLastName(studentBeforeUpdate.getLastName());
-//        student.setTelephoneNumber(studentBeforeUpdate.getTelephoneNumber());
-//        student.setStudentIndex(studentBeforeUpdate.getStudentIndex());
-//        student.setFieldOfStudy(studentBeforeUpdate.getFieldOfStudy());
-//        student.setDegree(studentBeforeUpdate.getDegree());
-//        student.setAverageGrade(studentBeforeUpdate.getAverageGrade());
-//        student.setAddress(studentBeforeUpdate.getAddress());
-//        student.setCoordinator(coordinatorService.getCoordinatorByFieldOfStudy(student.getFieldOfStudy()));
-//        student.getCompany().setFieldOfStudy(student.getFieldOfStudy());
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(student, student.getPassword(), Arrays.stream(student.getRole().split(",")).map(SimpleGrantedAuthority::new).collect(Collectors.toList()));
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        companyService.addCompany(student.getCompany());
-//        addressService.addAddress(student.getCompany().getAddress());
-//        representativeService.addRepresentative(student.getCompany().getRepresentative());
-//        guardianService.addGuardian(student.getCompany().getGuardian());
-//        studentService.updateStudent(student);
-//        return "redirect:/student/" + student.getUserId();
-//    }
-
     //Trainee journal
 
     @GetMapping("/journal/{studentId}")
