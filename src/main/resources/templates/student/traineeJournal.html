@@ -47,7 +47,7 @@
     </h1>
     <div class="operations">
         <a th:href="@{/student/addEntry/{studentId}(studentId=${studentId})}" class="btn btn-add">Dodaj</a>
-        <a th:href="@{/student/trainingJournal/{studentId}(studentId=${studentId})}" target="_blank" class="btn btn-generate">Generuj</a>
+        <a th:if="${student.journal == null}" th:href="@{/student/trainingJournal/{studentId}(studentId=${studentId})}" target="_blank" class="btn btn-generate">Generuj</a>
     </div>
     <div class="table">
         <table>
@@ -58,7 +58,7 @@
                 <th>Wykonywane zadania</th>
                 <th colspan="2">Akcja</th>
             </tr>
-            <tr th:each="entry : ${journal}">
+            <tr th:each="entry : ${student.journal}">
                 <td th:text="${entry.day}" class="day-column"></td>
                 <td th:text="${entry.startingTime}" class="start-end-column"></td>
                 <td th:text="${entry.endingTime}" class="start-end-column"></td>

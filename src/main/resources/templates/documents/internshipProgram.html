@@ -30,31 +30,27 @@
     <p class="bold">Podmiot przyjmujący na staż</p>
     <div class="table">
         <div class="row">
-            <div class="cell"><p>Nazwa:<span th:text="${intern.company.companyName}"></span></p></div>
+            <div class="cell"><p>Nazwa:<span th:text="${intern.student?.company?.companyName}"></span></p></div>
         </div>
         <div class="row">
             <div class="cell"><p>Adres:
-                <span th:text="${intern.company.address.city}"></span>
-                <span th:text="${intern.company.address.street}"></span>
-                <span th:text="${intern.company.address.buildingNumber}"></span>
-                <span th:text="${intern.company.address?.apartmentNumber}"></span>
-                <span th:text="${intern.company.address.zipCode}"></span>
-                <span th:text="${intern.company.address.postOffice}"></span>
+                <span th:text="${intern.student?.company?.address?.city}"></span>
+                <span th:text="${intern.student?.company?.address?.street}"></span>
+                <span th:text="${intern.student?.company?.address?.buildingNumber}"></span>
+                <span th:text="${intern.student?.company?.address?.apartmentNumber}"></span>
+                <span th:text="${intern.student?.company?.address?.zipCode}"></span>
+                <span th:text="${intern.student?.company?.address?.postOffice}"></span>
             </p>
             </div>
         </div>
         <div class="row">
             <div class="cell">
-                <p>Imię i nazwisko Opiekuna stażu:
-                    <span th:text="${intern.company.guardian.firstName}"></span>
-                    <span th:text="${intern.company.guardian.lastName}"></span>
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="cell">
-                <p>Stanowisko pracy Opiekuna stażu:
-                    <span th:text="${intern.company.guardian.position}"></span>
+                <p>Imię, nazwisko i stanowisko Opiekuna stażu:
+                    <span th:each="guardian : ${intern.student?.company?.guardianList}">
+                        <span th:text="${guardian?.firstName}"></span>,
+                        <span th:text="${guardian?.lastName}"></span>,
+                        <span th:text="${guardian?.position}"></span>
+                    </span>
                 </p>
             </div>
         </div>
@@ -62,7 +58,8 @@
     <p class="bold">Program stażu</p>
     <div class="table">
         <div class="row">
-            <div class="cell"><p>Planowany okres stażu: od: <span th:text="${intern.company.startingDate}"></span>do: <span th:text="${intern.company.endingDate}"></span></p></div>
+            <div class="cell"><p>Planowany okres stażu: od: <span th:text="${intern.student?.company?.startingDate}"></span>do:
+                <span th:text="${intern.student?.company?.endingDate}"></span></p></div>
         </div>
         <div class="row">
             <div class="cell">
@@ -90,7 +87,7 @@
             <td>----</td>
             <td>----</td>
             <td>----</td>
-            <td></td>
+            <td class="date"></td>
             <td></td>
         </tr>
         <tr>
@@ -102,19 +99,19 @@
             <td><span th:text="${intern.student.coordinator.email}"></span></td>
             <td><span th:text="${intern.student.coordinator.telephoneNumber}"></span></td>
             <td><span th:text="${intern.student.coordinator.position}"></span></td>
-            <td></td>
+            <td class="date"></td>
             <td></td>
         </tr>
-        <tr>
+        <tr th:each="guardian : ${intern.student?.company?.guardianList}">
             <td>Opiekun Stażysty</td>
             <td>
-                <span th:text="${intern.company.guardian.firstName}"></span>
-                <span th:text="${intern.company.guardian.lastName}"></span>
+                <span th:text="${guardian?.firstName}"></span>
+                <span th:text="${guardian?.lastName}"></span>
             </td>
-            <td><span th:text="${intern.company.guardian.email}"></span></td>
-            <td><span th:text="${intern.company.guardian.telephoneNumber}"></span></td>
-            <td><span th:text="${intern.company.guardian.position}"></span></td>
-            <td></td>
+            <td><span th:text="${guardian?.email}"></span></td>
+            <td><span th:text="${guardian?.telephoneNumber}"></span></td>
+            <td><span th:text="${guardian?.position}"></span></td>
+            <td class="date"></td>
             <td></td>
         </tr>
     </table>

@@ -79,17 +79,17 @@
                 <span th:text="${student.company?.address?.zipCode}"></span>
                 <span th:text="${student.company?.address?.postOffice}"></span>
             </p>
-            <p>Rozpoczęcie praktyki: <span th:text="${student.company?.startingDate}"></span></p>
-            <p>Zakończenie praktyki: <span th:text="${student.company?.endingDate}"></span></p>
+            <p>Rozpoczęcie praktyki: <span th:text="${student?.company?.startingDate}"></span></p>
+            <p>Zakończenie praktyki: <span th:text="${student?.company?.endingDate}"></span></p>
         </div>
         <div></div>
         <div class="tile5">
             <h2>Przedstawiciel firmy</h2>
-            <p>Imię:<span th:text="${student.company?.representative?.firstName}"></span></p>
-            <p>Nazwisko:<span th:text="${student.company?.representative?.lastName}"></span></p>
-            <p>Email:<span th:text="${student.company?.representative?.email}"></span></p>
-            <p>Numer telefonu:<span th:text="${student.company?.representative?.telephoneNumber}"></span></p>
-            <p>Stanowisko:<span th:text="${student.company?.representative?.position}"></span></p>
+            <p>Imię:<span th:text="${student?.company?.representative?.firstName}"></span></p>
+            <p>Nazwisko:<span th:text="${student?.company?.representative?.lastName}"></span></p>
+            <p>Email:<span th:text="${student?.company?.representative?.email}"></span></p>
+            <p>Numer telefonu:<span th:text="${student?.company?.representative?.telephoneNumber}"></span></p>
+            <p>Stanowisko:<span th:text="${student?.company?.representative?.position}"></span></p>
         </div>
         <div class="guardian-list">
             <h2>Opiekunowie:</h2>

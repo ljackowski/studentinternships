@@ -70,7 +70,7 @@ public class StudentController {
     @GetMapping("/journal/{studentId}")
     @PreAuthorize("authentication.principal.userId == #studentId and authentication.principal.company != null")
     public String getTraineeJournalByStudentId(@PathVariable(name = "studentId") long studentId, Model model) {
-        model.addAttribute("journal", studentService.getStudentById(studentId).getJournal());
+        model.addAttribute("student", studentService.getStudentById(studentId));
         return "student/traineeJournal";
     }
 
@@ -132,8 +132,8 @@ public class StudentController {
     @GetMapping("/trainingJournal/{studentId}")
     @PreAuthorize("authentication.principal.userId == #studentId and authentication.principal.company != null")
     public ResponseEntity<?> generateTrainingJournal(@PathVariable("studentId") long studentId, HttpServletRequest request, HttpServletResponse response) {
-        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
         Student student = studentService.getStudentById(studentId);
+        PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
         student.setJournal(journalService.sortByDate(student.getJournal()));
         return pdfGeneration.generateStudentPDF("documents/traineeJournal", student);
     }

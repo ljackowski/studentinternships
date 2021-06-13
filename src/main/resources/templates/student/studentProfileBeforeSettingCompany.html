@@ -11,8 +11,13 @@
 <body>
 <div class="container">
     <h1>
-        Wypełnij dane związane z przedsiębiorstwem, w którym bedziesz odbywał praktykę, aby przejść danej!
+        Administrator serwisu jeszcze nie przydzielił przedsiębiorstwa!
     </h1>
+    <div class="navigation-logout">
+        <a th:href="@{/logout}">
+            Wyloguj
+        </a>
+    </div>
     <div class="form">
         <div class="container-fluid">
             <div class="tile1">
@@ -41,162 +46,6 @@
                 <p>Numer telefonu: <span th:text="${student?.coordinator?.telephoneNumber}"></span></p>
             </div>
             <div></div>
-            <div class="company">
-                <form action="#" th:action="@{/student/{studentId}(studentId=${student.userId})}" th:object="${student}"
-                      method="post" class="form_control">
-                    <div class="form_company">
-                        <h2>Dane Przedsiębiorstwa</h2>
-                        <div>
-                            <label for="company-name" class="form-txt">Nazwa przedsiębiorstwa: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.companyName}" type="text" id="company-name" class="form_box">
-                        </div>
-                        <div>
-                            <label for="city" class="form-txt">Miasto: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.city}" type="text" id="city" class="form_box city">
-                        </div>
-                        <div>
-                            <label for="street" class="form-txt">Ulica: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.street}" type="text" id="street"
-                                   class="form_box street">
-                        </div>
-                        <div>
-                            <label for="building-number" class="form-txt">Numer budynku: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.buildingNumber}" type="text" id="building-number"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="apartment-number" class="form-txt">Numer lokalu: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.apartmentNumber}" type="text" id="apartment-number"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="post-office" class="form-txt">Poczta: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.postOffice}" type="text" id="post-office"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="zip-code" class="form-txt">Kod pocztowy: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.address.zipCode}" type="text" id="zip-code"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="starting-date" class="form-txt">Data rozpoczęcia praktyki: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.startingDate}" type="date" id="starting-date"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="ending-date" class="form-txt">Data zakończenia praktyki: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.endingDate}" type="date" id="ending-date" class="form_box">
-                        </div>
-                    </div>
-                    <div class="form_representative_guardian">
-                        <h2>Dane reprezentanta</h2>
-                        <div>
-                            <label for="representative-first-name" class="form-txt">Imię: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.representative.firstName}" type="text"
-                                   id="representative-first-name"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="representative-last-name" class="form-txt">Nazwisko: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.representative.lastName}" type="text"
-                                   id="representative-last-name"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="representative-email" class="form-txt">Email: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.representative.email}" type="text"
-                                   id="representative-email"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="representative-telephone-number" class="form-txt">Numer
-                                telefonu: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.representative.telephoneNumber}" type="text"
-                                   id="representative-telephone-number"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="representative-position" class="form-txt">Stanowisko: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.representative.position}" type="text"
-                                   id="representative-position"
-                                   class="form_box">
-                        </div>
-                        <h2>Dane opiekuna</h2>
-                        <div>
-                            <label for="guardian-first-name" class="form-txt">Imię: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.guardian.firstName}" type="text" id="guardian-first-name"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="guardian-last-name" class="form-txt">Nazwisko: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.guardian.lastName}" type="text"
-                                   id="guardian-last-name"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="guardian-email" class="form-txt">Email: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.guardian.email}" type="text" id="guardian-email"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="guardian-telephone-number" class="form-txt">Numer telefonu: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.guardian.telephoneNumber}" type="text"
-                                   id="guardian-telephone-number"
-                                   class="form_box">
-                        </div>
-                        <div>
-                            <label for="guardian-position" class="form-txt">Stanowisko: </label>
-                        </div>
-                        <div>
-                            <input th:field="*{company.guardian.position}" type="text"
-                                   id="guardian-position"
-                                   class="form_box">
-                        </div>
-                    </div>
-                    <div class="button">
-                        <button type="submit" class="btn btn-add">Dodaj</button>
-                        <a class="btn btn-cancel"
-                           th:href="@{/student/{studentId}(studentId=${studentId})}">Anuluj</a>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 </div>

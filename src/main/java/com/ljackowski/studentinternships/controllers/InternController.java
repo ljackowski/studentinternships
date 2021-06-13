@@ -86,7 +86,7 @@ public class InternController {
     @GetMapping("/journal/{internId}")
     @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public String getInternJournalByInternId(@PathVariable(name = "internId") long internId, Model model) {
-        model.addAttribute("journal", studentService.getStudentById(internId).getJournal());
+        model.addAttribute("intern", internService.getInternByStudent(studentService.getStudentById(internId)));
         return "intern/internshipJournal";
     }
 
@@ -135,7 +135,7 @@ public class InternController {
     @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public ResponseEntity<?> generateInternshipProgram(@PathVariable("internId") long internId, HttpServletRequest request, HttpServletResponse response) {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
-        return pdfGeneration.generateInternPDF("documents/internshipProgram", internService.getInternById(internId));
+        return pdfGeneration.generateInternPDF("documents/internshipProgram", internService.getInternByStudent(studentService.getStudentById(internId)));
     }
 
     @GetMapping("/internshipBill/{internId}")

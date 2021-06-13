@@ -79,9 +79,18 @@ td,th{
     border: solid black 1px;
     width: 14%;
     word-wrap: break-word;
+    word-break: break-word;
     text-align: center;
-    padding: 0;
+    padding: 13px 0;
     height: 60px;
+}
+
+td span{
+    padding: 2px;
+}
+
+.date{
+    width: 10%;
 }
 
 th{
