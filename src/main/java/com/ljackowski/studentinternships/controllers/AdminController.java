@@ -3,9 +3,6 @@ package com.ljackowski.studentinternships.controllers;
 import com.ljackowski.studentinternships.files.FileUploadCSV;
 import com.ljackowski.studentinternships.models.*;
 import com.ljackowski.studentinternships.services.*;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -16,13 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,13 +101,13 @@ public class AdminController {
     public String getStudent(Model model, @PathVariable("studentId") long studentId) {
         Student student = studentService.getStudentById(studentId);
         model.addAttribute("student", student);
-        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(student.getFieldOfStudy(),false);
+        List<Company> companies = companyService.getFreeCompaniesInInternshipByFieldOfStudy(student.getFieldOfStudy(), false);
         model.addAttribute("companies", companies);
         return "admin/studentProfile";
     }
 
     @PostMapping("/student/{studentId}")
-    public String setCompanyForStudent(@ModelAttribute Student student){
+    public String setCompanyForStudent(@ModelAttribute Student student) {
         Student studentBeforeUpdate = studentService.getStudentById(student.getUserId());
         student.setUserId(studentBeforeUpdate.getUserId());
         student.setPassword(studentBeforeUpdate.getPassword());
@@ -298,7 +288,7 @@ public class AdminController {
     public String deleteAllInterns() {
         List<Intern> interns = internService.getAllInterns();
         for (Intern intern : interns) {
-            if(intern.getStudent().getCompany() != null){
+            if (intern.getStudent().getCompany() != null) {
                 Company company = intern.getStudent().getCompany();
                 company.setFreeSpaces(company.getFreeSpaces() + 1);
                 companyService.updateCompany(company);
