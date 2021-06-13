@@ -298,6 +298,11 @@ public class AdminController {
     public String deleteAllInterns() {
         List<Intern> interns = internService.getAllInterns();
         for (Intern intern : interns) {
+            if(intern.getStudent().getCompany() != null){
+                Company company = intern.getStudent().getCompany();
+                company.setFreeSpaces(company.getFreeSpaces() + 1);
+                companyService.updateCompany(company);
+            }
             intern.getStudent().setRole("ROLE_STUDENT");
         }
         internService.deleteAll();
