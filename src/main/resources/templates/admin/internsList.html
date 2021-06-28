@@ -63,7 +63,7 @@
                 <td th:text="${intern.student.telephoneNumber}"></td>
                 <td th:text="${intern.student.studentIndex}"></td>
                 <td th:text="${intern.student.fieldOfStudy}"></td>
-                <td th:text="${intern.reserve}"></td>
+                <td th:text="${intern.reserve} ? 'REZERWOWY' : 'ZAAKCEPTOWANY'"></td>
                 <td><a class="btn btn-profile" th:href="@{/admin/intern/{internId}(internId=${intern.internId})}">Profil</a></td>
                 <td><a class="btn btn-delete" th:href="@{/admin/deleteIntern/(internId=${intern.internId})}">Usuń</a></td>
             </tr>

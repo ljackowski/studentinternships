@@ -41,7 +41,7 @@
     </h1>
     <div class="operations">
         <a th:href="@{/intern/addEntry/{internId}(internId=${internId})}" class="btn btn-add">Dodaj</a>
-        <a th:if="${intern.student.journal == null}" th:href="@{/intern/internshipJournal/{internId}(internId=${internId})}" target="_blank" class="btn btn-generate">Generuj</a>
+        <a th:if="${intern.student.journal.size() > 0}" th:href="@{/intern/internshipJournal/{internId}(internId=${internId})}" target="_blank" class="btn btn-generate">Generuj</a>
     </div>
     <div class="table">
         <table>
