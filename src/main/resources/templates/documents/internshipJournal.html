@@ -28,22 +28,26 @@
             <p>Nr umowy ze stażystą (wypełnia Koordynator stażu z UwB): NU/S/................/20..........</p>
         </div>
         <div class="company-credentials">
-            <p>Miejsce odbywania stażu (Podmiot przyjmujący): <span th:text="${intern.company.companyName}"></span></p>
+            <p>Miejsce odbywania stażu (Podmiot przyjmujący): <span th:text="${intern.student.company.companyName}"></span></p>
             <p>
                 Okres odbywania stażu:
-                od:<span th:text="${intern.company.startingDate}"></span>
-                do:<span th:text="${intern.company.endingDate}"></span>
+                od:<span th:text="${intern.student.company.startingDate}"></span>
+                do:<span th:text="${intern.student.company.endingDate}"></span>
             </p>
         </div>
         <div class="representative-credentials">
             <p>
-                Opiekun stażu:
-                <span th:text="${intern.company.guardian.firstName}"></span>
-                <span th:text="${intern.company.guardian.lastName}"></span>
+                Opiekunowie stażu:
+                <span th:each="guardian : ${intern.student?.company?.guardianList}">
+                    <span th:text="${guardian?.firstName}"></span>,
+                    <span th:text="${guardian?.lastName}"></span>,
+                    <span th:text="${guardian?.telephoneNumber}"></span>,
+                    <span th:text="${guardian?.email}"></span>;
+                    <span>Stanowisko pracy Opiekuna stażu: <span th:text="${guardian.position}"></span></span>
+                    <span>Nr telefonu służbowego: <span th:text="${guardian.telephoneNumber}"></span></span>
+                    <span>E-mail służbowy: <span th:text="${guardian.email}"></span></span>
+                </span>
             </p>
-            <p>Stanowisko pracy Opiekuna stażu: <span th:text="${intern.company.guardian.position}"></span></p>
-            <p>Nr telefonu służbowego: <span th:text="${intern.company.guardian.telephoneNumber}"></span></p>
-            <p>E-mail służbowy: <span th:text="${intern.company.guardian.email}"></span></p>
         </div>
         <div class="coordinator-credentials">
             <p>

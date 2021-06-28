@@ -164,7 +164,7 @@ public class InternController {
     @PreAuthorize("authentication.principal.userId == #internId and authentication.principal.company != null")
     public ResponseEntity<?> generateInternshipJournal(@PathVariable("internId") long internId, HttpServletRequest request, HttpServletResponse response) {
         PDFGeneration pdfGeneration = new PDFGeneration(templateEngine, servletContext, new ByteArrayOutputStream(), new ConverterProperties(), request, response);
-        Intern intern = internService.getInternById(internId);
+        Intern intern = internService.getInternByStudent(studentService.getStudentById(internId));
         intern.getStudent().setJournal(journalService.sortByDate(intern.getStudent().getJournal()));
         return pdfGeneration.generateInternPDF("documents/internshipJournal", intern);
     }

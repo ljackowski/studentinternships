@@ -53,7 +53,7 @@
             <p>Index: <span th:text="${student.studentIndex}"></span></p>
             <p>Kierunek: <span th:text="${student.fieldOfStudy}"></span></p>
             <p>Średnia ocen: <span th:text="${student.averageGrade}"></span></p>
-            <a th:href="@{/coordinator/{coordinatorId}/traineeJournal/{studentId}(coordinatorId=${coordinatorId}, studentId=${studentId})}">
+            <a th:href="@{/coordinator/{coordinatorId}/traineeJournal/{studentId}(coordinatorId=${coordinatorId}, studentId=${student.userId})}">
                 <div class="journal">
                     Dziennik praktyk
                 </div>
